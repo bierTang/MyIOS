@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSegArray:(NSArray *)arr;
 -(void)titleBtnSelected:(NSInteger)index;
+-(void)titleBtnSelectedYi:(CGFloat)index;
 @end
 
 NS_ASSUME_NONNULL_END

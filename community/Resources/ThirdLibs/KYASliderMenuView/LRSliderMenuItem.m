@@ -28,7 +28,6 @@
     if (self = [super init]) {
         self.normalColor = normalColor;
         self.selectedColor = selectedColor;
-        
         self.normalFontSize = normalFontSize;
         self.selectedFontSize = selectedFontSize;
     }
@@ -75,6 +74,7 @@
     CGFloat minScale = 1.0;
 //    CGFloat trueScale = minScale + (1-minScale)*scale;
     CGFloat trueScale = minScale + (self.selectedFontSize/self.normalFontSize-minScale)*scale;//放大   选中标题字体大小/正常标题字体大小
+   
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
 }
 - (void)setSelected:(BOOL)selected {
@@ -82,6 +82,7 @@
     if (_selected) {
         self.textColor = self.selectedColor;
         self.scale = 1;
+        
     }else{
         self.textColor = self.normalColor;
         self.scale = 0;

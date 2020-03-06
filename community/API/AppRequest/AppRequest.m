@@ -54,6 +54,7 @@ static AppRequest *appRequestInstance = nil;
 //        [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         _manager.requestSerializer.timeoutInterval = TIMEOUT;
         if ([UserTools isLogin]) {
+            NSLog(@"装入的请求头",[UserTools token]);
             [_manager.requestSerializer setValue:[UserTools token] forHTTPHeaderField:@"accessToken"];
         }
 //        [_manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
@@ -170,7 +171,10 @@ static AppRequest *appRequestInstance = nil;
  *  @param callback   回调方法
  */
 - (void)AFPostRequestWithUrl:(NSString *)url params:(NSDictionary *)params callback:(HttpCallBack)callback {
-    
+    if ([UserTools isLogin]) {
+               NSLog(@"装入的请求头",[UserTools token]);
+               [_manager.requestSerializer setValue:[UserTools token] forHTTPHeaderField:@"accessToken"];
+           }
     @weakity(self);
     NSLog(@"posturl=%@---dd:%@",url,params);
     [_manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {

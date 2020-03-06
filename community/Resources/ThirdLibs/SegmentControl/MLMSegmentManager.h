@@ -13,5 +13,5 @@
 + (void)associateHead:(MLMSegmentHead *)head withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion;
 
 
-+ (void)associateHead:(MLMSegmentHead *)head  withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion  selectBegin:(void(^)(void))selectbegin selectEnd:(void(^)(NSInteger index))selectEnd;
++ (void)associateHead:(MLMSegmentHead *)head  withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion  selectBegin:(void(^)(void))selectbegin selectEnd:(void(^)(NSInteger index))selectEnd selectScale:(void(^)(CGFloat scale))selectScale;
 @end

@@ -60,8 +60,7 @@
         }
     } HttpMethod:AppRequestPost];
     
-    
-    
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

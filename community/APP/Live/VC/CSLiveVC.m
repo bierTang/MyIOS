@@ -152,7 +152,13 @@
                     }
                 }];
             }
-        }];
+        } selectScale:^(CGFloat scale) {
+                    NSLog(@"滑动中11::%lf",scale);
+
+                  
+                    [headview titleBtnSelectedYi:scale];
+                    
+                }];
     
     self.totalChannelLab = [UILabel labelWithTitle:@"" font:12*K_SCALE textColor:@"666666" textAlignment:NSTextAlignmentRight];
     self.totalChannelLab.hidden = YES;
@@ -179,9 +185,9 @@
             [CSCaches shareInstance].live_url = result[@"data"][@"live_url"];
             NSArray *arr = [result[@"data"][@"recommend"] componentsSeparatedByString:@"="];
             NSString *recomString = @"aiqinghai";
-            if (arr[1]) {
-                wself.recommNameStr = arr[1];
-                recomString = arr[1];
+            if (arr[0]) {
+                wself.recommNameStr = arr[0];
+                recomString = arr[0];
             }
             [[AppRequest sharedInstance]requestLiveList:recomString Block:^(AppRequestState state, id  _Nonnull result) {
                 NSLog(@"aa");

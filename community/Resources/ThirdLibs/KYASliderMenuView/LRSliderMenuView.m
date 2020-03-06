@@ -182,9 +182,65 @@
     self.contentScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.frame)*self.titleArray.count, 0);
 }
 
+CGFloat topScale = 0.0;
+bool isClick = NO;
+- (void)setSelectScale:(CGFloat)selectScale {
+   _selectScale = selectScale * self.contentScrollView.contentSize.width;
+//     LRSliderMenuItem *temlabel = self.smallScrollView.subviews[2];
+//    temlabel.scale = selectScale;
+    
+     double indexRatio = self.contentScrollView.contentOffset.x / self.contentScrollView.frame.size.width;
+        NSUInteger index = self.contentScrollView.contentOffset.x / self.contentScrollView.frame.size.width;
+        
+    //    NSNumber *widthNum = self.titleLabelWidthArray[index];
+    //    _sliderView.frame = CGRectMake(kPadding+(_titleSpace+widthNum.floatValue)*indexRatio, self.smallScrollView.frame.size.height-kSeparateViewHeight-2, widthNum.floatValue, 2);
+        
+    //    [self scrollViewDidEndScrollingAnimation:scrollView];
+        
+        NSUInteger labelIndex = index+1;//滚动条加在smallScrollView上 要+1
+        if (labelIndex +1 >= self.smallScrollView.subviews.count || indexRatio < 0) {
+            return;
+        }
+        NSLog(@"\nindexRatio--- %f\nindex     --- %lu",indexRatio,(unsigned long)index);
+    
+    LRSliderMenuItem *temlabel = self.smallScrollView.subviews[labelIndex];
+        LRSliderMenuItem *temlabelNext = self.smallScrollView.subviews[labelIndex +1];
+   
+        if ((selectScale-topScale) >= 0) {
+            temlabelNext = self.smallScrollView.subviews[labelIndex +1];
+            NSLog(@"滑动左","左");
+            temlabel.scale = 1 - (selectScale - indexRatio/7)*5;
+               temlabelNext.scale =0 + (selectScale - indexRatio/7)*5;
+                   topScale = selectScale;
+        }else{
+            if (!isClick){
+                temlabelNext = self.smallScrollView.subviews[labelIndex -1];
+                NSLog(@"滑动点击%lu",index);
+                if (index != 0) {
+                    temlabelNext.scale = 0 - (selectScale - indexRatio/7)*5;
+                    topScale = selectScale;
+                }
+                   
+                
+            }
+            temlabel.scale = 1 + (selectScale - indexRatio/7)*5;
+            
+        }
+//    if (selectScale * self.contentScrollView.contentSize.width > SCREEN_WIDTH){
+//
+////    }
+//    int yidon = selectScale * self.contentScrollView.contentSize.width;
+//    int kuan = SCREEN_WIDTH;
+//
+//    NSLog(@"当前也11 %f",yidon%kuan);
+        NSLog(@"当前也 %f",selectScale - indexRatio/7);
+    isClick = NO;
+   
+}
+
 - (void)setSelectIndex:(NSInteger)selectIndex {
     _selectIndex = selectIndex;
-    
+    isClick = YES;
     [self selectTitleAtIndex:selectIndex];
 //    [self selectTitle:selectIndex];
 //    CGFloat offsetX = selectIndex * self.contentScrollView.frame.size.width;
@@ -249,9 +305,10 @@
 
 #pragma mark- UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
     double indexRatio = scrollView.contentOffset.x / self.contentScrollView.frame.size.width;
     NSUInteger index = scrollView.contentOffset.x / self.contentScrollView.frame.size.width;
-    
+    NSLog(@"从厕所ss--- %f",indexRatio);
 //    NSNumber *widthNum = self.titleLabelWidthArray[index];
 //    _sliderView.frame = CGRectMake(kPadding+(_titleSpace+widthNum.floatValue)*indexRatio, self.smallScrollView.frame.size.height-kSeparateViewHeight-2, widthNum.floatValue, 2);
     
@@ -329,6 +386,7 @@
             if (idx != index) {
 //                temlabel.textColor = [UIColor grayColor];
     //            temlabel.scale = 0.0;//回到正常状态
+           
                 temlabel.selected = NO;
             }else{
                 temlabel.selected = YES;
@@ -343,6 +401,10 @@
     }];
     
 }
+
+
+
+
 /** 滚动结束（手势导致） */
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {

@@ -7,7 +7,9 @@
 //
 
 #import "SegHeadView.h"
-
+CGFloat topYidon = 0.0;
+UIButton *bt0;
+UIButton *bt1;
 @implementation SegHeadView
 
 - (instancetype)initWithSegArray:(NSArray *)arr
@@ -52,7 +54,7 @@
             self.saveBtn = btn;
             self.saveBtn.selected = YES;
             self.saveBtn.titleLabel.font = [UIFont systemFontOfSize:20*K_SCALE];
-            
+            bt0 = btn;
             [btn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(16);
                 make.bottom.equalTo(0);
@@ -74,6 +76,7 @@
             }];
         }
         lastBtn = btn;
+        bt1 = btn;
     }
     
     if (self.allBtnArr.count <= 0) {
@@ -114,4 +117,19 @@
     }
 }
 
+-(void)titleBtnSelectedYi:(CGFloat)index{
+    
+
+             if (topYidon > index) {
+                    
+                    bt0.titleLabel.font = [UIFont systemFontOfSize:(20-index*10)*K_SCALE];
+                    bt1.titleLabel.font = [UIFont systemFontOfSize:(15+index*10)*K_SCALE];
+                   
+                }else{
+                   
+                    bt1.titleLabel.font = [UIFont systemFontOfSize:(15+index*10)*K_SCALE];
+                    bt0.titleLabel.font = [UIFont systemFontOfSize:(20-index*10)*K_SCALE];
+                }
+    topYidon = index;
+}
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic,strong) UIColor *titleViewBackgroundColor;
 @property (nonatomic,weak) id<LRSliderMenuViewDelegate> delegate;
 
+@property (nonatomic,assign) CGFloat selectScale;
 @property (nonatomic,assign) NSInteger selectIndex;
 
 - (instancetype)initWithFrame:(CGRect)frame

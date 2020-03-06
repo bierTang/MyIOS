@@ -6,11 +6,11 @@
 @implementation MLMSegmentManager
 
 + (void)associateHead:(MLMSegmentHead *)head withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion {
-    [MLMSegmentManager associateHead:head withScroll:scroll completion:completion selectBegin:nil selectEnd:nil];
+    [MLMSegmentManager associateHead:head withScroll:scroll completion:completion selectBegin:nil selectEnd:nil selectScale:nil];
 //    [MLMSegmentManager associateHead:head withScroll:scroll completion:completion selectEnd:nil];
 }
 
-+ (void)associateHead:(MLMSegmentHead *)head  withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion  selectBegin:(void(^)(void))selectbegin selectEnd:(void(^)(NSInteger index))selectEnd {
++ (void)associateHead:(MLMSegmentHead *)head  withScroll:(MLMSegmentScroll *)scroll completion:(void(^)(void))completion  selectBegin:(void(^)(void))selectbegin selectEnd:(void(^)(NSInteger index))selectEnd selectScale:(void(^)(CGFloat scale))selectScale {
     NSInteger showIndex;
     showIndex = head.showIndex?head.showIndex:scroll.showIndex;
     head.showIndex = scroll.showIndex = showIndex;
@@ -35,6 +35,9 @@
     };
     scroll.offsetScale = ^(CGFloat scale) {
         [head changePointScale:scale];
+        if (selectScale) {
+                   selectScale(scale);
+               }
     };
     if (completion) {
         completion();

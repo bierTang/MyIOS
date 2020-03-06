@@ -119,6 +119,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self]) {
         CGFloat scale = scrollView.contentOffset.x/scrollView.contentSize.width;
+        
+//        NSLog(@"便宜量 %f",scale);
+        
         if ([self.segDelegate respondsToSelector:@selector(scrollOffsetScale:)]) {
             [self.segDelegate scrollOffsetScale:scale];
         } else if (self.offsetScale) {

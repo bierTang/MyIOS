@@ -12,7 +12,7 @@
 #import "MLMSegmentScroll.h"
 #import "RecommedVC.h"
 #import "ClassifyVC.h"
-
+#import "LRSliderMenuItem.h"
 #import "LRSliderMenuView.h"
 
 @interface CSLongVideoVC () <LRSliderMenuViewDelegate>
@@ -129,7 +129,42 @@
         [headview setSelectIndex:index];
 //        [headview titleBtnSelected:index];
         
-    }];
+    } selectScale:^(CGFloat scale) {
+            NSLog(@"滑动中::%lf",scale);
+        
+        
+         [headview setSelectScale:scale];
+        
+        
+        
+//
+//        double indexRatio = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
+//        NSUInteger index = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
+//         NSUInteger labelIndex = index;//滚动条加在smallScrollView上 要+1
+////            if (labelIndex +1 >= headview.contentScrollView.subviews.count || indexRatio < 0) {
+////                return;
+////            }
+//            NSLog(@"\nindexRatio--- %f\nindex     --- %lu",indexRatio,(unsigned long)index);
+//            LRSliderMenuItem *temlabel = headview.contentScrollView.subviews[labelIndex];
+//            LRSliderMenuItem *temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
+//            if ((indexRatio-index) <= 0) {
+//                temlabelNext = headview.contentScrollView.subviews[labelIndex -1];
+//                temlabelNext.transform = CGAffineTransformMakeScale(200, 200);
+//            }else{
+//                temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
+//                temlabelNext.transform = CGAffineTransformMakeScale(100, 100);
+//            }
+//            CGPoint point = [headview.contentScrollView.panGestureRecognizer translationInView:self];
+//            NSLog(@"point--- %@",NSStringFromCGPoint(point));
+//
+//
+//            NSLog(@"当前页--- %d",index);
+    //        [headview titleBtnSelected:index];
+            
+        }];
+    
+    
+    
     
 }
 
