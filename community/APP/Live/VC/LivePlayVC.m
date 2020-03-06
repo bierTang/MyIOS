@@ -97,7 +97,7 @@
     
 //    http://199.180.102.241:2100/20200121/Ztwtzq1p/mp4/Ztwtzq1p.mp4
 //    http://199.180.102.241:2100/20200214/voHKvcnZ/mp4/voHKvcnZ.mp4
-    _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:self.model.address]];
+    _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:self.model.pull]];
     _player.controlStyle = MPMovieControlStyleNone;
 //    [_player.view setFrame: self.view.bounds];  // player's frame must match parent's
     [self.videoView addSubview:_player.view];
@@ -196,9 +196,9 @@
         make.width.equalTo(100*K_SCALE);
     }];
     UIImageView *headImg = [[UIImageView alloc]init];
-    NSString *string = self.model.img;
-    if (self.model.img.length < 5) {
-        string = self.model.xinimg;
+    NSString *string = self.model.imgUrl;
+    if (self.model.stream.length < 5) {
+        string = self.model.stream;
     }
     [headImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
     [grayBgView addSubview:headImg];
@@ -209,7 +209,7 @@
         make.bottom.top.equalTo(0);
         make.width.height.equalTo(36*K_SCALE);
     }];
-    UILabel *nameLab = [UILabel labelWithTitle:self.model.title font:15*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
+    UILabel *nameLab = [UILabel labelWithTitle:self.model.userName font:15*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
     nameLab.numberOfLines = 1;
     [grayBgView addSubview:nameLab];
     [nameLab makeConstraints:^(MASConstraintMaker *make) {

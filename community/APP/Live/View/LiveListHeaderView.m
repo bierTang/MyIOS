@@ -39,7 +39,7 @@
         }];
         
         
-        UILabel *titleLabe = [UILabel labelWithTitle:[CSCaches shareInstance].currentLiveModel.title font:18*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
+        UILabel *titleLabe = [UILabel labelWithTitle:[CSCaches shareInstance].currentLiveModel.userName font:18*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
         titleLabe.font = [UIFont boldSystemFontOfSize:18*K_SCALE];
         [greenView addSubview:titleLabe];
         
@@ -77,9 +77,9 @@
             make.centerY.equalTo(introBgView.centerY);
             make.height.width.equalTo(40*K_SCALE);
         }];
-        NSString *strImg = [CSCaches shareInstance].currentLiveModel.img;
+        NSString *strImg = [CSCaches shareInstance].currentLiveModel.imgUrl;
         if (strImg.length < 5) {
-            strImg = [CSCaches shareInstance].currentLiveModel.xinimg;
+            strImg = [CSCaches shareInstance].currentLiveModel.imgUrl;
         }
         [img0 sd_setImageWithURL:[NSURL URLWithString:strImg] placeholderImage:[UIImage imageNamed:@"headImg_base_3"]];
         

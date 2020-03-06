@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveModel : NSObject
 
-@property (nonatomic,strong)NSString *address;
-@property (nonatomic,strong)NSString *img;
-@property (nonatomic,strong)NSString *title;
+@property (nonatomic,strong)NSString *pull;
+@property (nonatomic,strong)NSString *imgUrl;
+@property (nonatomic,strong)NSString *userName;
 
-
-@property (nonatomic,strong)NSString *Number;
-@property (nonatomic,strong)NSString *xinimg;
+@property (nonatomic,strong)NSString *city;
+@property (nonatomic,strong)NSString *nums;
+@property (nonatomic,strong)NSString *stream;
 
 
 @end

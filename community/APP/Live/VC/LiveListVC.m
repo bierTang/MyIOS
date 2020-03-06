@@ -69,10 +69,10 @@
             make.bottom.equalTo(-BottomSpaceHight);
         }];
         
-        [[AppRequest sharedInstance]requestLiveList:self.model.address Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestLiveList:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
             NSLog(@"aa");
             if (state == AppRequestState_Success) {
-                [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]]];
+                [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]]];
             }
         }];
 }

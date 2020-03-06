@@ -64,11 +64,11 @@
         }
         url = [NSString stringWithFormat:@"%@?name=%@",liveURL0,name];
     }
-    [[AppRequest sharedInstance]doRequestWithUrl:url Params:nil Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:url Params:nil Callback:^(BOOL isSuccess, id result)  {
 //        NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
-            if (result[@"zhubo"]) {
+            if (result[@"list"]) {
                 state = AppRequestState_Success;
             }
             callBack(state,result);
@@ -77,7 +77,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestGet];
 }
 
 @end

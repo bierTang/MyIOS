@@ -147,13 +147,13 @@
             if (index==0 && wself.recommNameStr.length >0) {
                 [[AppRequest sharedInstance]requestLiveList:wself.recommNameStr Block:^(AppRequestState state, id  _Nonnull result) {
                     NSLog(@"刷新请求");
-                    if (result[@"zhubo"]) {
-                        [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]]];
+                    if (result[@"list"]) {
+                        [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]]];
                     }
                 }];
             }
         } selectScale:^(CGFloat scale) {
-                    NSLog(@"滑动中11::%lf",scale);
+//                    NSLog(@"滑动中11::%lf",scale);
 
                   
                     [headview titleBtnSelectedYi:scale];
@@ -192,7 +192,7 @@
             [[AppRequest sharedInstance]requestLiveList:recomString Block:^(AppRequestState state, id  _Nonnull result) {
                 NSLog(@"aa");
                 if (state == AppRequestState_Success) {
-                    [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]]];
+                    [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]]];
                 }
             }];
         }
@@ -221,8 +221,8 @@
     if (self.recommNameStr.length > 0) {
         [[AppRequest sharedInstance]requestLiveList:self.recommNameStr Block:^(AppRequestState state, id  _Nonnull result) {
             NSLog(@"刷新请求");
-            if (result[@"zhubo"]) {
-                [self.liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]]];
+            if (result[@"list"]) {
+                [self.liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]]];
             }
         }];
     }

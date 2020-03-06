@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UIImageView *bgImage;
 @property (nonatomic,strong)UILabel *onlineNum;
 @property (nonatomic,strong)UIImageView *onlineIcon;
-
+@property (nonatomic,strong)UILabel *cityLabel;
+@property (nonatomic,strong)UIImageView *cityImg;
 -(void)refreshItem:(LiveModel *)model;
 
 @end

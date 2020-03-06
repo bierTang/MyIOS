@@ -66,13 +66,13 @@
 
 -(void)refreshItem:(LiveModel *)model{
     
-    self.titleLab.text = model.title;
-    NSString *imgStr = model.img;
+    self.titleLab.text = model.userName;
+    NSString *imgStr = model.imgUrl;
     if (imgStr.length < 6) {
-        imgStr = model.xinimg;
+        imgStr = model.imgUrl;
     }
     [self.bgImage sd_setImageWithURL:[NSURL URLWithString:imgStr] placeholderImage:[UIImage imageNamed:@"headImg_base_1"]];
-    self.onlineNum.text = model.Number;
+    self.onlineNum.text = model.nums;
     
 }
 @end
