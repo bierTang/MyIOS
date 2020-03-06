@@ -1,0 +1,39 @@
+platform:ios,'10.0'
+
+target 'community' do
+
+pod 'AFNetworking', '~> 3.2.1'
+pod 'Masonry', '~> 1.0.2'
+pod 'Reachability', '~> 3.2'
+
+pod 'MJExtension', '~> 3.0.15'
+
+
+#网易SDK 相关依赖
+#pod 'NIMSDK' , '~> 6.1.1'
+#pod 'M80AttributedLabel', '~> 1.6.3'
+pod 'SDWebImage', '~> 4.2.2'
+pod 'Toast', '~> 4.0.0'
+pod 'TZImagePickerController', '~> 3.1.9'
+
+pod 'SJVideoPlayer'
+
+#视频缓存
+pod 'KTVHTTPCache', '~> 2.0.0'
+#环信SDK
+#pod 'HyphenateLite'
+pod 'MJRefresh'
+pod 'MBProgressHUD', '~> 1.1.0'
+pod 'SDWebImage/GIF'
+pod 'FLAnimatedImage', '~> 1.0'
+
+
+#pod 'EGOCache', '~> 2.1.3'
+
+#pod 'AliyunPlayer_iOS/AliyunVodPlayerSDK', '~> 3.4.9'
+
+#打包分布  手动添加了
+#pod 'libOpenInstallSDK'
+
+
+end

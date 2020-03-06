@@ -1,0 +1,110 @@
+//
+//  PrefixHeader.pch
+//  community
+//
+//  Created by 蔡文练 on 2019/9/2.
+//  Copyright © 2019年 cwl. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+/**
+ Block 内引用 防止循环引用
+ @weakity(obj) 和 @strongity(obj)成对出现
+ obj 可以不是 self
+ */
+#define weakity(obj)                                                           \
+autoreleasepool {}                                                           \
+__weak __typeof(obj) obj##Weak = obj
+
+#define strongity(obj)                                                         \
+autoreleasepool {}                                                           \
+__strong __typeof(obj) obj = obj##Weak
+
+//不再需要写 mas_ 前缀，可以直接使用 控件.right .lift等属性
+#define MAS_SHORTHAND
+
+//equalTo(@30)默认不支持，添加下面宏定义后，可以直接使用 equalTo(30)
+#define MAS_SHORTHAND_GLOBALS
+
+
+#import "AFNetworking.h"
+
+#import "StaticDefine.h"
+#import "UIColor+RCColor.h"
+#import "WebStringDefine.h"
+#import "MYToast.h"
+
+#import "HelpTools.h"
+#import "UserTools.h"
+
+#import "AppRequest.h"
+#import "AppRequest+upLoad.h"
+
+#import "AppRequest+Login.h"
+
+#import "AppRequest+Chat.h"
+#import "AppRequest+Search.h"
+#import "AppRequest+discover.h"
+#import "AppRequest+Mine.h"
+
+#import "UILabel+Custom.h"
+#import "UIButton+Custom.h"
+#import "UIImage+ColorImg.h"
+
+#import "MJExtension.h"
+#import "MLEmojiLabel.h"
+
+#import "Masonry.h"
+#import "CSChatSessionVC.h"
+
+//#import "NIMKit.h"
+//#import <NIMAVChat/NIMAVChat.h>
+#import "NoDataView.h"
+
+#import <UIImageView+WebCache.h>
+
+#import "ZJUnFoldView.h"
+
+//#import <HyphenateLite/HyphenateLite.h>
+//#import "EMHeaders.h"
+
+#import "CSMyverifyVC.h"
+#import "TZImagePickerController.h"
+#import <MBProgressHUD.h>
+
+#import "CityContentModel.h"
+#import "MJRefresh.h"
+
+#import "UserModel.h"
+#import "MyInfoModel.h"
+
+#import "FLAnimatedImage.h"
+
+#import "SessionModel.h"
+
+#import "LiveModel.h"
+#import "CSCaches.h"
+
+#import <SJVideoPlayer/SJVideoPlayer.h>
+#import "CSVideoPlayVC.h"
+
+#import "PickerModel.h"
+#import "CardModel.h"
+#import "CSMallVC.h"
+#import "WebServeVC.h"
+
+#import <KTVHTTPCache/KTVHTTPCache.h>
+
+#import "CSDataBase.h"
+#import "CSTimerManager.h"
+#import "VideoModel.h"
+#import "AppRequest+LongVideo.h"
+
+#import "AppRequest+Live.h"
+
+
+
+#endif /* PrefixHeader_pch */
