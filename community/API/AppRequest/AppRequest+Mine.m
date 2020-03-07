@@ -161,6 +161,22 @@
     } HttpMethod:AppRequestPost];
 }
 
+
+///卡密列表
+-(void)requestMerBerCardBlock:(void(^)(AppRequestState state,id result))callBack{
+    
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/card/link" Params:@{@"agent_id":[UserTools AgentID]} Callback:^(BOOL isSuccess, id result) {
+        if (isSuccess) {
+            AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
+            callBack(state,result);
+        }else{
+            callBack(AppRequestState_Fail,result);
+        }
+        
+    } HttpMethod:AppRequestPost];
+}
+
+
 ///金币列表
 -(void)requestMerBerCoinListBlock:(void(^)(AppRequestState state,id result))callBack{
     

@@ -5,6 +5,10 @@
 //  Created by 蔡文练 on 2019/9/2.
 //  Copyright © 2019年 cwl. All rights reserved.
 //
+//oc中使用swift
+#import "community-Bridging-Header.h"
+#import "微群社区-Swift.h"
+
 
 #import "CSMineViewController.h"
 #import "CSMineCell.h"
@@ -104,8 +108,8 @@
     
     
     NSMutableArray *arr2 = [NSMutableArray new];
-    NSArray *nameArr2 = @[@"卡密激活",@"到期时间",@"QQ",@"微信"];
-    NSArray *iconArr2 = @[@"cardPass",@"timelimit",@"QQIcon",@"wechatIcon"];
+    NSArray *nameArr2 = @[@"到期时间",@"QQ",@"微信"];
+    NSArray *iconArr2 = @[@"timelimit",@"QQIcon",@"wechatIcon"];
     
     NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
     NSString *wx = @" ";
@@ -117,9 +121,9 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].qq.length > 0) {
         qq = [[CSCaches shareInstance]getUserModel:USERMODEL].qq;
     }
-    NSArray *subtitle2 = @[@"",expireTime,@"",@"",@""];
-    NSArray *midtitle2 = @[@"",@"",qq,wx,@""];
-    NSArray *btnNameArr = @[@"激活",@"",@"复制",@"复制",@""];
+    NSArray *subtitle2 = @[expireTime,@"",@""];
+    NSArray *midtitle2 = @[@"",qq,wx,];
+    NSArray *btnNameArr = @[@"",@"复制",@"复制"];
 
     for (int i = 0; i<nameArr2.count; i++) {
         SetModel *model = [SetModel new];
@@ -131,12 +135,12 @@
         [arr2 addObject:model];
     }
     
-    self.dataArr = @[@[@" "],arr1,arr2,@[@" "]];
+    self.dataArr = @[@[@" "],arr2,arr1,@[@" "]];
     
     if ([UserTools isLogin]) {
-        self.dataArr = @[@[@" "],arr1,arr2,@[@" "]];
+        self.dataArr = @[@[@" "],arr2,arr1,@[@" "]];
     }else{
-        self.dataArr = @[@[@" "],arr1,arr2];
+        self.dataArr = @[@[@" "],arr2,arr1];
     }
 }
 
@@ -202,18 +206,44 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 150;
+        return 230;
     }else{
         return 55;
     }
 }
-
+-(void)handleBtnCliecked1:(UIButton *)sender{
+    NSLog(@"激活");
+  if (!self.cardActView) {
+      self.cardActView = [[CardActivateView alloc]init];
+      [[UIApplication sharedApplication].keyWindow addSubview:self.cardActView];
+      [self.cardActView makeConstraints:^(MASConstraintMaker *make) {
+          make.left.right.equalTo(0);
+          make.top.bottom.equalTo(0);
+      }];
+  }
+  self.cardActView.inputTF.text = @"";
+  self.cardActView.hidden = NO;
+}
+-(void)handleBtnCliecked2:(UIButton *)sender{
+    NSLog(@"购买");
+   
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+    self.navigationItem.backBarButtonItem = barItem;
+    barItem.title = @"购买商城";
+    KamiPayController *vc = [[ KamiPayController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+ 
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 ) {
         CSMineHeaderCell *cell = [[CSMineHeaderCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [cell refreshInfo:[[CSCaches shareInstance]getUserModel:USERMODEL]];
+        
+        
+        [cell.iconBtn1 addTarget:self action:@selector(handleBtnCliecked1:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.iconBtn2 addTarget:self action:@selector(handleBtnCliecked2:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         
@@ -226,31 +256,34 @@
             
             SetModel *model = self.dataArr[indexPath.section][indexPath.row];
             [cell refreshCellIcon:model.iconName andTitle:model.leftTitle subtitle:model.rightTitle funBtnTitle:model.btnName];
-            if (indexPath.section == 2) {
-                if (indexPath.row == 2) {
+            if (indexPath.section == 1) {
+                if (indexPath.row == 1) {
                     [cell messageText:model.midTitle];
-                }else if (indexPath.row == 3){
+                }else if (indexPath.row == 2){
                     [cell messageText:model.midTitle];
                 }
+            }else if(indexPath.section == 2){
+                
             }
             cell.BtnBlock = ^{
                 NSLog(@"btnBlocc::%ld--%ld--%@",indexPath.section,indexPath.row,model.btnName);
-                if (indexPath.section == 2 && indexPath.row >= 2) {
+                if (indexPath.section == 1 && indexPath.row >= 1) {
                     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                     pasteboard.string = model.midTitle;
                     [[MYToast makeText:@"复制成功"]show];
-                }else if (indexPath.section == 2 && indexPath.row == 0){
-                    if (!self.cardActView) {
-                        self.cardActView = [[CardActivateView alloc]init];
-                        [[UIApplication sharedApplication].keyWindow addSubview:self.cardActView];
-                        [self.cardActView makeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(0);
-                            make.top.bottom.equalTo(0);
-                        }];
-                    }
-                    self.cardActView.inputTF.text = @"";
-                    self.cardActView.hidden = NO;
                 }
+//                else if (indexPath.section == 1 && indexPath.row == 0){
+//                    if (!self.cardActView) {
+//                        self.cardActView = [[CardActivateView alloc]init];
+//                        [[UIApplication sharedApplication].keyWindow addSubview:self.cardActView];
+//                        [self.cardActView makeConstraints:^(MASConstraintMaker *make) {
+//                            make.left.right.equalTo(0);
+//                            make.top.bottom.equalTo(0);
+//                        }];
+//                    }
+//                    self.cardActView.inputTF.text = @"";
+//                    self.cardActView.hidden = NO;
+//                }
             };
             return cell;
         }
@@ -298,7 +331,8 @@
         [self.navigationController pushViewController:vc animated:YES];
         
         
-    }else if(indexPath.section == 1){
+    }else if(indexPath.section == 2 && [UserTools isAgentVersion]){
+        
         NSLog(@"2222");
         
         if (indexPath.row == 2) {
@@ -328,7 +362,38 @@
             [self clearCaches];
         }
         
-    }else{
+    }else if(indexPath.section == 1 && ![UserTools isAgentVersion]){
+            //官方版本
+            NSLog(@"2222");
+            
+            if (indexPath.row == 2) {
+                NSLog(@"我的发布改成了历史记录");
+    //            CSMYPostVC *vc = [[CSMYPostVC alloc]init];
+    //            [self.navigationController pushViewController:vc animated:YES];
+                
+                RecommedVC *reVC = [[RecommedVC alloc]init];
+                reVC.type = @"1888";
+                [self.navigationController pushViewController:reVC animated:YES];
+                
+                
+            }else if (indexPath.row == 0){
+                //我的关注
+                CSCityListVC *vc = [[CSCityListVC alloc]init];
+                vc.isMyAttention = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else if (indexPath.row == 1){
+                //我的收藏
+                MyCollectVC *vc = [[MyCollectVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else if (indexPath.row ==3 && [UserTools isAgentVersion]){
+                NSLog(@"缓存1");
+                [self clearCaches];
+            }else if (indexPath.row ==4){
+                NSLog(@"缓存");
+                [self clearCaches];
+            }
+            
+        }else{
         ///官方版本
         if (![UserTools isAgentVersion]) {
             if (indexPath.section == 4) {
@@ -359,7 +424,7 @@
                 }
             }
         }else{///代理版本
-            if(indexPath.section == 2){
+            if(indexPath.section == 1){
                 if (indexPath.row == 1) {
 //                    CSMallVC *vc = [[CSMallVC alloc]init];
 //                    [self.navigationController pushViewController:vc animated:YES];

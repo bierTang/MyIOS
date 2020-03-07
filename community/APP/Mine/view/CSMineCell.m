@@ -122,7 +122,11 @@
     if (btnTitle.length > 0) {
 //        self.arrowImg.hidden = YES;
         
-        self.funcBtn.hidden = !btnTitle.length;
+        self.funcBtn.hidden = NO;
+        
+        [self.funcBtn setTitle:btnTitle forState:UIControlStateNormal];
+    }else{
+        self.funcBtn.hidden = YES;
         
         [self.funcBtn setTitle:btnTitle forState:UIControlStateNormal];
     }

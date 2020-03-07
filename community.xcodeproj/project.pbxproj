@@ -11,6 +11,11 @@
 		0470737023D19822002BF95D /* HeadImgSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0470736F23D19822002BF95D /* HeadImgSelectCell.m */; };
 		047374902411E0C1004FB734 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473748F2411E0C1004FB734 /* Test.swift */; };
 		047374942411F04C004FB734 /* xcodeCNLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374922411F04C004FB734 /* xcodeCNLog.m */; };
+		0473749B24134433004FB734 /* KamiPayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473749924134433004FB734 /* KamiPayController.swift */; };
+		0473749C24134433004FB734 /* KamiPayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473749A24134433004FB734 /* KamiPayController.xib */; };
+		047374A124136776004FB734 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374A024136776004FB734 /* SwiftyJSON.swift */; };
+		047374AA2413719A004FB734 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374A92413719A004FB734 /* ChannelModel.m */; };
+		047374AF241376C6004FB734 /* PingdaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374AE241376C6004FB734 /* PingdaoModel.m */; };
 		04932A5B23F3BEC700F3F173 /* CSLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5A23F3BEC700F3F173 /* CSLiveVC.m */; };
 		04932A5E23F3DBDF00F3F173 /* LiveSegView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5D23F3DBDF00F3F173 /* LiveSegView.m */; };
 		049F5D0A24061F33000FD6B7 /* loadNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 049F5D0924061F32000FD6B7 /* loadNormal.png */; };
@@ -240,6 +245,13 @@
 		0473748F2411E0C1004FB734 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		047374922411F04C004FB734 /* xcodeCNLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xcodeCNLog.m; sourceTree = "<group>"; };
 		047374932411F04C004FB734 /* xcodeCNLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xcodeCNLog.h; sourceTree = "<group>"; };
+		0473749924134433004FB734 /* KamiPayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KamiPayController.swift; sourceTree = "<group>"; };
+		0473749A24134433004FB734 /* KamiPayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KamiPayController.xib; sourceTree = "<group>"; };
+		047374A024136776004FB734 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		047374A82413719A004FB734 /* ChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
+		047374A92413719A004FB734 /* ChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
+		047374AD241376C6004FB734 /* PingdaoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingdaoModel.h; sourceTree = "<group>"; };
+		047374AE241376C6004FB734 /* PingdaoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PingdaoModel.m; sourceTree = "<group>"; };
 		04932A5923F3BEC700F3F173 /* CSLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLiveVC.h; sourceTree = "<group>"; };
 		04932A5A23F3BEC700F3F173 /* CSLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLiveVC.m; sourceTree = "<group>"; };
 		04932A5C23F3DBDF00F3F173 /* LiveSegView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveSegView.h; sourceTree = "<group>"; };
@@ -671,6 +683,24 @@
 			path = log;
 			sourceTree = "<group>";
 		};
+		04737497241343C4004FB734 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				047374A024136776004FB734 /* SwiftyJSON.swift */,
+				04737498241343CF004FB734 /* Mine */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		04737498241343CF004FB734 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				0473749924134433004FB734 /* KamiPayController.swift */,
+				0473749A24134433004FB734 /* KamiPayController.xib */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
 		04932A5523F3BE7E00F3F173 /* Live */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +733,10 @@
 				04B4316823FA2C0500744764 /* LiveModel.m */,
 				04B7950123FE1E6E001AB36B /* AdsModel.h */,
 				04B7950223FE1E6E001AB36B /* AdsModel.m */,
+				047374A82413719A004FB734 /* ChannelModel.h */,
+				047374A92413719A004FB734 /* ChannelModel.m */,
+				047374AD241376C6004FB734 /* PingdaoModel.h */,
+				047374AE241376C6004FB734 /* PingdaoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1201,6 +1235,7 @@
 		50822009231CA0C9006F55B0 /* APP */ = {
 			isa = PBXGroup;
 			children = (
+				04737497241343C4004FB734 /* Swift */,
 				50806095231E64CA009995EF /* Loading */,
 				50822016231CEF4F006F55B0 /* Custom */,
 				5082200D231CA702006F55B0 /* Main */,
@@ -1704,6 +1739,7 @@
 				50F4E5B323857226001EC7C0 /* headImg_base_1.png in Resources */,
 				505B8DC3237E9F90001D5DBB /* README.md in Resources */,
 				50DFDF0F233DE9380013A6A7 /* noNetwork.png in Resources */,
+				0473749C24134433004FB734 /* KamiPayController.xib in Resources */,
 				04ABE15D23BE0B6100EFD7F5 /* qidong.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1822,7 +1858,9 @@
 				50DA4C8823602EE1008F9F37 /* HelpTools.m in Sources */,
 				04A7608723B9D627009A902A /* AudioStreamer.m in Sources */,
 				50BD38EF233A3A6E00711B75 /* CityContentModel.m in Sources */,
+				047374A124136776004FB734 /* SwiftyJSON.swift in Sources */,
 				5080607B231E43B6009995EF /* WHNetWork.m in Sources */,
+				0473749B24134433004FB734 /* KamiPayController.swift in Sources */,
 				5080608F231E4E0D009995EF /* UILabel+Custom.m in Sources */,
 				5082201F231CF008006F55B0 /* CSChatRoomListVC.m in Sources */,
 				50F68FCB2369B5E60018A3E9 /* ShowGifVC.m in Sources */,
@@ -1874,6 +1912,7 @@
 				50EA9C982366D50800FD70AB /* CSMyInfoVC.m in Sources */,
 				505B8DB6237E9F90001D5DBB /* MLEmojiLabel.m in Sources */,
 				50E40B862321FE9100C4E3F8 /* CSSameCityItem.m in Sources */,
+				047374AF241376C6004FB734 /* PingdaoModel.m in Sources */,
 				50CBD227236ABE0C00D296C2 /* CSMyPostCell.m in Sources */,
 				50759F582390AD6800E2705F /* LoadingVC.m in Sources */,
 				04A3BE2323FB7F8000901331 /* ADsCell.m in Sources */,
@@ -1932,6 +1971,7 @@
 				50414CC623549CC100CD5FB5 /* MemberView.m in Sources */,
 				50822025231CF067006F55B0 /* CSMineViewController.m in Sources */,
 				5044399C231FC03A00ADFF65 /* CSChatSessionVC.m in Sources */,
+				047374AA2413719A004FB734 /* ChannelModel.m in Sources */,
 				50F9B04E2376A03E002E1321 /* RecordCell.m in Sources */,
 				04B7950A23FE8775001AB36B /* LiveListHeaderView.m in Sources */,
 				04932A5B23F3BEC700F3F173 /* CSLiveVC.m in Sources */,
@@ -2025,6 +2065,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = V9H8XM43GX;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2047,7 +2088,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "community/community-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2086,6 +2130,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = V9H8XM43GX;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2101,7 +2146,10 @@
 				LD_NO_PIE = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "community/community-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

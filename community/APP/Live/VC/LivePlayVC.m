@@ -221,13 +221,14 @@
     [closeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(2*SCREEN_WIDTH-16);
         make.centerY.equalTo(grayBgView.centerY);
-        make.height.equalTo(50);
+       make.width.equalTo(50);
     }];
     
     [closeBtn2 makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(SCREEN_WIDTH-16);
         make.centerY.equalTo(grayBgView.centerY);
         make.height.equalTo(50);
+        make.width.equalTo(50);
     }];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification)

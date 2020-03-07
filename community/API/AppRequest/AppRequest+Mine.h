@@ -35,7 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///激活码
 -(void)requestActivateCard:(NSString *)userId card:(NSString *)card Block:(void(^)(AppRequestState state,id result))callBack;
-
+///卡密列表
+-(void)requestMerBerCardBlock:(void(^)(AppRequestState state,id result))callBack;
 ///会员卡列表
 -(void)requestMerBerCardListBlock:(void(^)(AppRequestState state,id result))callBack;
 

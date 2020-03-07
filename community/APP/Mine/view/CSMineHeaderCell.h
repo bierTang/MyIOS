@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)UIButton *reviseBtn;
 
+@property (nonatomic,strong)UIButton *iconBtn1;
+@property (nonatomic,strong)UIButton *iconBtn2;
+
+
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 

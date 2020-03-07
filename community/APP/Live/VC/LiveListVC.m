@@ -12,7 +12,7 @@
 
 #import "YLLoopScrollView.h"
 #import "YLCustomView.h"
-
+#import "PingdaoModel.h"
 @interface LiveListVC ()
 
 //@property (nonatomic,strong)YLLoopScrollView *ylScrollview;
@@ -69,10 +69,34 @@
             make.bottom.equalTo(-BottomSpaceHight);
         }];
         
-        [[AppRequest sharedInstance]requestLiveList:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestLiveListPingdao:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
             NSLog(@"aa");
             if (state == AppRequestState_Success) {
-                [liveView reLoadCollectionView:[LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]]];
+                //遍历赋值
+                NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                
+                NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
+                 for (PingdaoModel *str in arr) {
+                    LiveModel *mo = [[LiveModel alloc]init];
+                    if(str.cover.length > 1){
+                       mo.imgUrl = str.cover;
+                    }else{
+                        mo.userName = str.headimage;
+                    }
+                     if(str.title.length > 1){
+                         mo.userName = str.title;
+                     }else{
+                         mo.userName = str.name;
+                     }
+                    
+                    mo.nums = str.Popularity;
+                    mo.pull = str.video;
+                    mo.city = str.city;
+                     
+                     [mos addObject:mo];
+                 }
+                
+                [liveView reLoadCollectionView:mos];
             }
         }];
 }

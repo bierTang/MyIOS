@@ -7,7 +7,7 @@
 //
 
 #import "LiveChannelCell.h"
-
+#import "ChannelModel.h"
 @implementation LiveChannelCell
 
 
@@ -47,32 +47,35 @@
         make.top.equalTo(self.bgImage.bottom).offset(10);
     }];
     
-    self.onlineIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"liveChannelIcon"]];
-    [self.contentView addSubview:self.onlineIcon];
-    [self.onlineIcon makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(32*K_SCALE);
-        make.top.equalTo(self.titleLab.bottom).offset(10);
-    }];
+
     
     self.onlineNum = [UILabel labelWithTitle:@"999" font:12*K_SCALE textColor:@"09c66a" textAlignment:NSTextAlignmentCenter];
     [self.contentView addSubview:self.onlineNum];
     [self.onlineNum makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.onlineIcon.right).offset(2);
-        make.centerY.equalTo(self.onlineIcon.centerY);
-        make.width.equalTo(30*K_SCALE);
+//        make.left.equalTo(self.onlineIcon.right).offset(5);
+        
+        make.centerX.equalTo(self).offset(12);
+        make.top.equalTo(self.titleLab.bottom).offset(12);
+//        make.width.equalTo(30*K_SCALE);
     }];
-    
+        self.onlineIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"liveChannelIcon"]];
+        [self.contentView addSubview:self.onlineIcon];
+        [self.onlineIcon makeConstraints:^(MASConstraintMaker *make) {
+    //        make.left.equalTo(32*K_SCALE);
+            make.centerY.equalTo(self.onlineNum.centerY).offset(-2);
+            make.right.equalTo(self.onlineNum.left).offset(-5);
+        }];
 }
 
--(void)refreshItem:(LiveModel *)model{
+-(void)refreshItem:(ChannelModel *)model{
     
-    self.titleLab.text = model.userName;
-    NSString *imgStr = model.imgUrl;
+    self.titleLab.text = model.name;
+    NSString *imgStr = model.logo;
     if (imgStr.length < 6) {
-        imgStr = model.imgUrl;
+        imgStr = model.logo;
     }
     [self.bgImage sd_setImageWithURL:[NSURL URLWithString:imgStr] placeholderImage:[UIImage imageNamed:@"headImg_base_1"]];
-    self.onlineNum.text = model.nums;
+    self.onlineNum.text = model.quantity;
     
 }
 @end

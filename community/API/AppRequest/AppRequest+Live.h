@@ -21,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 -(void)requestLiveList:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack;
-
+//频道进去的直播列表
+-(void)requestLiveListPingdao:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack;
 
 @end
 

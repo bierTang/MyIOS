@@ -12,12 +12,12 @@
 #import "LivePlayVC.h"
 #import "LiveListVC.h"
 #import "LiveListHeaderView.h"
-
+#import "ChannelModel.h"
 @interface LiveChannelVC () <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 
-@property (nonatomic,strong)NSArray<LiveModel *> *dataArr;
+@property (nonatomic,strong)NSArray<ChannelModel *> *dataArr;
 
 @end
 
@@ -42,9 +42,10 @@
     [self initUI];
     
     [[AppRequest sharedInstance]requestLiveChannelListBlock:^(AppRequestState state, id  _Nonnull result) {
-        NSLog(@"");
+        NSLog(@"频道列表");
         if (state == AppRequestState_Success) {
-            self.dataArr = [LiveModel mj_objectArrayWithKeyValuesArray:result[@"pingtai"]];
+            
+            self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             
             [self.collectionView reloadData];
             if (self.dataArr.count > 0) {
@@ -142,11 +143,20 @@
 
 #pragma mark  点击CollectionView触发事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    LiveModel *mo = [[LiveModel alloc]init];
     
-    [CSCaches shareInstance].currentLiveModel = self.dataArr[indexPath.item];
+    mo.imgUrl = self.dataArr[indexPath.item].logo;
+    mo.userName = self.dataArr[indexPath.item].name;
+    mo.nums = self.dataArr[indexPath.item].quantity;
+    mo.pull = self.dataArr[indexPath.item].source;
+    
+    [CSCaches shareInstance].currentLiveModel = mo;
+    
     LiveListVC *vc = [[LiveListVC alloc]init];
-    vc.model = self.dataArr[indexPath.item];
+
     
+    vc.model = mo;
+
     [self.navigationController pushViewController:vc animated:YES];
     
 //    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];

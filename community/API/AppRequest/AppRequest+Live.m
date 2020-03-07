@@ -34,12 +34,12 @@
     if (liveURL0.length < 8) {
         liveURL0 = @"http://112.5.37.244:81/cs.php";
     }
-    
+    NSLog(@"直播频道发送：：%@",liveURL0);
     [[AppRequest sharedInstance]doRequestWithUrl:liveURL0 Params:nil Callback:^(BOOL isSuccess, id result) {
         NSLog(@"直播频道：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
-            if (result[@"pingtai"]) {
+            if (result[@"data"]) {
                 state = AppRequestState_Success;
             }
             callBack(state,result);
@@ -48,7 +48,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestGet];
 }
 
 ///http://112.5.37.244:81/cs.php?name=youlemei
@@ -79,5 +79,36 @@
         
     } HttpMethod:AppRequestGet];
 }
+
+
+-(void)requestLiveListPingdao:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack{
+//    NSDictionary *param = @{@"user_id":userId};
+//    @"http://112.5.37.244:81/cs.php?name=youlemei
+    NSString *url = name;
+    if (![name hasPrefix:@"http"]) {
+        NSString *liveURL0 = [CSCaches shareInstance].live_url;
+        if (liveURL0.length < 8) {
+            liveURL0 = @"http://112.5.37.244:81/cs.php";
+        }
+        //替换某个字符
+        url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json" withString:[@"/" stringByAppendingString: name]];
+//        url = [NSString stringWithFormat:@"%@?name=%@",liveURL0,name];
+    }
+    [[AppRequest sharedInstance]doRequestWithUrl:url Params:nil Callback:^(BOOL isSuccess, id result)  {
+//        NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
+        if (isSuccess) {
+            AppRequestState state = AppRequestState_Fail;
+            if (result[@"data"]) {
+                state = AppRequestState_Success;
+            }
+            callBack(state,result);
+        }else{
+            callBack(AppRequestState_Fail,result);
+        }
+        
+        
+    } HttpMethod:AppRequestGet];
+}
+
 
 @end
