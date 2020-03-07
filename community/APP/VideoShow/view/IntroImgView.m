@@ -155,7 +155,7 @@
 -(void)closeView:(UIButton *)sender{
     self.titleLab.text = @"";
 //    self.hidden = YES;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         [self.viewBg updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.bottom).offset(0);
         }];
