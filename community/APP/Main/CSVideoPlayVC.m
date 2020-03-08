@@ -64,6 +64,8 @@
     UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressAction:)];
     [_player.view addGestureRecognizer:longpress];
     
+
+
     
     self.progLab = [UILabel labelWithTitle:@"" font:12 textColor:@"ffffff" textAlignment:NSTextAlignmentCenter];
     [self.view addSubview:self.progLab];
@@ -74,6 +76,20 @@
     }];
     
 }
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer*)recognizer{if(recognizer.direction ==UISwipeGestureRecognizerDirectionDown) {
+    NSLog(@"swipe down");
+    
+}if(recognizer.direction ==UISwipeGestureRecognizerDirectionUp) {
+    NSLog(@"swipe up");
+    
+}if(recognizer.direction ==UISwipeGestureRecognizerDirectionLeft) {
+        NSLog(@"swipe left");
+    
+}if(recognizer.direction ==UISwipeGestureRecognizerDirectionRight) {
+            NSLog(@"swipe right");
+    
+}}
+
 
 -(void)longPressAction:(UILongPressGestureRecognizer *)longpress{
     NSLog(@"long::%ld",longpress.state);

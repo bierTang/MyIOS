@@ -119,7 +119,7 @@
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
     }
     [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
-        NSLog(@"详情的第一次请求re::%@",result[@"code"]);
+        NSLog(@"详情的第一次请求re::%@",result);
         if (state == AppRequestState_Success) {
             wself.totalPage = [result[@"data"][@"last_page"] integerValue];
             

@@ -92,6 +92,8 @@
                 }];
                 
             }
+        }else{
+            NSLog(@"错误:");
         }
     }];
     
@@ -152,7 +154,7 @@
         make.right.equalTo(-10);
         make.top.equalTo(10);
     }];
-    [MBProgressHUD showHUDAddedTo:self.videoView animated:YES];
+    
     self.titLab = [UILabel labelWithTitle:@"直播间未开播，或播放地址错误" font:16*K_SCALE textColor:@"000000" textAlignment:NSTextAlignmentCenter];
     [self.noLiveView addSubview:self.titLab];
     [self.titLab makeConstraints:^(MASConstraintMaker *make) {
@@ -230,6 +232,9 @@
         make.height.equalTo(50);
         make.width.equalTo(70);
     }];
+    //放到scrollview上就是在最上面显示
+    [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
+    
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification)
     object:nil];
@@ -238,12 +243,15 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerPlaybackStateDidChangeNotification)
     object:nil];
     
-    self.timer = [NSTimer timerWithTimeInterval:10 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
-    
+    self.timer = [NSTimer timerWithTimeInterval:6 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
+
 }
 -(void)handleTimer{
-    [MBProgressHUD hideHUDForView:self.videoView animated:YES];
-    self.noLiveView.hidden = NO;
+    [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+//    if (self.player.playbackState == 0){
+        self.noLiveView.hidden = NO;
+//    }
+    
 }
 -(void)handtap:(UITapGestureRecognizer *)tap{
     NSLog(@"tap::%@",self.adsArr[tap.view.tag].link);
@@ -258,22 +266,43 @@
     
 }
 -(void)handlePlayerNotify:(NSNotificationCenter *)not{
-    //NSLog(@"播放状态：：%d--%@",self.player.playbackState,not);
+    NSLog(@"播放状态：：%d--%@",self.player.playbackState,not);
     
-    if ((self.player.playbackState == MPMoviePlaybackStateStopped || self.player.playbackState == MPMoviePlaybackStateInterrupted) && self.timer==nil) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.noLiveView.hidden = NO;
+//    if ((self.player.playbackState == MPMoviePlaybackStateStopped || self.player.playbackState == MPMoviePlaybackStateInterrupted) && self.timer==nil) {
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.noLiveView.hidden = NO;
+//        });
+//
+//    }else {
+//        [self.timer invalidate];
+//        self.timer = nil;
+//
+//    }
+    
+    //状态未知
+    if(self.player.playbackState == 0){
+       NSLog(@"状态未知");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //状态未知
+            if (self.player.playbackState == 0){
+                NSLog(@"状态未知显示退出");
+               dispatch_async(dispatch_get_main_queue(), ^{
+                          self.noLiveView.hidden = NO;
+                      });
+            }
+            
         });
-        
     }else {
+        NSLog(@"定时器销毁");
         [self.timer invalidate];
         self.timer = nil;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.videoView animated:YES];
-            self.noLiveView.hidden = YES;
-        });
+
+    }
+    
+    if(self.player.playbackState == MPMoviePlaybackStatePlaying){
+        NSLog(@"正在播放");
+        [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
     }
     
 //    MPMoviePlaybackStateStopped,

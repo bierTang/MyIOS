@@ -26,7 +26,7 @@
                 [[CSCaches shareInstance]saveUserDefalt:USERID value:user.idss];
                 NSLog(@"登录的token：：%@",user.access_token);
                 [[CSCaches shareInstance]saveModel:USERMODEL value:user];
-                
+                [[CSCaches shareInstance]saveUserDefalt:AGENTID value:user.agent_code];
                 [[CSCaches shareInstance]saveUserDefalt:USERBLANCE value:user.coin];
                 
                 if (user.agent.length > 0 && ![user.agent isEqualToString:@"0"]) {

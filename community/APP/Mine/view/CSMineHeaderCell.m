@@ -88,7 +88,7 @@
     
     [self.iconBtn1 makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(15);
-        make.top.equalTo(160);
+        make.top.equalTo(140);
 //        make.centerY.equalTo(self.centerY);
         make.height.equalTo(56);
         make.width.equalTo(SCREEN_WIDTH/2 - 20);
@@ -130,7 +130,7 @@
         
         [self.iconBtn2 makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(-15);
-            make.top.equalTo(160);
+            make.top.equalTo(140);
             make.height.equalTo(56);
             make.width.equalTo(SCREEN_WIDTH/2 - 20);
         }];

@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSString *discover_num;
 
+@property (nonatomic,strong)NSString *agent_code;
 @end
 
 NS_ASSUME_NONNULL_END

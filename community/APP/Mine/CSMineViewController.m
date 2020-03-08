@@ -74,10 +74,43 @@
 
 -(void)reLoadinfo{
     if (![UserTools isAgentVersion]) {
+        //判断不是代理的页面是否存在
+        if(!self.officeView){
+            self.officeView = [[OfficialMineView alloc]initWithFrame:self.view.bounds];
+                   [self.view addSubview:self.officeView];
+                   __weak typeof(self) wself = self;
+                   self.officeView.cellBlock = ^(id  _Nonnull data) {
+                       [wself tableView:wself.officeView.tableview didSelectRowAtIndexPath:data];
+                   };
+        }else{
+            self.officeView.hidden = NO;
+        }
+        //判断代理页面是否存在
+        if(self.tableView){
+            self.tableView.hidden = YES;
+            
+        }
+        
         [self.officeView reloadData];
     }else{
         [self refreshData];
-        [self.tableView reloadData];
+        //判断代理页面是否存在
+        if(!self.tableView){
+            [self.view addSubview:self.tableView];
+        }else{
+            self.tableView.hidden = NO;
+        }
+        //判断不是代理的页面是否存在
+        if(self.officeView){
+            self.officeView.hidden = YES;
+            
+        }
+        
+         [self.tableView reloadData];
+
+        
+        
+        
     }
 }
 -(void)refreshData{
@@ -142,24 +175,33 @@
     }else{
         self.dataArr = @[@[@" "],arr2,arr1];
     }
+
+//    for (id s self.dataArr) {
+//      NSLog(@"%@",s);
+//    }
+
+    
+    NSLog(@"当前的内容%lu", (unsigned long)self.dataArr.count);
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
-    if (![UserTools isAgentVersion]) {
-        [self.officeView reloadData];
-    }else{
-        [self.tableView reloadData];
-    }
+//    if (![UserTools isAgentVersion]) {
+//        [self.officeView reloadData];
+//    }else{
+//        [self.tableView reloadData];
+//    }
     [self requestNewData];
 }
 -(void)requestNewData{
     if ([UserTools isLogin]) {
         __weak typeof(self) wself = self;
         [[AppRequest sharedInstance]requestGetMyinfo:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
-//            NSLog(@"个人信息::%@--%@",result,result[@"msg"]);
+            NSLog(@"个人信息::%@--%@",result,result[@"msg"]);
             [wself reLoadinfo];
             
         }];
@@ -206,7 +248,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 230;
+        return 210;
     }else{
         return 55;
     }
@@ -235,6 +277,9 @@
  
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SetModel *model11 = self.dataArr[indexPath.section][indexPath.row];
+    NSLog(@"内容%@",model11);
+    
     if (indexPath.section == 0 ) {
         CSMineHeaderCell *cell = [[CSMineHeaderCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
