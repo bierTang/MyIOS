@@ -16,6 +16,18 @@
 		047374A124136776004FB734 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374A024136776004FB734 /* SwiftyJSON.swift */; };
 		047374AA2413719A004FB734 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374A92413719A004FB734 /* ChannelModel.m */; };
 		047374AF241376C6004FB734 /* PingdaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374AE241376C6004FB734 /* PingdaoModel.m */; };
+		047374C32415D67F004FB734 /* LTSimpleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374B82415D67E004FB734 /* LTSimpleManager.swift */; };
+		047374C42415D67F004FB734 /* LTCollectionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374B92415D67E004FB734 /* LTCollectionFlowLayout.swift */; };
+		047374C52415D67F004FB734 /* LTDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BA2415D67E004FB734 /* LTDispatchQueue.swift */; };
+		047374C62415D67F004FB734 /* LTAdvancedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BB2415D67E004FB734 /* LTAdvancedManager.swift */; };
+		047374C72415D67F004FB734 /* LTLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BC2415D67E004FB734 /* LTLayout.swift */; };
+		047374C82415D67F004FB734 /* LTTableViewProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BD2415D67E004FB734 /* LTTableViewProtocal.swift */; };
+		047374C92415D67F004FB734 /* LTPageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BE2415D67E004FB734 /* LTPageTitleView.swift */; };
+		047374CA2415D67F004FB734 /* LTPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374BF2415D67E004FB734 /* LTPageView.swift */; };
+		047374CB2415D67F004FB734 /* LTVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374C02415D67E004FB734 /* LTVCExtension.swift */; };
+		047374CC2415D67F004FB734 /* LTScrollExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374C12415D67E004FB734 /* LTScrollExtension.swift */; };
+		047374CD2415D67F004FB734 /* LTTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374C22415D67E004FB734 /* LTTableView.swift */; };
+		047374CF2415D731004FB734 /* Expansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374CE2415D730004FB734 /* Expansion.swift */; };
 		04932A5B23F3BEC700F3F173 /* CSLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5A23F3BEC700F3F173 /* CSLiveVC.m */; };
 		04932A5E23F3DBDF00F3F173 /* LiveSegView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5D23F3DBDF00F3F173 /* LiveSegView.m */; };
 		049F5D0A24061F33000FD6B7 /* loadNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 049F5D0924061F32000FD6B7 /* loadNormal.png */; };
@@ -252,6 +264,18 @@
 		047374A92413719A004FB734 /* ChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
 		047374AD241376C6004FB734 /* PingdaoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingdaoModel.h; sourceTree = "<group>"; };
 		047374AE241376C6004FB734 /* PingdaoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PingdaoModel.m; sourceTree = "<group>"; };
+		047374B82415D67E004FB734 /* LTSimpleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTSimpleManager.swift; sourceTree = "<group>"; };
+		047374B92415D67E004FB734 /* LTCollectionFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTCollectionFlowLayout.swift; sourceTree = "<group>"; };
+		047374BA2415D67E004FB734 /* LTDispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTDispatchQueue.swift; sourceTree = "<group>"; };
+		047374BB2415D67E004FB734 /* LTAdvancedManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTAdvancedManager.swift; sourceTree = "<group>"; };
+		047374BC2415D67E004FB734 /* LTLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTLayout.swift; sourceTree = "<group>"; };
+		047374BD2415D67E004FB734 /* LTTableViewProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTTableViewProtocal.swift; sourceTree = "<group>"; };
+		047374BE2415D67E004FB734 /* LTPageTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTPageTitleView.swift; sourceTree = "<group>"; };
+		047374BF2415D67E004FB734 /* LTPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTPageView.swift; sourceTree = "<group>"; };
+		047374C02415D67E004FB734 /* LTVCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTVCExtension.swift; sourceTree = "<group>"; };
+		047374C12415D67E004FB734 /* LTScrollExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTScrollExtension.swift; sourceTree = "<group>"; };
+		047374C22415D67E004FB734 /* LTTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTTableView.swift; sourceTree = "<group>"; };
+		047374CE2415D730004FB734 /* Expansion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Expansion.swift; path = community/APP/Swift/Expansion.swift; sourceTree = SOURCE_ROOT; };
 		04932A5923F3BEC700F3F173 /* CSLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLiveVC.h; sourceTree = "<group>"; };
 		04932A5A23F3BEC700F3F173 /* CSLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLiveVC.m; sourceTree = "<group>"; };
 		04932A5C23F3DBDF00F3F173 /* LiveSegView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveSegView.h; sourceTree = "<group>"; };
@@ -686,7 +710,9 @@
 		04737497241343C4004FB734 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				047374B72415D67E004FB734 /* TableLib */,
 				047374A024136776004FB734 /* SwiftyJSON.swift */,
+				047374CE2415D730004FB734 /* Expansion.swift */,
 				04737498241343CF004FB734 /* Mine */,
 			);
 			path = Swift;
@@ -699,6 +725,24 @@
 				0473749A24134433004FB734 /* KamiPayController.xib */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		047374B72415D67E004FB734 /* TableLib */ = {
+			isa = PBXGroup;
+			children = (
+				047374B82415D67E004FB734 /* LTSimpleManager.swift */,
+				047374B92415D67E004FB734 /* LTCollectionFlowLayout.swift */,
+				047374BA2415D67E004FB734 /* LTDispatchQueue.swift */,
+				047374BB2415D67E004FB734 /* LTAdvancedManager.swift */,
+				047374BC2415D67E004FB734 /* LTLayout.swift */,
+				047374BD2415D67E004FB734 /* LTTableViewProtocal.swift */,
+				047374BE2415D67E004FB734 /* LTPageTitleView.swift */,
+				047374BF2415D67E004FB734 /* LTPageView.swift */,
+				047374C02415D67E004FB734 /* LTVCExtension.swift */,
+				047374C12415D67E004FB734 /* LTScrollExtension.swift */,
+				047374C22415D67E004FB734 /* LTTableView.swift */,
+			);
+			path = TableLib;
 			sourceTree = "<group>";
 		};
 		04932A5523F3BE7E00F3F173 /* Live */ = {
@@ -1828,12 +1872,14 @@
 				50CBD224236A7DFB00D296C2 /* LoginOutCell.m in Sources */,
 				509BB8FF2359BA6300EE9AA8 /* AppRequest+discover.m in Sources */,
 				50FB928F237CEFA700371007 /* CSShareRerecordVC.m in Sources */,
+				047374C82415D67F004FB734 /* LTTableViewProtocal.swift in Sources */,
 				5044399F231FC1CA00ADFF65 /* CustomNavigationVC.m in Sources */,
 				50DCD202237153D600F58E46 /* ADsView.m in Sources */,
 				50821FDA231C9E21006F55B0 /* ViewController.m in Sources */,
 				04F917A223C2040F0043E139 /* ZSTitleSelectedView.m in Sources */,
 				50AC51042340B3480048E0D8 /* CSLoginVC.m in Sources */,
 				50D63A36236FC72A00102ED5 /* NoDataView.m in Sources */,
+				047374C32415D67F004FB734 /* LTSimpleManager.swift in Sources */,
 				50BD9F21234F06F9001938E8 /* SessionVideoCell.m in Sources */,
 				50C665E4237C06160042277D /* CSShareVC.m in Sources */,
 				50938AA52334BBD100FD4011 /* SDPhotoBrowser.m in Sources */,
@@ -1849,6 +1895,7 @@
 				04A7B08723F5198E0043BE16 /* LiveListView.m in Sources */,
 				50DE47F6238D2C4D00033363 /* GroupIntroduceVC.m in Sources */,
 				04A3BE2623FB7F8000901331 /* LongVideoCell.m in Sources */,
+				047374CB2415D67F004FB734 /* LTVCExtension.swift in Sources */,
 				504655D023505B3500CC339A /* CSVideoPlayVC.m in Sources */,
 				50B57730233CAE170006C08C /* AppRequest+Login.m in Sources */,
 				04A3BE2723FB7F8000901331 /* MadeOfCell.m in Sources */,
@@ -1866,6 +1913,7 @@
 				50F68FCB2369B5E60018A3E9 /* ShowGifVC.m in Sources */,
 				50938AA72334BBD100FD4011 /* SDBrowserImageView.m in Sources */,
 				0470737023D19822002BF95D /* HeadImgSelectCell.m in Sources */,
+				047374CA2415D67F004FB734 /* LTPageView.swift in Sources */,
 				505B8DBB237E9F90001D5DBB /* NSAttributedString+MLLabel.m in Sources */,
 				5064CC7E2330732E0008ACD4 /* CSSwitchCell.m in Sources */,
 				04932A5E23F3DBDF00F3F173 /* LiveSegView.m in Sources */,
@@ -1875,6 +1923,7 @@
 				503BA1732332081600FDA785 /* CSMomentCell.m in Sources */,
 				04F9178923C202070043E139 /* CSLongVideoVC.m in Sources */,
 				04A7B08A23F51D8E0043BE16 /* LiveListItem.m in Sources */,
+				047374C42415D67F004FB734 /* LTCollectionFlowLayout.swift in Sources */,
 				04F9179C23C2040F0043E139 /* MLMSegmentHead.m in Sources */,
 				50AC5101234099410048E0D8 /* UserTools.m in Sources */,
 				505B8DBD237E9F90001D5DBB /* NSAttributedString+MLExpression.m in Sources */,
@@ -1894,6 +1943,7 @@
 				04E6ABF823B30B59001F988B /* FMDatabaseQueue.m in Sources */,
 				04F917A123C2040F0043E139 /* CustomSlideMenu.m in Sources */,
 				04A7B09023F530370043BE16 /* LiveChannelVC.m in Sources */,
+				047374C92415D67F004FB734 /* LTPageTitleView.swift in Sources */,
 				04F917A023C2040F0043E139 /* CustomTabItem.m in Sources */,
 				04B94773240CD3BE008A7E44 /* LRSliderMenuView.m in Sources */,
 				50822019231CEFA7006F55B0 /* CSTabBarVC.m in Sources */,
@@ -1904,6 +1954,7 @@
 				04FBA01023CC07FE0014650D /* VideoModel.m in Sources */,
 				50E2F402236BD3A300A2FB22 /* PhotoContainer.m in Sources */,
 				50E40B8923220D1900C4E3F8 /* CSSameCityVC.m in Sources */,
+				047374CD2415D67F004FB734 /* LTTableView.swift in Sources */,
 				50822022231CF045006F55B0 /* CSCityListVC.m in Sources */,
 				04E6ABFB23B30B59001F988B /* FMDatabasePool.m in Sources */,
 				04A3BE2823FB7F8000901331 /* VideoPlayView.m in Sources */,
@@ -1926,6 +1977,7 @@
 				04F9179E23C2040F0043E139 /* MLMSegmentScroll.m in Sources */,
 				04B94772240CD3BE008A7E44 /* LRSliderMenuItem.m in Sources */,
 				50414CBD2354130D00CD5FB5 /* AppRequest+Search.m in Sources */,
+				047374C52415D67F004FB734 /* LTDispatchQueue.swift in Sources */,
 				5026FDE72338534D00EBD0A8 /* UIImage+ColorImg.m in Sources */,
 				50BD9F1B234F06D0001938E8 /* SessionGifCell.m in Sources */,
 				505B8DB7237E9F90001D5DBB /* TTTAttributedLabel.m in Sources */,
@@ -1937,6 +1989,7 @@
 				505B8DB9237E9F90001D5DBB /* NSMutableAttributedString+MLLabel.m in Sources */,
 				504655DB2350ADBA00CC339A /* CSSearchViewController.m in Sources */,
 				04B4316923FA2C0500744764 /* LiveModel.m in Sources */,
+				047374C62415D67F004FB734 /* LTAdvancedManager.swift in Sources */,
 				04E6ABF923B30B59001F988B /* FMDatabaseAdditions.m in Sources */,
 				047374942411F04C004FB734 /* xcodeCNLog.m in Sources */,
 				04F917A823C305570043E139 /* ClassifyVC.m in Sources */,
@@ -1944,8 +1997,10 @@
 				50DE47F0238D102E00033363 /* GroupInfoCell.m in Sources */,
 				50806094231E59E0009995EF /* CSCaches.m in Sources */,
 				50414CC0235427C600CD5FB5 /* HotWordModel.m in Sources */,
+				047374C72415D67F004FB734 /* LTLayout.swift in Sources */,
 				502E24BB2329DE2800F1D4EE /* CSCellView.m in Sources */,
 				505B8DC0237E9F90001D5DBB /* MLExpressionManager.m in Sources */,
+				047374CF2415D731004FB734 /* Expansion.swift in Sources */,
 				509DA2A62356F6A5001CCF7C /* CSPostContentVC.m in Sources */,
 				04A3BE2B23FB9A2800901331 /* LivePlayVC.m in Sources */,
 				50BD38E82339C1E300711B75 /* CSMyverifyVC.m in Sources */,
@@ -1957,6 +2012,7 @@
 				5082201C231CEFD9006F55B0 /* CSMainViewController.m in Sources */,
 				50D2EC8123794F890052395D /* CardModel.m in Sources */,
 				5080607A231E43B6009995EF /* MonitorData.m in Sources */,
+				047374CC2415D67F004FB734 /* LTScrollExtension.swift in Sources */,
 				50DE47F3238D19F100033363 /* GroupMemberCell.m in Sources */,
 				50F9B04823769CD5002E1321 /* CSRecordModel.m in Sources */,
 				04F9179B23C2040F0043E139 /* MLMSegmentManager.m in Sources */,

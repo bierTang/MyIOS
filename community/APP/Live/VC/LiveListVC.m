@@ -46,7 +46,9 @@
     
         LiveListView *liveView = [[LiveListView alloc]init];
     liveView.showHeader = YES;
-        [self.view addSubview:liveView];
+        [self addChildViewController:liveView];
+        [self.view addSubview:liveView.view];
+        
         liveView.liveBlock = ^(LiveModel * _Nonnull model) {
             if ([HelpTools isMemberShip]) {
                 LivePlayVC *liveVC = [[LivePlayVC alloc]init];
@@ -63,7 +65,7 @@
             }
         };
     
-        [liveView makeConstraints:^(MASConstraintMaker *make) {
+        [liveView.view makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(0);
             make.left.right.equalTo(0);
             make.bottom.equalTo(-BottomSpaceHight);

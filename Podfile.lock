@@ -250,6 +250,13 @@ PODS:
     - SJUIKit/AttributesFactory
   - Toast (4.0.0)
   - TZImagePickerController (3.1.9)
+  - YBImageBrowser/NOSD (3.0.9):
+    - YYImage
+  - YBImageBrowser/VideoNOSD (3.0.9):
+    - YBImageBrowser/NOSD
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
@@ -265,9 +272,11 @@ DEPENDENCIES:
   - SJVideoPlayer
   - Toast (~> 4.0.0)
   - TZImagePickerController (~> 3.1.9)
+  - YBImageBrowser/NOSD
+  - YBImageBrowser/VideoNOSD
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - CocoaAsyncSocket
     - FLAnimatedImage
@@ -284,6 +293,9 @@ SPEC REPOS:
     - SJVideoPlayer
     - Toast
     - TZImagePickerController
+  trunk:
+    - YBImageBrowser
+    - YYImage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -302,7 +314,9 @@ SPEC CHECKSUMS:
   SJVideoPlayer: 40fb746684a9e973c4910b5cbdf39a0a38864261
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TZImagePickerController: c3f7c505d23281e21e98df6dbeae372946caa28f
+  YBImageBrowser: 7ecc8bf33ffa5f3b94c397c29b4f3638dd37f527
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 
-PODFILE CHECKSUM: c8021a0754b583740f064ae198ca546327b8bf3c
+PODFILE CHECKSUM: 4313b4c92692c0b5b1df69bb74797fc98b7254d6
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

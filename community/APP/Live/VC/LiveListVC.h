@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)LiveModel *model;
 @property (nonatomic,strong)NSArray<LiveModel *> *dataArr;
-
+@property (nonatomic, strong) NSString *recommNameStr;
 @end
 
 NS_ASSUME_NONNULL_END

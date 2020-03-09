@@ -15,12 +15,14 @@
 #import "LRSliderMenuItem.h"
 #import "LRSliderMenuView.h"
 
+#import "微群社区-Swift.h"
+
 @interface CSLongVideoVC () <LRSliderMenuViewDelegate>
 
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
 @property (nonatomic,strong) NSMutableArray *viewArray;
 @property (nonatomic, strong) MLMSegmentHead *segHead;
-
+@property (nonatomic, strong) UIButton *addBtn;
 @property (nonatomic,strong)NSArray <VideoModel *> *titleArr;
 @end
 
@@ -46,11 +48,15 @@
     
 }
 
+
 -(void)initSegTitle{
     NSMutableArray *titlearr = [NSMutableArray new];
     for (VideoModel *model in self.titleArr) {
         [titlearr addObject:model.title];
     }
+   
+    
+    
     
     SegHeadView *headview111 = [[SegHeadView alloc]initWithSegArray:titlearr];
 //    [self.view addSubview:headview];
@@ -67,9 +73,9 @@
 //    headview.segBlock = ^(NSInteger type) {
 //        [self changeType:type];
 //    };
-     LRSliderMenuView * headview = [[LRSliderMenuView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, (int)(self.view.frame.size.width+riht), 50*K_SCALE) titleArray:titlearr titleHeight:50*K_SCALE normalColor:[UIColor colorWithHexString:@"161616"] selectedColor:[UIColor colorWithHexString:@"09c66a"] normalFont:[UIFont systemFontOfSize:16*K_SCALE] selectedFont:[UIFont systemFontOfSize:20*K_SCALE] normalFontSize:16*K_SCALE selectedFontSize:20*K_SCALE];
-    headview.delegate = self;
-    [self.view addSubview:headview];
+//     LRSliderMenuView * headview = [[LRSliderMenuView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, (int)(self.view.frame.size.width+riht), 50*K_SCALE) titleArray:titlearr titleHeight:50*K_SCALE normalColor:[UIColor colorWithHexString:@"161616"] selectedColor:[UIColor colorWithHexString:@"09c66a"] normalFont:[UIFont systemFontOfSize:16*K_SCALE] selectedFont:[UIFont systemFontOfSize:20*K_SCALE] normalFontSize:16*K_SCALE selectedFontSize:20*K_SCALE];
+//    headview.delegate = self;
+//    [self.view addSubview:headview];
 //    [headview makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(0);
 //        make.right.equalTo(riht);
@@ -77,20 +83,22 @@
 //        make.height.equalTo(40*K_SCALE);
 //    }];
     
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:addBtn];
-    [addBtn setImage:[UIImage imageNamed:@"service_nav"] forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
-    [addBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(headview.centerY).offset(-5);
+    self.addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:self.addBtn];
+    [self.addBtn setImage:[UIImage imageNamed:@"service_nav"] forState:UIControlStateNormal];
+    [self.addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.addBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(KStatusBarHeight+15);
         make.right.equalTo(-15);
     }];
-    if ([UserTools isAgentVersion]) {
-        addBtn.hidden = YES;
-    }
+  if ([UserTools isAgentVersion]) {
+          self.addBtn.hidden = YES;
+     }else{
+         self.addBtn.hidden = NO;
+     }
     
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0,60,0,0) titles:titlearr headStyle:SegmentHeadStyleDefault layoutStyle:MLMSegmentLayoutLeft];
-    [self.view addSubview:self.segHead];
+//    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0,60,0,0) titles:titlearr headStyle:SegmentHeadStyleDefault layoutStyle:MLMSegmentLayoutLeft];
+//    [self.view addSubview:self.segHead];
     
     self.viewArray = [NSMutableArray new];
     for (int k=0; k<self.titleArr.count; k++) {
@@ -112,56 +120,78 @@
 //    [self.viewArray insertObject:classVC atIndex:1];
     
     
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0,ItemSpaceHight+50*K_SCALE,SCREEN_WIDTH, SCREEN_HEIGHT-TopSpaceHigh-50*K_SCALE) vcOrViews:self.viewArray];
-    _segScroll.subtractHeight = 64;
-    _segScroll.scrollEnabled = YES;
-    _segScroll.loadAll = NO;
-    _segScroll.showIndex = 0;
-    [self.view addSubview:self.segScroll];
+     LTLayout *layout =  [[ LTLayout alloc]init];
+        layout.bottomLineColor = [UIColor colorWithHexString:@"09c66a"];
+        layout.titleColor = [UIColor colorWithHexString:@"161616"];
+        layout.titleSelectColor = [UIColor colorWithHexString:@"09c66a"];
+        layout.titleViewBgColor = [UIColor clearColor];
+        layout.titleMargin = 20.0;
+    
+        if ([UserTools isAgentVersion]) {
+            layout.allSliderWidth = SCREEN_WIDTH;
+        }else{
+            layout.allSliderWidth = SCREEN_WIDTH - 50;
+        }
+    
         
-    [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
-        NSLog(@"cccindex::");
-    } selectBegin:^{
-        
-        NSLog(@"indexbbbegin");
-    } selectEnd:^(NSInteger index) {
-        NSLog(@"indexend::%ld",index);
-        [headview setSelectIndex:index];
-//        [headview titleBtnSelected:index];
-        
-    } selectScale:^(CGFloat scale) {
-            NSLog(@"滑动中::%lf",scale);
-        
-        
-         [headview setSelectScale:scale];
-        
-        
-        
+      
+        LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight - BottomSpace) currentViewController:self viewControllers:self.viewArray titles:titlearr layout:layout titleView:NULL];
+    pageView.isClickScrollAnimation = YES;
+    [self.view addSubview:pageView];
+    
+//    LTSimpleManager *simpleManager = [[ LTSimpleManager alloc]initWithFrame:CGRectMake(0, KNavHeight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight) viewControllers:self.viewArray titles:titlearr currentViewController:self layout:layout titleView:NULL];
+//    simpleManager.delegate = self;
+    
+//    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0,ItemSpaceHight+50*K_SCALE,SCREEN_WIDTH, SCREEN_HEIGHT-TopSpaceHigh-50*K_SCALE) vcOrViews:self.viewArray];
+//    _segScroll.subtractHeight = 64;
+//    _segScroll.scrollEnabled = YES;
+//    _segScroll.loadAll = NO;
+//    _segScroll.showIndex = 0;
+//    [self.view addSubview:self.segScroll];
 //
-//        double indexRatio = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
-//        NSUInteger index = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
-//         NSUInteger labelIndex = index;//滚动条加在smallScrollView上 要+1
-////            if (labelIndex +1 >= headview.contentScrollView.subviews.count || indexRatio < 0) {
-////                return;
+//    [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
+//        NSLog(@"cccindex::");
+//    } selectBegin:^{
+//
+//        NSLog(@"indexbbbegin");
+//    } selectEnd:^(NSInteger index) {
+//        NSLog(@"indexend::%ld",index);
+//        [headview setSelectIndex:index];
+////        [headview titleBtnSelected:index];
+//
+//    } selectScale:^(CGFloat scale) {
+//            NSLog(@"滑动中::%lf",scale);
+//
+//
+//         [headview setSelectScale:scale];
+//
+//
+//
+////
+////        double indexRatio = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
+////        NSUInteger index = headview.contentScrollView.contentOffset.x / headview.contentScrollView.frame.size.width;
+////         NSUInteger labelIndex = index;//滚动条加在smallScrollView上 要+1
+//////            if (labelIndex +1 >= headview.contentScrollView.subviews.count || indexRatio < 0) {
+//////                return;
+//////            }
+////            NSLog(@"\nindexRatio--- %f\nindex     --- %lu",indexRatio,(unsigned long)index);
+////            LRSliderMenuItem *temlabel = headview.contentScrollView.subviews[labelIndex];
+////            LRSliderMenuItem *temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
+////            if ((indexRatio-index) <= 0) {
+////                temlabelNext = headview.contentScrollView.subviews[labelIndex -1];
+////                temlabelNext.transform = CGAffineTransformMakeScale(200, 200);
+////            }else{
+////                temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
+////                temlabelNext.transform = CGAffineTransformMakeScale(100, 100);
 ////            }
-//            NSLog(@"\nindexRatio--- %f\nindex     --- %lu",indexRatio,(unsigned long)index);
-//            LRSliderMenuItem *temlabel = headview.contentScrollView.subviews[labelIndex];
-//            LRSliderMenuItem *temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
-//            if ((indexRatio-index) <= 0) {
-//                temlabelNext = headview.contentScrollView.subviews[labelIndex -1];
-//                temlabelNext.transform = CGAffineTransformMakeScale(200, 200);
-//            }else{
-//                temlabelNext = headview.contentScrollView.subviews[labelIndex +1];
-//                temlabelNext.transform = CGAffineTransformMakeScale(100, 100);
-//            }
-//            CGPoint point = [headview.contentScrollView.panGestureRecognizer translationInView:self];
-//            NSLog(@"point--- %@",NSStringFromCGPoint(point));
+////            CGPoint point = [headview.contentScrollView.panGestureRecognizer translationInView:self];
+////            NSLog(@"point--- %@",NSStringFromCGPoint(point));
+////
+////
+////            NSLog(@"当前页--- %d",index);
+//    //        [headview titleBtnSelected:index];
 //
-//
-//            NSLog(@"当前页--- %d",index);
-    //        [headview titleBtnSelected:index];
-            
-        }];
+//        }];
     
     
     
@@ -182,6 +212,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if ([UserTools isAgentVersion]) {
+           self.addBtn.hidden = YES;
+      }else{
+          self.addBtn.hidden = NO;
+      }
 }
 - (void)sliderMenuView:(LRSliderMenuView *)sliderMenuView didClickMenuItemAtIndex:(NSInteger)index{
     self.segHead.selectedIndex(index);

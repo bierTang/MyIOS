@@ -26,6 +26,10 @@
 #import "TextReaderVC.h"
 #import "AudioStreamer.h"
 
+
+#import "YBImageBrowser.h"
+#import "YBIBVideoData.h"
+
 @interface CSChatSessionVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
@@ -50,6 +54,9 @@
 @property (nonatomic,strong)CSTimerManager *timerManager;
 
 @property (nonatomic,strong)NSIndexPath *saveIndexPath;
+
+//存图片视频的集合
+@property (nonatomic,strong)NSMutableArray *datas;
 @end
 
 @implementation CSChatSessionVC
@@ -69,7 +76,7 @@
     
     self.tempArr = [NSMutableArray new];
     self.currentPage = 1;
-
+    self.datas = [NSMutableArray array];
     ChatSendView *chatSend = [[ChatSendView alloc]init];
     [self.view addSubview:chatSend];
     [chatSend makeConstraints:^(MASConstraintMaker *make) {
@@ -84,6 +91,31 @@
     if (Array.count > 0) {
         self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
         self.dataArr = [[self.tempArr reverseObjectEnumerator]allObjects];
+        
+//        //添加新增图片和视频数据
+//                         [self.tempArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+////                                               if (obj.ad_type == 0){
+////                                                   // 网络图片
+////
+////                                                   for(NSString *i in obj.images_array ){
+////                                                       YBIBImageData *data = [YBIBImageData new];
+////                                                      data.imageURL = i;
+////
+////                                                       //                   data.projectiveView = self;
+////                                                                          [self.datas addObject:data];
+////                                                   }
+////
+////                               }else
+//                                   if(obj.ad_type == 1){
+//                                       //              网络视频
+//                            YBIBVideoData *data = [YBIBVideoData new];
+//                            data.videoURL = [NSURL URLWithString:obj.content];
+//                            data.projectiveView = [self videoAtIndex:idx];
+//                            [self.datas addObject:data];
+//                                            }
+//                                           }];
+        
+        
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -133,8 +165,30 @@
                 wself.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
                 
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+  
                 [wself.tableView reloadData];
-                
+//                               //添加新增图片和视频数据
+//                                 [wself.tempArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+////                                                       if (obj.ad_type == 0){
+////                                                           // 网络图片
+////
+////                                   for(NSString *i in obj.images_array ){
+////                                       YBIBImageData *data = [YBIBImageData new];
+////                                      data.imageURL = i;
+////
+////                                       //                   data.projectiveView = self;
+////                                                          [self.datas addObject:data];
+////                                   }
+////                                       }else
+//                                           if(obj.ad_type == 1){
+//                                               //              网络视频
+//                                    YBIBVideoData *data = [YBIBVideoData new];
+//
+//                                    data.videoURL = [NSURL URLWithString:obj.content];
+//                                    data.projectiveView = [self videoAtIndex:idx];
+//                                    [wself.datas addObject:data];
+//                                                    }
+//                                                   }];
 
                 [MBProgressHUD hideHUDForView:wself.view animated:YES];
                 if (wself.dataArr.count > 0) {
@@ -314,7 +368,7 @@
     __weak typeof(self) wself = self;
     if (self.currentPage < self.totalPage) {
         self.currentPage ++;
-        [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"15" Block:^(AppRequestState state, id  _Nonnull result) {
             [wself.tableView.mj_header endRefreshing];
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
@@ -328,7 +382,35 @@
                 NSInteger count = wself.dataArr.count;
                 [wself.tempArr addObjectsFromArray:arr];
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+                
+           
+
                 [wself.tableView reloadData];
+                
+                
+//                //添加新增图片和视频数据
+//                [arr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+////                                   if (obj.ad_type == 0){
+////                                       // 网络图片
+////
+////                                       for(NSString *i in obj.images_array ){
+////                                           YBIBImageData *data = [YBIBImageData new];
+////                                          data.imageURL = i;
+////
+////                                           //                   data.projectiveView = self;
+////                                                              [self.datas addObject:data];
+////                                       }
+////                                   }else
+//                                       if(obj.ad_type == 1){
+//                           //              网络视频
+//                                       YBIBVideoData *data = [YBIBVideoData new];
+//                                       data.videoURL = [NSURL URLWithString:obj.content];
+//
+//                                       data.projectiveView = [self videoAtIndex:idx];
+//                                       [wself.datas addObject:data];
+//                                   }
+//                               }];
+                
                 
                 [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             }
@@ -351,24 +433,75 @@
 //    return 160;
 //}
 
+
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     __weak typeof(self) wself = self;
     if (self.dataArr[indexPath.row].ad_type == 1) {
+;
         SessionVideoCell *cell = [[SessionVideoCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        
         cell.backBlock = ^(id  _Nonnull data) {
             
-            if ([data intValue] == 200) {
+            if ([data intValue] == 99999) {
 //                self.dataArr[indexPath.row].hadLoaded = YES;
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }else{
                 NSLog(@"视频播放地址：：%@",wself.dataArr[indexPath.row].content);
                 if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
-                    CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
-                    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-                    vc.playUrl = wself.dataArr[indexPath.row].content;//[NSString stringWithFormat:@"%@%@",mainHost,wself.dataArr[indexPath.row].content];
-                    [wself presentViewController:vc animated:YES completion:nil];
+//                    CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
+//                    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//                    vc.playUrl = wself.dataArr[indexPath.row].content;//[NSString stringWithFormat:@"%@%@",mainHost,wself.dataArr[indexPath.row].content];
+//                    [wself presentViewController:vc animated:YES completion:nil];
+                    
+                      //添加新增图片和视频数据
+                    NSMutableArray *datass = [NSMutableArray array];
+                                             [self.dataArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    //                                               if (obj.ad_type == 0){
+                    //                                                   // 网络图片
+                    //
+                    //                                                   for(NSString *i in obj.images_array ){
+                    //                                                       YBIBImageData *data = [YBIBImageData new];
+                    //                                                      data.imageURL = i;
+                    //
+                    //                                                       //                   data.projectiveView = self;
+                    //                                                                          [self.datas addObject:data];
+                    //                                                   }
+                    //
+                    //                               }else
+                                                       if(obj.ad_type == 1){
+                                                           //              网络视频
+                                                YBIBVideoData *data = [YBIBVideoData new];
+                                                data.videoURL = [NSURL URLWithString:obj.content];
+//                                                           data.videoURL = [NSURL URLWithString:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
+                                                           
+//                                                data.projectiveView = [self videoAtIndex:idx];
+                                                           data.autoPlayCount = NSUIntegerMax;
+                                                [datass addObject:data];
+                                                                }
+                                                               }];
+                  
+                    
+                     NSLog(@"资源有%lu",(unsigned long)self.datas.count);
+                    NSLog(@"点击的是%lu",(unsigned long)indexPath.row);
+                        NSLog(@"条目有%lu",(unsigned long)self.dataArr.count);
+                    NSLog(@"tag是%lu",(unsigned long)[data intValue]);
+                        YBImageBrowser *browser = [YBImageBrowser new];
+//                    // 调低图片的缓存数量
+//                    browser.ybib_imageCache.imageCacheCountLimit = 100;
+//                    // 预加载数量设为 0
+//                    browser.preloadCount = 10;
+                    
+                    
+                        browser.dataSourceArray = datass;
+                        browser.currentPage = [data intValue];
+                        // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                        browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                        [browser show];
+                  
                 }else if([UserTools isLogin]){
                     NSLog(@"消耗金币");
                     [wself useCoinPlay];
@@ -378,7 +511,10 @@
             }
 
         };
-        [cell refreshCell:self.dataArr[indexPath.row]];
+        
+        [cell refreshCell:self.dataArr[indexPath.row] index:indexPath.row];
+        
+        
         return cell;
     }else if(self.dataArr[indexPath.row].ad_type == 3){
         SessionGifCell *cell = [[SessionGifCell alloc]cellInitWith:tableView Indexpath:indexPath];
@@ -583,4 +719,12 @@
 //}
 
 
+
+#pragma mark - public
+
+- (id)videoAtIndex:(NSInteger)index {
+
+    SessionVideoCell *cell = (SessionVideoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    return cell ? cell.videoImg : nil;
+}
 @end

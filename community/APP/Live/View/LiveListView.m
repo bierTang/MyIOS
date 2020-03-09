@@ -11,18 +11,22 @@
 
 @implementation LiveListView
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self initUI];
-    }
-    return self;
+//- (instancetype)init
+//{
+//    self = [super init];
+//    if (self) {
+//        [self initUI];
+//    }
+//    return self;
+//}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self initUI];
 }
-
 -(void)initUI{
     
-    [self addSubview:self.collectionView];
+    [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -35,7 +39,7 @@
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
         //设置CollectionView的属性
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"LiveListHeaderView"];
@@ -126,7 +130,8 @@
 //    }
     
 }
--(void)reLoadCollectionView:(NSArray *)arr{
+-(void)reLoadCollectionView:(NSMutableArray *)arr{
+ 
     self.dataArr = arr;
     [self.collectionView reloadData];
 }

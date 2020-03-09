@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LiveListView : UIView <UICollectionViewDelegate,UICollectionViewDataSource>
+@interface LiveListView : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 

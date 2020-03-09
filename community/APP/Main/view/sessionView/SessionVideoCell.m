@@ -18,12 +18,18 @@
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath{
     static NSString *cellId =@"SessionVideoCell";
+    //复用
     SessionVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+     //精准取出一行  禁止复用
+//    SessionVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];//运用这个就可以禁止复用了
+
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (cell == nil) {
         cell =[self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    
+    
     return cell;
 }
 
@@ -62,7 +68,6 @@
     
     self.videoImg = [[UIImageView alloc]init];
     [self.contentView addSubview:self.videoImg];
-    
     
     self.videoImg.contentMode = UIViewContentModeScaleAspectFill;
     self.videoImg.clipsToBounds = YES;
@@ -116,17 +121,20 @@
 }
 -(void)playVideo{
     if(self.backBlock){
-        self.backBlock(@"vvvv");
+        NSLog(@"设置的tag是%ld",(long)self.videoImg.tag);
+        self.backBlock([NSString stringWithFormat:@"%ld",(long)self.videoImg.tag]);
     }
 }
 
--(void)refreshCell:(SessionModel *)model{
+
+
+-(void)refreshCell:(SessionModel *)model index:(NSInteger *)i{
     NSLog(@"加载了：：%d",model.hadLoaded);
     self.userNameLab.text = model.user_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     __weak typeof(self) wself = self;
     
-    
+   self.videoImg.tag = i;
     [self.videoImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.images]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 //        NSLog(@"图片错误：：%@--%ld",error,cacheType);
         if (image.size.height > image.size.width) {
@@ -139,7 +147,7 @@
             }];
         }
         if (!error && wself.backBlock && cacheType != SDImageCacheTypeMemory) {
-            wself.backBlock(@"200");
+            wself.backBlock(@"99999");
         }
         
         
