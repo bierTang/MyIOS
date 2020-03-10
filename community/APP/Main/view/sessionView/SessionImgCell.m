@@ -116,7 +116,7 @@
 //    [self.Img sd_setImageWithURL:[NSURL URLWithString:model.content] placeholderImage:nil];
     __weak typeof(self) wself = self;
     NSLog(@"mmmmmmmm:%@--%@",model.content,model.images);
-    self.userNameLab.text = model.user_name;
+    self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.imageUrl = [NSString stringWithFormat:@"%@%@",mainHost,model.content];
     [self.Img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.content]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {

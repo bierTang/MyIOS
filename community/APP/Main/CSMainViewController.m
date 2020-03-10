@@ -57,6 +57,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    //去掉横线
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.equalTo(0);
         make.top.equalTo(125*K_SCALE);

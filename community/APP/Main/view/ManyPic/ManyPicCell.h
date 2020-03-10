@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)refreshCell:(SessionModel *)model;
 
+@property (nonatomic,copy) void(^backBlock)(id data);
 
 @end
 

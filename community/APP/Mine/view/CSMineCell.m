@@ -55,7 +55,7 @@
     [self.contentView addSubview:self.messageLab];
     
     [self.messageLab makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(142);
+        make.right.equalTo(-120);
         make.centerY.equalTo(self.centerY);
     }];
     

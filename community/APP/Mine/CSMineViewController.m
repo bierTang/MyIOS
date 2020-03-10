@@ -141,7 +141,7 @@
     
     
     NSMutableArray *arr2 = [NSMutableArray new];
-    NSArray *nameArr2 = @[@"到期时间",@"QQ",@"微信"];
+    NSArray *nameArr2 = @[@"到期时间",@"您专属客服QQ",@"您专属客服微信"];
     NSArray *iconArr2 = @[@"timelimit",@"QQIcon",@"wechatIcon"];
     
     NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];

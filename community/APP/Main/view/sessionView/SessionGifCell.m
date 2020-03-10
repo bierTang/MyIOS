@@ -105,7 +105,7 @@
 }
 -(void)refreshCell:(SessionModel *)model{
     //    [self.Img sd_setImageWithURL:[NSURL URLWithString:model.content] placeholderImage:nil];
-   self.userNameLab.text = model.user_name;
+   self.userNameLab.text = model.nick_name;
    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     
     

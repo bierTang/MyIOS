@@ -130,11 +130,11 @@
 
 -(void)refreshCell:(SessionModel *)model index:(NSInteger *)i{
     NSLog(@"加载了：：%d",model.hadLoaded);
-    self.userNameLab.text = model.user_name;
+    self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     __weak typeof(self) wself = self;
     
-   self.videoImg.tag = i;
+//   self.videoImg.tag = i;
     [self.videoImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.images]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 //        NSLog(@"图片错误：：%@--%ld",error,cacheType);
         if (image.size.height > image.size.width) {

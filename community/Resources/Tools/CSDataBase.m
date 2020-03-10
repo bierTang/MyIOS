@@ -191,6 +191,22 @@ static CSDataBase * sharedInstance = nil;
         }
     }];
 }
+
+/**
+ *插入数据
+ */
++ (void)insertCacheDataByCacheType:(NSString *)cacheType Identify:(NSString *)identify   versionCode:(NSString *)versionCode data:(NSString *)json{
+    [[self creatDataBaseQueue] inDatabase:^(FMDatabase *db) {
+        NSString *sql = [self SQL:@"INSERT INTO '%@' (id,cacheType,versionCode,data) VALUES (?,?,?,?)" inTable:cacheType];
+        BOOL result=[db executeUpdate: sql,json,identify,versionCode,cacheType];
+        if (result==YES) {
+            NSLog(@"插入数据成功");
+        }else{
+            NSLog(@"插入数据失败");
+        }
+    }];
+}
+
 /**
  *删除表中数据
  */

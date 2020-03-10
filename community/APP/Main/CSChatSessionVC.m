@@ -30,6 +30,10 @@
 #import "YBImageBrowser.h"
 #import "YBIBVideoData.h"
 
+#if __has_include("YBIBDefaultWebImageMediator.h")
+#import "YBIBDefaultWebImageMediator.h"
+#endif
+
 @interface CSChatSessionVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
@@ -57,6 +61,10 @@
 
 //存图片视频的集合
 @property (nonatomic,strong)NSMutableArray *datas;
+
+//存图片集合
+@property (nonatomic,strong)NSMutableArray *imageArr;
+
 @end
 
 @implementation CSChatSessionVC
@@ -77,6 +85,8 @@
     self.tempArr = [NSMutableArray new];
     self.currentPage = 1;
     self.datas = [NSMutableArray array];
+    //添加图片数据
+    self.imageArr = [NSMutableArray array];
     ChatSendView *chatSend = [[ChatSendView alloc]init];
     [self.view addSubview:chatSend];
     [chatSend makeConstraints:^(MASConstraintMaker *make) {
@@ -91,39 +101,20 @@
     if (Array.count > 0) {
         self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
         self.dataArr = [[self.tempArr reverseObjectEnumerator]allObjects];
-        
-//        //添加新增图片和视频数据
-//                         [self.tempArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-////                                               if (obj.ad_type == 0){
-////                                                   // 网络图片
-////
-////                                                   for(NSString *i in obj.images_array ){
-////                                                       YBIBImageData *data = [YBIBImageData new];
-////                                                      data.imageURL = i;
-////
-////                                                       //                   data.projectiveView = self;
-////                                                                          [self.datas addObject:data];
-////                                                   }
-////
-////                               }else
-//                                   if(obj.ad_type == 1){
-//                                       //              网络视频
-//                            YBIBVideoData *data = [YBIBVideoData new];
-//                            data.videoURL = [NSURL URLWithString:obj.content];
-//                            data.projectiveView = [self videoAtIndex:idx];
-//                            [self.datas addObject:data];
-//                                            }
-//                                           }];
-        
+     
         
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.estimatedRowHeight = 300;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 400;
+ 
     self.tableView.backgroundColor = RGBColor(239, 239, 239);
     [self.view addSubview:self.tableView];
+    //去掉横线
+       self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.equalTo(0);
         make.top.equalTo(0);
@@ -131,7 +122,8 @@
     }];
     [self.tableView registerClass:[SessionVideoCell class] forCellReuseIdentifier:@"SessionVideoCell"];
     [self.tableView registerClass:[VoicePlayCell class] forCellReuseIdentifier:@"VoicePlayCell"];
-//    [self.tableView registerClass:[ManyPicCell class] forCellReuseIdentifier:@"ManyPicCell"];
+    [self.tableView registerClass:[ManyPicCell class] forCellReuseIdentifier:@"ManyPicCell"];
+
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -148,6 +140,7 @@
     __weak typeof(self) wself = self;
 //    self.chatroomId = @"8";
     if (Array.count > 0) {
+        [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
     }
     [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
@@ -167,28 +160,6 @@
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
   
                 [wself.tableView reloadData];
-//                               //添加新增图片和视频数据
-//                                 [wself.tempArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-////                                                       if (obj.ad_type == 0){
-////                                                           // 网络图片
-////
-////                                   for(NSString *i in obj.images_array ){
-////                                       YBIBImageData *data = [YBIBImageData new];
-////                                      data.imageURL = i;
-////
-////                                       //                   data.projectiveView = self;
-////                                                          [self.datas addObject:data];
-////                                   }
-////                                       }else
-//                                           if(obj.ad_type == 1){
-//                                               //              网络视频
-//                                    YBIBVideoData *data = [YBIBVideoData new];
-//
-//                                    data.videoURL = [NSURL URLWithString:obj.content];
-//                                    data.projectiveView = [self videoAtIndex:idx];
-//                                    [wself.datas addObject:data];
-//                                                    }
-//                                                   }];
 
                 [MBProgressHUD hideHUDForView:wself.view animated:YES];
                 if (wself.dataArr.count > 0) {
@@ -368,10 +339,13 @@
     __weak typeof(self) wself = self;
     if (self.currentPage < self.totalPage) {
         self.currentPage ++;
-        [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"15" Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
             [wself.tableView.mj_header endRefreshing];
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
+                
+                 
+                
 //                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
 //                [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 //
@@ -383,36 +357,13 @@
                 [wself.tempArr addObjectsFromArray:arr];
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
                 
-           
+           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 
                 [wself.tableView reloadData];
                 
+
                 
-//                //添加新增图片和视频数据
-//                [arr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-////                                   if (obj.ad_type == 0){
-////                                       // 网络图片
-////
-////                                       for(NSString *i in obj.images_array ){
-////                                           YBIBImageData *data = [YBIBImageData new];
-////                                          data.imageURL = i;
-////
-////                                           //                   data.projectiveView = self;
-////                                                              [self.datas addObject:data];
-////                                       }
-////                                   }else
-//                                       if(obj.ad_type == 1){
-//                           //              网络视频
-//                                       YBIBVideoData *data = [YBIBVideoData new];
-//                                       data.videoURL = [NSURL URLWithString:obj.content];
-//
-//                                       data.projectiveView = [self videoAtIndex:idx];
-//                                       [wself.datas addObject:data];
-//                                   }
-//                               }];
-                
-                
-                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
             }
             
             
@@ -429,10 +380,23 @@
     return self.dataArr.count;
 }
 
+
+
 //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return 160;
 //}
 
+//tableview 加载完成可以调用的方法--因为tableview的cell高度不定，所以在加载完成以后重新计算高度
+-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+//    if (indexPath.row == self.dataArr.count - 1){
+//        //刷新完成
+//                           [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//    }
+    
+
+}
 
 
 
@@ -457,8 +421,9 @@
 //                    vc.playUrl = wself.dataArr[indexPath.row].content;//[NSString stringWithFormat:@"%@%@",mainHost,wself.dataArr[indexPath.row].content];
 //                    [wself presentViewController:vc animated:YES completion:nil];
                     
-                      //添加新增图片和视频数据
+                      //添加视频数据
                     NSMutableArray *datass = [NSMutableArray array];
+                    NSMutableArray *urlArr = [NSMutableArray array];
                                              [self.dataArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     //                                               if (obj.ad_type == 0){
                     //                                                   // 网络图片
@@ -477,9 +442,11 @@
                                                 YBIBVideoData *data = [YBIBVideoData new];
                                                 data.videoURL = [NSURL URLWithString:obj.content];
 //                                                           data.videoURL = [NSURL URLWithString:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
+                                                  data.thumbURL = [NSURL URLWithString:obj.images];
+                                                data.projectiveView = [self videoAtIndex:idx];
+//                                                           data.autoPlayCount = NSUIntegerMax;
                                                            
-//                                                data.projectiveView = [self videoAtIndex:idx];
-                                                           data.autoPlayCount = NSUIntegerMax;
+                                                           [urlArr addObject:obj.content];
                                                 [datass addObject:data];
                                                                 }
                                                                }];
@@ -489,18 +456,31 @@
                     NSLog(@"点击的是%lu",(unsigned long)indexPath.row);
                         NSLog(@"条目有%lu",(unsigned long)self.dataArr.count);
                     NSLog(@"tag是%lu",(unsigned long)[data intValue]);
-                        YBImageBrowser *browser = [YBImageBrowser new];
-//                    // 调低图片的缓存数量
-//                    browser.ybib_imageCache.imageCacheCountLimit = 100;
-//                    // 预加载数量设为 0
-//                    browser.preloadCount = 10;
                     
                     
-                        browser.dataSourceArray = datass;
-                        browser.currentPage = [data intValue];
-                        // 只有一个保存操作的时候，可以直接右上角显示保存按钮
-                        browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
-                        [browser show];
+                    //是否包含
+                    if ([urlArr containsObject:self.dataArr[indexPath.row].content]) {
+                        
+                        NSInteger index = [urlArr indexOfObject:self.dataArr[indexPath.row].content];
+                        NSLog(@"-1---%ld---",index);
+                        
+                         YBImageBrowser *browser = [YBImageBrowser new];
+                        //                    // 调低图片的缓存数量
+                        //                    browser.ybib_imageCache.imageCacheCountLimit = 100;
+                        //                    // 预加载数量设为 0
+                        //                    browser.preloadCount = 10;
+                                            
+                                            
+                                                browser.dataSourceArray = datass;
+                                                browser.currentPage = index;
+                                                // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                                                browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                                                [browser show];
+                        
+                    }
+                    
+                    
+                       
                   
                 }else if([UserTools isLogin]){
                     NSLog(@"消耗金币");
@@ -544,9 +524,64 @@
     }else if(self.dataArr[indexPath.row].ad_type == 0){
         ManyPicCell *cell = [[ManyPicCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.backBlock = ^(id  _Nonnull data) {
-//            [wself.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        };
+        
+        
+              
+                         
+        
+        cell.backBlock = ^(id  _Nonnull data) {
+  //添加图片数据集合
+             NSMutableArray *datass = [NSMutableArray array];
+            //图片地址集合
+            NSMutableArray *urlArr = [NSMutableArray array];
+               [self.dataArr enumerateObjectsUsingBlock:^(SessionModel *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     if (obj.ad_type == 0){
+                                            // 网络图片
+                                          for(NSString *i in obj.images_array ){
+                                                YBIBImageData *data = [YBIBImageData new];
+                                                 data.imageURL = [NSURL URLWithString:i];
+//                                              data.projectiveView = cell.bgImg;
+                                  
+                                              [urlArr addObject:i];
+                                                [datass addObject:data];
+                                                }
+                               }
+                                 }];
+                            
+                                 NSLog(@"资源里地址是%@",datass[[data intValue]]);
+                              NSLog(@"点击的是%lu",(unsigned long)indexPath.row);
+                                  NSLog(@"条目有%lu",(unsigned long)self.dataArr.count);
+                              NSLog(@"tag是%lu",(unsigned long)[data intValue]);
+                              NSLog(@"cell数据有是%@",self.dataArr[indexPath.row].images_array);
+            NSString *str = self.dataArr[indexPath.row].images_array[[data intValue]];
+                              NSLog(@"选择的图片是%@",self.dataArr[indexPath.row].images_array[[data intValue]]);
+            
+            //是否包含
+                              if ([urlArr containsObject:str]) {
+                                  
+                                  NSInteger index = [urlArr indexOfObject:str];
+                                  NSLog(@"-1---%ld---",index);
+                                  
+                                   YBImageBrowser *browser = [YBImageBrowser new];
+                                  //                    // 调低图片的缓存数量
+                                  //                    browser.ybib_imageCache.imageCacheCountLimit = 100;
+                                  //                    // 预加载数量设为 0
+//                                                      browser.preloadCount = 10;
+                                                        browser.webImageMediator = [YBIBDefaultWebImageMediator new];
+                                                          browser.dataSourceArray = datass;
+                                                          browser.currentPage = index;
+                                                          // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                                                          browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                                                          [browser show];
+                                  
+                              }
+                              
+            
+        };
+        
+        
+       
+        
         [cell refreshCell:self.dataArr[indexPath.row]];
         return cell;
     }else if(self.dataArr[indexPath.row].ad_type == 4){
@@ -676,20 +711,20 @@
     }
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"停止滑动了：：%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y <= 10) {
-        [self loadMoreData];
-    }
-    
-}
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    NSLog(@"拖拽结束：：%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < 50) {
-        [self loadMoreData];
-    }
-   
-}
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    NSLog(@"停止滑动了：：%f",scrollView.contentOffset.y);
+//    if (scrollView.contentOffset.y <= 10) {
+//        [self loadMoreData];
+//    }
+//    
+//}
+//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    NSLog(@"拖拽结束：：%f",scrollView.contentOffset.y);
+//    if (scrollView.contentOffset.y < 50) {
+//        [self loadMoreData];
+//    }
+//   
+//}
 //
 //-(void)showBigImage{
 //    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
@@ -718,13 +753,12 @@
 //    return imageView.image;
 //}
 
-
-
 #pragma mark - public
 
 - (id)videoAtIndex:(NSInteger)index {
-
     SessionVideoCell *cell = (SessionVideoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     return cell ? cell.videoImg : nil;
 }
+
+
 @end

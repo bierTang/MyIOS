@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,strong)NSString *user_name;
+@property (nonatomic,strong)NSString *nick_name;
 @property (nonatomic,strong)NSString *user_avatar;  
 
 @property (nonatomic,assign)BOOL mp3isPlaying;  

@@ -28,6 +28,7 @@
 		047374CC2415D67F004FB734 /* LTScrollExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374C12415D67E004FB734 /* LTScrollExtension.swift */; };
 		047374CD2415D67F004FB734 /* LTTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374C22415D67E004FB734 /* LTTableView.swift */; };
 		047374CF2415D731004FB734 /* Expansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047374CE2415D730004FB734 /* Expansion.swift */; };
+		047374D424174C1F004FB734 /* YBIBDefaultWebImageMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 047374D224174C1E004FB734 /* YBIBDefaultWebImageMediator.m */; };
 		04932A5B23F3BEC700F3F173 /* CSLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5A23F3BEC700F3F173 /* CSLiveVC.m */; };
 		04932A5E23F3DBDF00F3F173 /* LiveSegView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932A5D23F3DBDF00F3F173 /* LiveSegView.m */; };
 		049F5D0A24061F33000FD6B7 /* loadNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 049F5D0924061F32000FD6B7 /* loadNormal.png */; };
@@ -276,6 +277,8 @@
 		047374C12415D67E004FB734 /* LTScrollExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTScrollExtension.swift; sourceTree = "<group>"; };
 		047374C22415D67E004FB734 /* LTTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTTableView.swift; sourceTree = "<group>"; };
 		047374CE2415D730004FB734 /* Expansion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Expansion.swift; path = community/APP/Swift/Expansion.swift; sourceTree = SOURCE_ROOT; };
+		047374D124174C1E004FB734 /* YBIBDefaultWebImageMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBIBDefaultWebImageMediator.h; sourceTree = "<group>"; };
+		047374D224174C1E004FB734 /* YBIBDefaultWebImageMediator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBIBDefaultWebImageMediator.m; sourceTree = "<group>"; };
 		04932A5923F3BEC700F3F173 /* CSLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLiveVC.h; sourceTree = "<group>"; };
 		04932A5A23F3BEC700F3F173 /* CSLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLiveVC.m; sourceTree = "<group>"; };
 		04932A5C23F3DBDF00F3F173 /* LiveSegView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveSegView.h; sourceTree = "<group>"; };
@@ -743,6 +746,15 @@
 				047374C22415D67E004FB734 /* LTTableView.swift */,
 			);
 			path = TableLib;
+			sourceTree = "<group>";
+		};
+		047374D024174C1E004FB734 /* WebImageMediator */ = {
+			isa = PBXGroup;
+			children = (
+				047374D124174C1E004FB734 /* YBIBDefaultWebImageMediator.h */,
+				047374D224174C1E004FB734 /* YBIBDefaultWebImageMediator.m */,
+			);
+			path = WebImageMediator;
 			sourceTree = "<group>";
 		};
 		04932A5523F3BE7E00F3F173 /* Live */ = {
@@ -1352,6 +1364,7 @@
 		5082200D231CA702006F55B0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				047374D024174C1E004FB734 /* WebImageMediator */,
 				5082201A231CEFD9006F55B0 /* CSMainViewController.h */,
 				5082201B231CEFD9006F55B0 /* CSMainViewController.m */,
 				5044399A231FC03A00ADFF65 /* CSChatSessionVC.h */,
@@ -1920,6 +1933,7 @@
 				50821FE5231C9E22006F55B0 /* main.m in Sources */,
 				04A3BE2423FB7F8000901331 /* IntroImgView.m in Sources */,
 				04E6ABFA23B30B59001F988B /* FMDatabase.m in Sources */,
+				047374D424174C1F004FB734 /* YBIBDefaultWebImageMediator.m in Sources */,
 				503BA1732332081600FDA785 /* CSMomentCell.m in Sources */,
 				04F9178923C202070043E139 /* CSLongVideoVC.m in Sources */,
 				04A7B08A23F51D8E0043BE16 /* LiveListItem.m in Sources */,

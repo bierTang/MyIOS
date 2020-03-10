@@ -18,14 +18,10 @@
 -(instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath{
     static NSString *cellId =@"ManyPicCell";
     ManyPicCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if (!self.imgArr) {
-        self.imgArr = [NSMutableArray new];
-    }else{
-        [self.imgArr removeAllObjects];
-    }
+       tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+       cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+
     
     if (cell == nil) {
         cell =[self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
@@ -69,6 +65,12 @@
     // 四个数值对应图片中距离上、左、下、右边界的不拉伸部分的范围宽度
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(25, 15, 8, 8) resizingMode:UIImageResizingModeStretch];
     self.bgImg.image = img;
+    
+    if (!self.imgArr) {
+        self.imgArr = [NSMutableArray new];
+    }else{
+        [self.imgArr removeAllObjects];
+    }
     
     for (int i =0; i<9; i++) {
         UIImageView *imgView1 = [[UIImageView alloc]init];
@@ -114,16 +116,28 @@
 }
 
 -(void)showBigImage:(UITapGestureRecognizer *)tap{
-    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
-    NSInteger tag = tap.view.tag;
-    if (!tag) {
-        tag = 0;
+//    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+//    NSInteger tag = tap.view.tag;
+//    if (!tag) {
+//        tag = 0;
+//    }
+//    browser.currentImageIndex = tag;
+//    browser.sourceImagesContainerView = self.contentView;
+//    browser.imageCount = self.imgURLArr.count;
+//    browser.delegate = self;
+//    [browser show];
+    
+    
+    if(self.backBlock){
+            NSInteger tag = tap.view.tag;
+            if (!tag) {
+                tag = 0;
+            }
+        NSLog(@"设置的tag是%ld",(long)tag);
+        self.backBlock([NSString stringWithFormat:@"%ld",tag]);
     }
-    browser.currentImageIndex = tag;
-    browser.sourceImagesContainerView = self.contentView;
-    browser.imageCount = self.imgURLArr.count;
-    browser.delegate = self;
-    [browser show];
+    
+    
 }
 #pragma mark - SDPhotoBrowserDelegate
 
@@ -141,16 +155,23 @@
 }
 -(void)refreshCell:(SessionModel *)model{
     CGFloat kk = K_SCALE;
-    self.userNameLab.text = model.user_name;
+    self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
      
     self.describLab.text = model.descriptions;
+    
+    //首先全部隐藏
+    for (UIImageView *img in self.imgArr){
+        img.hidden = YES;
+    }
+    
     
     self.imgURLArr = model.images_array;
     for (int a =0; a<model.images_array.count; a++) {
         NSString *imageUrl = [NSString stringWithFormat:@"%@",model.images_array[a]];
         [self.imgArr[a] sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"noData"]];
         self.imgArr[a].hidden = NO;
+
     }
     
     if (model.images_array.count == 1) {
