@@ -75,7 +75,7 @@
 -(void)reLoadinfo{
     if (![UserTools isAgentVersion]) {
         //判断不是代理的页面是否存在
-        if(!self.officeView){
+        if(![self.officeView isDescendantOfView:self.view]){
             self.officeView = [[OfficialMineView alloc]initWithFrame:self.view.bounds];
                    [self.view addSubview:self.officeView];
                    __weak typeof(self) wself = self;
@@ -95,7 +95,7 @@
     }else{
         [self refreshData];
         //判断代理页面是否存在
-        if(!self.tableView){
+        if(![self.tableView isDescendantOfView:self.view]){
             [self.view addSubview:self.tableView];
         }else{
             self.tableView.hidden = NO;

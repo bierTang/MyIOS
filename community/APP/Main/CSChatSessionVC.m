@@ -71,7 +71,10 @@
 
 //存图片集合
 @property (nonatomic,strong)NSMutableArray *imageArr;
-
+//直到底部的按钮
+@property (nonatomic,strong)UIButton *bottomBtn;
+//底部的数量
+@property (nonatomic,strong)UILabel *coutLabel;
 
 @end
 
@@ -141,6 +144,30 @@
     [self.tableView registerClass:[VoicePlayCell class] forCellReuseIdentifier:@"VoicePlayCell"];
     [self.tableView registerClass:[ManyPicCell class] forCellReuseIdentifier:@"ManyPicCell"];
 
+    self.bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+     [self.bottomBtn setImage:[UIImage imageNamed:@"chat_bottom"] forState:UIControlStateNormal];
+//     [self.bottomBtn setImage:[UIImage imageNamed:@"pause_mp3icon"] forState:UIControlStateSelected];
+
+     [self.bottomBtn addTarget:self action:@selector(toBottom:) forControlEvents:UIControlEventTouchUpInside];
+     [self.view addSubview:self.bottomBtn];
+    self.bottomBtn.hidden = YES;
+    [self.bottomBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(-15);
+        make.bottom.equalTo(chatSend.top).offset(-15);
+    }];
+    self.coutLabel = [UILabel labelWithTitle:@"0" font:13*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
+    [self.view addSubview:self.coutLabel];
+    [self.coutLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.bottomBtn.top).offset(8);
+        make.width.height.equalTo(28);
+        make.centerX.equalTo(self.bottomBtn);
+    }];
+    self.coutLabel.textAlignment = NSTextAlignmentCenter;
+    self.coutLabel.backgroundColor = [UIColor colorWithHexString:@"09c66a"];
+    self.coutLabel.layer.cornerRadius = 14;
+    self.coutLabel.layer.masksToBounds = YES;
+    self.coutLabel.hidden = YES;
+    
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -227,6 +254,17 @@
     [header setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
     header.lastUpdatedTimeLabel.hidden=YES;
     
+    
+    
+//    MJRefreshAutoNormalFooter *footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+//    self.tableView.mj_footer=footer;
+//    [footer setTitle:@"加载更多" forState:MJRefreshStateIdle];
+//    [footer setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
+    
+
+    
+    
+    
     self.adView = [[ADsView alloc]init];
     [self.view addSubview:self.adView];
     self.adView.hidden = YES;
@@ -280,6 +318,12 @@
     }];
     
 }
+
+
+-(void)toBottom:(UIButton *)sender{
+   
+}
+
 
 - (void)createStreamer:(NSString *)urlstring
 {
@@ -383,6 +427,7 @@
 
                 NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
                 NSLog(@"caca::%ld",arr.count);
+                
                 [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
                 NSInteger count = wself.dataArr.count;
                 // 插入最前方
