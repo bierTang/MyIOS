@@ -123,7 +123,7 @@
     if (model.type == 2) {
         self.contentLab.text = model.message;
     }
-    
+    self.freeLab.hidden = YES;
     if ([HelpTools isMemberShip]) {
         self.diamondImg.hidden = YES;
         self.priceLabel.text = @"";

@@ -148,7 +148,7 @@
     }
     
     [self.viewBg updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bottom).offset(-357*K_SCALE + offY);
+        make.top.equalTo(self.bottom).offset(-357*K_SCALE + offY - 44);
     }];
 }
 

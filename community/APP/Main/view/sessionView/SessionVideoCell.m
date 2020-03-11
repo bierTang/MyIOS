@@ -75,8 +75,9 @@
         make.top.equalTo(25);
         make.left.equalTo(self.headImg.right).offset(12);
         make.width.equalTo(260*K_SCALE);
-        make.height.greaterThanOrEqualTo(160*K_SCALE);
-        make.height.lessThanOrEqualTo(310*K_SCALE);
+//        make.height.greaterThanOrEqualTo(160*K_SCALE);
+//        make.height.lessThanOrEqualTo(310*K_SCALE);
+        make.height.equalTo(300*K_SCALE);
 
     }];
     UIView *grayView = [UIView new];
@@ -129,7 +130,7 @@
 
 
 -(void)refreshCell:(SessionModel *)model index:(NSInteger *)i{
-    NSLog(@"加载了：：%d",model.hadLoaded);
+//    NSLog(@"加载了：：%d",model.hadLoaded);
     self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     __weak typeof(self) wself = self;

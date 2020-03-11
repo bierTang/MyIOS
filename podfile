@@ -12,7 +12,7 @@ pod 'MJExtension', '~> 3.0.15'
 #网易SDK 相关依赖
 #pod 'NIMSDK' , '~> 6.1.1'
 #pod 'M80AttributedLabel', '~> 1.6.3'
-pod 'SDWebImage', '~> 4.2.2'
+pod 'SDWebImage', '>= 5.0.0'
 pod 'Toast', '~> 4.0.0'
 pod 'TZImagePickerController', '~> 3.1.9'
 
@@ -24,7 +24,7 @@ pod 'KTVHTTPCache', '~> 2.0.0'
 #pod 'HyphenateLite'
 pod 'MJRefresh'
 pod 'MBProgressHUD', '~> 1.1.0'
-pod 'SDWebImage/GIF'
+#pod 'SDWebImage/GIF'
 pod 'FLAnimatedImage', '~> 1.0'
 
 
@@ -34,6 +34,8 @@ pod 'FLAnimatedImage', '~> 1.0'
 
 #打包分布  手动添加了
 #pod 'libOpenInstallSDK'
-
+#图片视频浏览器
+pod 'YBImageBrowser/NOSD'
+pod 'YBImageBrowser/VideoNOSD'  
 
 end

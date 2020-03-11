@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)requestChatList:(NSString *)current Page:(NSString *)page Block:(void(^)(AppRequestState state,id model))callBack;
 
--(void)requestSessionID:(NSString *)roomId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack;
+-(void)requestSessionID:(NSString *)roomId messId:(NSString *)messId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack;
 
 
 ///广告类型

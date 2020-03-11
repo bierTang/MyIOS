@@ -33,6 +33,13 @@
 #if __has_include("YBIBDefaultWebImageMediator.h")
 #import "YBIBDefaultWebImageMediator.h"
 #endif
+#import "BGFMDB.h"
+//log输出解决 xcode8 log 显示不全
+#ifdef DEBUG
+#define QMLog(format, ...) printf("class: <%p %s:(%d) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )
+#else
+#define QMLog(format, ...)
+#endif
 
 @interface CSChatSessionVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -65,6 +72,7 @@
 //存图片集合
 @property (nonatomic,strong)NSMutableArray *imageArr;
 
+
 @end
 
 @implementation CSChatSessionVC
@@ -78,7 +86,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpNav];
     
@@ -95,14 +103,23 @@
         make.bottom.equalTo(-KBottomSafeArea);
     }];
     
-    NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
-    NSArray *Array = [jsonCode  mj_JSONObject];
+//    NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
+//    NSArray *Array = [jsonCode  mj_JSONObject];
     
+    /**
+        查询标识名为testA的数组全部元素.
+        */
+    NSArray* Array = [NSArray bg_arrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+        NSLog(@"结果 = %@",Array);
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    
+    NSInteger looki = [defaults integerForKey:[@"Look" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];//根据键值取出name
+
     if (Array.count > 0) {
         self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
         self.dataArr = [[self.tempArr reverseObjectEnumerator]allObjects];
-     
-        
+        NSLog(@"第一条时间 = %ld",(long)self.dataArr[0].update_time);
+        NSLog(@"第后条时间 = %ld",(long)self.dataArr[self.dataArr.count-1].update_time);
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -140,25 +157,46 @@
     __weak typeof(self) wself = self;
 //    self.chatroomId = @"8";
     if (Array.count > 0) {
-        [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        if (looki){
+            if (looki >= self.dataArr.count) {
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }else{
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:looki inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            
+        }else{
+            if (looki == 0) {
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:looki inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            }else{
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+            
+        }
+        
+        [wself.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
     }
-    [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
-        NSLog(@"详情的第一次请求re::%@",result);
+    [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", NSIntegerMax] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+        QMLog(@"详情的第一次请求re::%@",result[@"data"]);
         if (state == AppRequestState_Success) {
             wself.totalPage = [result[@"data"][@"last_page"] integerValue];
             
-            [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+//            [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
            
             
             if (Array.count == 0) {
-                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
-                NSArray *Array = [jsonCode  mj_JSONObject];
+//                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
+//                NSArray *Array = [jsonCode  mj_JSONObject];
                 
-                wself.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
+                
+                
+                wself.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                
+                [wself.tempArr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
                 
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
   
+
                 [wself.tableView reloadData];
 
                 [MBProgressHUD hideHUDForView:wself.view animated:YES];
@@ -333,19 +371,46 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
--(void)loadMoreData{
+//上拉的时候要加载的
+-(void)loadMore{
     
     __weak typeof(self) wself = self;
-    if (self.currentPage < self.totalPage) {
-        self.currentPage ++;
-        [[AppRequest sharedInstance]requestSessionID:self.chatroomId current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
+
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
             [wself.tableView.mj_header endRefreshing];
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
+
+                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                NSLog(@"caca::%ld",arr.count);
+                [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                NSInteger count = wself.dataArr.count;
+                // 插入最前方
+                   NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
+                [wself.tempArr insertObjects:wself.dataArr atIndexes:indexes];
+                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
                 
-                 
-                
+                [wself.tableView reloadData];
+                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            
+            
+        }];
+
+    
+}
+
+//下拉加载的
+-(void)loadMoreData{
+    
+    __weak typeof(self) wself = self;
+   
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[0].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+            [wself.tableView.mj_header endRefreshing];
+             QMLog(@"下拉更新:%@",result);
+//            [MBProgressHUD hideHUDForView:wself.view animated:YES];
+            if (state == AppRequestState_Success) {
+ 
 //                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
 //                [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 //
@@ -353,28 +418,74 @@
 //                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:[jsonCode mj_JSONObject]];
                 NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
                 NSLog(@"caca::%ld",arr.count);
+                if (arr.count > 0){
+                    [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                }
+                
                 NSInteger count = wself.dataArr.count;
                 [wself.tempArr addObjectsFromArray:arr];
                 wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
                 
-           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+//           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 
+                
+                
                 [wself.tableView reloadData];
                 
-
+               
                 
                 [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
             }
             
             
         }];
-    }else{
-        [self.tableView.mj_header removeFromSuperview];
-        [self.tableView.mj_header endRefreshing];
-    }
+
     
 }
-
+//下拉加载的
+//-(void)loadMoreData{
+//
+//    __weak typeof(self) wself = self;
+//    if (self.currentPage < self.totalPage) {
+//        self.currentPage ++;
+//        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+//            [wself.tableView.mj_header endRefreshing];
+////            [MBProgressHUD hideHUDForView:wself.view animated:YES];
+//            if (state == AppRequestState_Success) {
+//
+//
+//
+////                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+////                [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+////
+////                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
+////                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:[jsonCode mj_JSONObject]];
+//                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+//                NSLog(@"caca::%ld",arr.count);
+//                [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+//                NSInteger count = wself.dataArr.count;
+//                [wself.tempArr addObjectsFromArray:arr];
+//                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+//
+////           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+//
+//
+//
+//                [wself.tableView reloadData];
+//
+//
+//
+//                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+//            }
+//
+//
+//        }];
+//    }else{
+//        [self.tableView.mj_header removeFromSuperview];
+//        [self.tableView.mj_header endRefreshing];
+//    }
+//
+//}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 //        return 25;
     return self.dataArr.count;
@@ -398,7 +509,37 @@
 
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self getNowTopSectionView];
+}
+ 
 
+ NSInteger nowSection = -1;
+// 获取tableView最上面悬停的SectionHeaderView
+- (void)getNowTopSectionView {
+    NSArray <UITableViewCell *> *cellArray = [self.tableView visibleCells];
+//    NSInteger nowSection = -1;
+    if (cellArray) {
+        UITableViewCell *cell = [cellArray firstObject];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        nowSection = indexPath.row;
+    }
+//    NSLog(@"当前滑动到:%ld",nowSection);
+}
+//视图将要消失
+- (void)viewWillDisappear:(BOOL)animated {
+//    NSLog(@"消失啦即将%s", __FUNCTION__);
+    [super viewWillDisappear:animated];
+}
+
+//视图已经消失
+- (void)viewDidDisappear:(BOOL)animated {
+//    NSLog(@"消失啦%s", __FUNCTION__);
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    [defaults setInteger:nowSection forKey:[@"Look" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+    
+    [super viewDidDisappear:animated];
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     __weak typeof(self) wself = self;

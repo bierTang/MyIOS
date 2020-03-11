@@ -119,9 +119,10 @@
         layout.titleViewBgColor = [UIColor clearColor];
         layout.titleMargin = 20.0;
       
-     LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight - BottomSpace) currentViewController:self viewControllers:self.viewArray titles:titleArray layout:layout titleView:NULL];
+     LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight  - NoneTitleSpaceHight) currentViewController:self viewControllers:self.viewArray titles:titleArray layout:layout titleView:NULL];
     pageView.isClickScrollAnimation = YES;
     [self.view addSubview:pageView];
+    
     pageView.didSelectIndexBlock = ^(LTPageView * v, NSInteger index) {
         if (index == 1) {
             self.totalChannelLab.hidden = NO;

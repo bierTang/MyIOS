@@ -53,14 +53,30 @@
 
 
 
--(void)requestSessionID:(NSString *)roomId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack{
+//-(void)requestSessionID:(NSString *)roomId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack{
+//
+//    NSDictionary *param = @{@"group_id":roomId,@"page":page,@"current":current};
+//    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/chitchat/all_chitchat" Params:param Callback:^(BOOL isSuccess, id result) {
+//        NSLog(@"详情页：：%@",result[@"code"]);
+//        if (isSuccess) {
+//            AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
+//            callBack(state,result);
+//        }else {
+//            callBack(AppRequestState_Fail,result);
+//        }
+//
+//
+//    } HttpMethod:AppRequestPost];
+//}
+
+-(void)requestSessionID:(NSString *)roomId messId:(NSString *)messId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack{
     
-    NSDictionary *param = @{@"group_id":roomId,@"page":page,@"current":current};
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/chitchat/all_chitchat" Params:param Callback:^(BOOL isSuccess, id result) {
+    NSDictionary *param = @{@"group_id":roomId,@"message_id":messId,@"chitchat_operating":page,@"chitchat_number":current};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/chitchat/chitchat_message" Params:param Callback:^(BOOL isSuccess, id result) {
         NSLog(@"详情页：：%@",result[@"code"]);
         if (isSuccess) {
             AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
-            callBack(state,result);            
+            callBack(state,result);
         }else {
             callBack(AppRequestState_Fail,result);
         }

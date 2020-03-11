@@ -201,8 +201,9 @@
     if ([UserTools isLogin]) {
         __weak typeof(self) wself = self;
         [[AppRequest sharedInstance]requestGetMyinfo:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
+             [wself reLoadinfo];
             NSLog(@"个人信息::%@--%@",result,result[@"msg"]);
-            [wself reLoadinfo];
+           
             
         }];
     }

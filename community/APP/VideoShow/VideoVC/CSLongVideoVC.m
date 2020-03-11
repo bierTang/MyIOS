@@ -135,7 +135,7 @@
     
         
       
-        LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight - BottomSpace) currentViewController:self viewControllers:self.viewArray titles:titlearr layout:layout titleView:NULL];
+        LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight  - NoneTitleSpaceHight) currentViewController:self viewControllers:self.viewArray titles:titlearr layout:layout titleView:NULL];
     pageView.isClickScrollAnimation = YES;
     [self.view addSubview:pageView];
     

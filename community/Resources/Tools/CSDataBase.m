@@ -193,6 +193,41 @@ static CSDataBase * sharedInstance = nil;
 }
 
 /**
+ *更新
+ */
++ (void)updateCacheType:(NSString *)cacheType Identify:(NSString *)identify   versionCode:(NSString *)versionCode data:(NSMutableArray *)arr{
+    [[self creatDataBaseQueue] inDatabase:^(FMDatabase *db) {
+        
+//        /**
+//         单个对象更新.
+//         支持keyPath.
+//         */
+//         NSString* where = [NSString stringWithFormat:@"where %@ or %@=%@",bg_keyPathValues(@[@"user.student.human.body",bg_equal,@"小芳"]),bg_sqlKey(@"age"),bg_sqlValue(@(31))];
+//          [p bg_updateWhere:where];
+//
+//        /**
+//         sql语句批量更新.
+//         */
+//          NSString* where = [NSString stringWithFormat:@"set %@=%@ where %@=%@",bg_sqlKey(@"name"),bg_sqlValue(@"马化腾"),bg_sqlKey(@"name"),bg_sqlValue(@"天朝")];
+//          [People bg_update:bg_tablename where:where];
+//
+//        /**
+//         直接写SQL语句操作
+//         */
+//        bg_executeSql(@"update yy set BG_name='标哥'", nil, nil);//更新或删除等操作时,后两个参数不必传入.
+        
+        NSString *sql = [self SQL:@"UPDATE '%@' SET data=? WHERE id=? and versionCode=? and cacheType=? " inTable:cacheType];
+        BOOL result=[db executeUpdate: sql,arr,identify,versionCode,cacheType];
+        if (result==YES) {
+            NSLog(@"suc");
+        }else{
+            NSLog(@"error");
+        }
+    }];
+}
+
+
+/**
  *插入数据
  */
 + (void)insertCacheDataByCacheType:(NSString *)cacheType Identify:(NSString *)identify   versionCode:(NSString *)versionCode data:(NSString *)json{

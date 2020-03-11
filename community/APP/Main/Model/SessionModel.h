@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *descriptions;  // = xxxxxxxxxx;
 @property (nonatomic,assign)NSInteger end_time;  //" = 0;
 @property (nonatomic,assign)NSInteger group_id;  //" = 7;
+@property (nonatomic,assign)NSInteger id;  //" = 7;
 @property (nonatomic,strong)NSString *idss;  // = 17;
 @property (nonatomic,strong)NSString *images;  // = "uploads/images/20190922/92ae8a166cdfa36920ada5a3ecb48fd9.jpg";
 @property (nonatomic,strong)NSString *logo;  // = 7;
