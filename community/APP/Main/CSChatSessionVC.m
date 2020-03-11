@@ -74,7 +74,7 @@
 //直到底部的按钮
 @property (nonatomic,strong)UIButton *bottomBtn;
 //底部的数量
-@property (nonatomic,strong)UILabel *coutLabel;
+@property (nonatomic,strong)UILabel *countLabel;
 
 @end
 
@@ -112,17 +112,29 @@
     /**
         查询标识名为testA的数组全部元素.
         */
-    NSArray* Array = [NSArray bg_arrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+    /**
+    同步查询所有数据.
+    */
+    NSArray* Array = [SessionModel bg_findAll:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+   
         NSLog(@"结果 = %@",Array);
     NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
     
     NSInteger looki = [defaults integerForKey:[@"Look" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];//根据键值取出name
 
     if (Array.count > 0) {
-        self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
-        self.dataArr = [[self.tempArr reverseObjectEnumerator]allObjects];
-        NSLog(@"第一条时间 = %ld",(long)self.dataArr[0].update_time);
-        NSLog(@"第后条时间 = %ld",(long)self.dataArr[self.dataArr.count-1].update_time);
+//        self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
+
+        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+        // 排序结果
+        [self.tempArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+        self.dataArr = self.tempArr;
+        
+        
+//        self.dataArr = [[Array reverseObjectEnumerator]allObjects];
+        NSLog(@"第一条 = %ld",(long)self.dataArr[0].id);
+        NSLog(@"第后条 = %ld",(long)self.dataArr[self.dataArr.count-1].id);
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -155,18 +167,18 @@
         make.right.equalTo(-15);
         make.bottom.equalTo(chatSend.top).offset(-15);
     }];
-    self.coutLabel = [UILabel labelWithTitle:@"0" font:13*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
-    [self.view addSubview:self.coutLabel];
-    [self.coutLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.countLabel = [UILabel labelWithTitle:@"0" font:13*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
+    [self.view addSubview:self.countLabel];
+    [self.countLabel makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.bottomBtn.top).offset(8);
         make.width.height.equalTo(28);
         make.centerX.equalTo(self.bottomBtn);
     }];
-    self.coutLabel.textAlignment = NSTextAlignmentCenter;
-    self.coutLabel.backgroundColor = [UIColor colorWithHexString:@"09c66a"];
-    self.coutLabel.layer.cornerRadius = 14;
-    self.coutLabel.layer.masksToBounds = YES;
-    self.coutLabel.hidden = YES;
+    self.countLabel.textAlignment = NSTextAlignmentCenter;
+    self.countLabel.backgroundColor = [UIColor colorWithHexString:@"09c66a"];
+    self.countLabel.layer.cornerRadius = 14;
+    self.countLabel.layer.masksToBounds = YES;
+    self.countLabel.hidden = YES;
     
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -202,50 +214,105 @@
         
         [wself.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
-    }
-    [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", NSIntegerMax] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
-        QMLog(@"详情的第一次请求re::%@",result[@"data"]);
-        if (state == AppRequestState_Success) {
-            wself.totalPage = [result[@"data"][@"last_page"] integerValue];
-            
-//            [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
-           
-            
-            if (Array.count == 0) {
-//                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
-//                NSArray *Array = [jsonCode  mj_JSONObject];
-                
-                
-                
-                wself.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
-                
-                [wself.tempArr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
-                
-                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-  
-
-                [wself.tableView reloadData];
-
-                [MBProgressHUD hideHUDForView:wself.view animated:YES];
-                if (wself.dataArr.count > 0) {
-                    [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                    
-
-                }
-            }
-            
-            
-        }else{
-            if (result[@"msg"]) {
-                [[MYToast makeText:result[@"msg"]]show];
-            }else{
-                [[MYToast makeText:@"请求错误，稍后再试"]show];
-            }
-            
-            [wself.navigationController popViewControllerAnimated:YES];
-        }
         
-    }];
+   
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"100" page:@"2" Block:^(AppRequestState state, id  _Nonnull result) {
+                    if (state == AppRequestState_Success) {
+                        NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                        NSLog(@"caca::%ld",arr.count);
+                        if (arr.count > 0){
+                            for (SessionModel *i in arr){
+                                i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
+                                                   }
+                                /**
+                                    同步 存储或更新 数组元素.
+                                当"唯一约束"或"主键"存在时，此接口会更,没有则存储新数据.
+                                    提示：“唯一约束”优先级高于"主键".
+                                */
+                           [SessionModel bg_saveOrUpdateArray:arr];
+//                              [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                            NSInteger count = arr.count;
+                            // 插入最前方
+                               NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
+                            arr = [[arr reverseObjectEnumerator]allObjects];
+                            [wself.tempArr insertObjects:arr atIndexes:indexes];
+                            wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+
+                            [wself.tableView reloadData];
+//                            [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+
+                            self.bottomBtn.hidden = NO;
+                            self.countLabel.hidden = NO;
+                            self.countLabel.text = [NSString stringWithFormat:@"%ld", arr.count];
+                        }
+
+
+                    }
+
+
+                }];
+        
+        
+    }else{
+         [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", NSIntegerMax] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+                QMLog(@"详情的第一次请求re::%@",result[@"data"]);
+                if (state == AppRequestState_Success) {
+                    wself.totalPage = [result[@"data"][@"last_page"] integerValue];
+                    
+        //            [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+                   
+                    
+                    if (Array.count == 0) {
+        //                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
+        //                NSArray *Array = [jsonCode  mj_JSONObject];
+                        
+                        
+                        
+                        wself.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                        
+                        
+                        for (SessionModel *i in wself.tempArr){
+                            i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
+                        }
+                        /**
+                        同步 存储或更新 数组元素.
+                        当"唯一约束"或"主键"存在时，此接口会更新旧数据,没有则存储新数据.
+                        提示：“唯一约束”优先级高于"主键".
+                        */
+                        [SessionModel bg_saveOrUpdateArray:wself.tempArr];
+                        
+//                        [wself.tempArr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                        
+                        wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+          
+
+                        [wself.tableView reloadData];
+
+                        [MBProgressHUD hideHUDForView:wself.view animated:YES];
+                        if (wself.dataArr.count > 0) {
+                            [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                            
+
+                        }
+                    }
+                    
+                    
+                }else{
+                    if (result[@"msg"]) {
+                        [[MYToast makeText:result[@"msg"]]show];
+                    }else{
+                        [[MYToast makeText:@"请求错误，稍后再试"]show];
+                    }
+                    
+                    [wself.navigationController popViewControllerAnimated:YES];
+                }
+                
+            }];
+    }
+    
+    
+    
+   
     
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     self.tableView.mj_header=header;
@@ -256,10 +323,10 @@
     
     
     
-//    MJRefreshAutoNormalFooter *footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
-//    self.tableView.mj_footer=footer;
-//    [footer setTitle:@"加载更多" forState:MJRefreshStateIdle];
-//    [footer setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
+    MJRefreshAutoNormalFooter *footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+    self.tableView.mj_footer=footer;
+    [footer setTitle:@"加载更多" forState:MJRefreshStateIdle];
+    [footer setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
     
 
     
@@ -319,9 +386,11 @@
     
 }
 
-
+//直达底部按钮
 -(void)toBottom:(UIButton *)sender{
-   
+    self.bottomBtn.hidden = YES;
+    self.countLabel.hidden = YES;
+   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 
@@ -420,23 +489,38 @@
     
     __weak typeof(self) wself = self;
 
-        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
-            [wself.tableView.mj_header endRefreshing];
+        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"10" page:@"2" Block:^(AppRequestState state, id  _Nonnull result) {
+            [wself.tableView.mj_footer endRefreshing];
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
 
                 NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
                 NSLog(@"caca::%ld",arr.count);
-                
-                [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
-                NSInteger count = wself.dataArr.count;
-                // 插入最前方
-                   NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
-                [wself.tempArr insertObjects:wself.dataArr atIndexes:indexes];
-                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-                
-                [wself.tableView reloadData];
-                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                if (arr.count > 0){
+                    for (SessionModel *i in arr){
+                                               i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
+                                           }
+                                           /**
+                                           同步 存储或更新 数组元素.
+                                           当"唯一约束"或"主键"存在时，此接口会更新旧数据,没有则存储新数据.
+                                           提示：“唯一约束”优先级高于"主键".
+                                           */
+                                           [SessionModel bg_saveOrUpdateArray:arr];
+                    
+                    // 插入最前方
+                                      NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
+                                   [wself.tempArr insertObjects:arr atIndexes:indexes];
+                                   wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+                                   
+                                   [wself.tableView reloadData];
+
+                }else{
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+              
+//                NSInteger count = wself.dataArr.count;
+               
+//                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
             }
             
             
@@ -456,30 +540,41 @@
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
  
-//                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
-//                [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
-//
-//                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
-//                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:[jsonCode mj_JSONObject]];
                 NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
                 NSLog(@"caca::%ld",arr.count);
                 if (arr.count > 0){
-                    [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                    for (SessionModel *i in arr){
+                                               i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
+                                           }
+                                           /**
+                                           同步 存储或更新 数组元素.
+                                           当"唯一约束"或"主键"存在时，此接口会更新旧数据,没有则存储新数据.
+                                           提示：“唯一约束”优先级高于"主键".
+                                           */
+                                           [SessionModel bg_saveOrUpdateArray:arr];
+//                    [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                    
+
+                NSInteger count = arr.count;
+              [wself.tempArr addObjectsFromArray:arr];
+//                    // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+//                          NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+//                          // 排序结果
+//                          wself.dataArr = [wself.tempArr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+                    
+                    
+                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+                                    
+                    //           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
+
+                                    
+                   [wself.tableView reloadData];
+                   [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                    
+                    
+                    
                 }
                 
-                NSInteger count = wself.dataArr.count;
-                [wself.tempArr addObjectsFromArray:arr];
-                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-                
-//           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
-
-                
-                
-                [wself.tableView reloadData];
-                
-               
-                
-                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
             }
             
             
@@ -569,7 +664,15 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         nowSection = indexPath.row;
     }
-//    NSLog(@"当前滑动到:%ld",nowSection);
+    //滑动到少于4个时就隐藏掉
+    if (nowSection >= self.dataArr.count - 4) {
+        self.bottomBtn.hidden = YES;
+        self.countLabel.hidden = YES;
+                                   
+    }
+    
+    NSLog(@"当前滑动到:%ld",nowSection);
+    NSLog(@"一共有:%ld",self.dataArr.count);
 }
 //视图将要消失
 - (void)viewWillDisappear:(BOOL)animated {

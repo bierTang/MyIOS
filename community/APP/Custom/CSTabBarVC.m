@@ -28,7 +28,7 @@
     [super viewDidLoad];
     NSArray *childItemsArray = @[
                                  @{kClassKey  : @"CSMainViewController",
-                                   kTitleKey  : @"群社区",
+                                   kTitleKey  : @"微群",
                                    kImgKey    : @"tab_home_hover",
                                    kSelImgKey : @"tab_home"},
                                                                   

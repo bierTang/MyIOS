@@ -259,10 +259,11 @@
             NSLog(@"刷新请求%@",result);
             if (result[@"list"]) {
                 NSMutableArray *arr = [LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]];
-                if (arr.count > 2) {
-                     [arr removeObjectAtIndex:0];
-                     [arr removeObjectAtIndex:0];
-                 }
+//                if (arr.count > 2) {
+//                     [arr removeObjectAtIndex:0];
+//                     [arr removeObjectAtIndex:0];
+//                 }
+//                
                  
                 [self.liveView reLoadCollectionView:arr];
             }

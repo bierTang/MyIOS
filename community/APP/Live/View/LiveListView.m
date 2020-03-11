@@ -131,8 +131,25 @@
     
 }
 -(void)reLoadCollectionView:(NSMutableArray *)arr{
- 
-    self.dataArr = arr;
+    NSMutableArray *a = arr;
+
+    for (int i = 0; i < arr.count; i++) {
+        LiveModel *l = arr[i];
+        if(l.userName){
+            if ([l.userName containsString:@"金花"] || [l.userName containsString:@"斗牛"]  || [l.userName containsString:@"娱乐"] || [l.userName containsString:@"赌场"]  || [l.userName containsString:@"牛牛"]) {
+                     [a removeObjectAtIndex:i];
+                 }
+        }
+           
+       }
+
+//    for (LiveModel * i in arr){
+//        
+//     
+//    }
+    
+    
+    self.dataArr = a;
     [self.collectionView reloadData];
 }
 
