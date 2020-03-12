@@ -25,7 +25,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

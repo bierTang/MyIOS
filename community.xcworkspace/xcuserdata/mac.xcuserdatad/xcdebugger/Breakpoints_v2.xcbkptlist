@@ -34,182 +34,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A57E679D-BDCA-4461-B590-07B37DADF007"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "community/API/AppRequest/AppRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "-AFPostRequestWithUrl:params:callback:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A57E679D-BDCA-4461-B590-07B37DADF007 - 9e6612a51a205097"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AppRequest AFPostRequestWithUrl:params:callback:]"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "180"
-                  endingLineNumber = "180"
-                  offsetFromSymbolStart = "493">
-               </Location>
-               <Location
-                  uuid = "A57E679D-BDCA-4461-B590-07B37DADF007 - 49517cbebfe06201"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__51-[AppRequest AFPostRequestWithUrl:params:callback:]_block_invoke"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "182"
-                  endingLineNumber = "182"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "51EB43BC-9B66-47CB-80C4-A8D665DA5F7A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "community/API/AppRequest/AppRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "-AFPostRequestWithUrl:params:callback:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "51EB43BC-9B66-47CB-80C4-A8D665DA5F7A - ec8c42cd591df772"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__51-[AppRequest AFPostRequestWithUrl:params:callback:]_block_invoke_2"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "133">
-               </Location>
-               <Location
-                  uuid = "51EB43BC-9B66-47CB-80C4-A8D665DA5F7A - ec8c42cd591df7b5"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__51-[AppRequest AFPostRequestWithUrl:params:callback:]_block_invoke_3"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D7A95984-E342-434E-8494-7C054F4698C3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "community/API/AppRequest/AppRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "-AFPostRequestWithUrl:params:callback:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7310E844-9AC1-4F69-9338-78F1507DF68E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "community/API/AppRequest/AppRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "-AFPostRequestWithUrl:params:callback:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7310E844-9AC1-4F69-9338-78F1507DF68E - ec8c42cd591df7f4"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__51-[AppRequest AFPostRequestWithUrl:params:callback:]_block_invoke_4"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "190"
-                  endingLineNumber = "190"
-                  offsetFromSymbolStart = "139">
-               </Location>
-               <Location
-                  uuid = "7310E844-9AC1-4F69-9338-78F1507DF68E - ec8c42cd591df637"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__51-[AppRequest AFPostRequestWithUrl:params:callback:]_block_invoke_5"
-                  moduleName = "&#x5fae;&#x7fa4;&#x793e;&#x533a;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/WorkCode/community/community/API/AppRequest/AppRequest.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "190"
-                  endingLineNumber = "190"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "510B7C24-B9B3-4189-BF76-B8F3A2BB56CA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "community/API/AppRequest/AppRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "-AFPostRequestWithUrl:params:callback:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1F4A8AE4-7CA4-4BDD-B246-9E240BE7144F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -217,8 +41,8 @@
             filePath = "community/APP/Live/VC/LivePlayVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "-handlePlayerNotify:"
             landmarkType = "7">
          </BreakpointContent>
@@ -233,8 +57,8 @@
             filePath = "community/APP/Live/VC/LivePlayVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-handleTimer"
             landmarkType = "7">
          </BreakpointContent>
@@ -300,6 +124,54 @@
             startingLineNumber = "225"
             endingLineNumber = "225"
             landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA65A946-764D-4FBB-A3CF-8A6260353B9F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "community/APP/Swift/TableLib/LTPageTitleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "glt_setupScrollToIndex(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D2943E0-13D5-461B-8921-798D3DB2AA0D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "community/APP/Swift/TableLib/LTPageTitleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "glt_setupScrollToIndex(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DDE734EB-EFA0-4F73-BFAA-545080DEF847"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "community/APP/Swift/TableLib/LTPageTitleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
+            landmarkName = "setupSliderLineViewWidth(currentButton:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

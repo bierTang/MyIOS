@@ -9,7 +9,7 @@
 #import "AppRequest.h"
 #import "WHNetWork.h"
 
-static float const TIMEOUT = 30;
+static float const TIMEOUT = 10;
 
 
 @interface AppRequest()
@@ -101,7 +101,12 @@ static AppRequest *appRequestInstance = nil;
  *  @param callback 回调方法
  *  @param method  请求方法参数 post get upload等
  */
-- (void)doRequestWithUrl:(NSString *)url Params:(id)params  Callback:(HttpCallBack)callback HttpMethod:(AppRequestHttpMethod)method{
+- (void)doRequestWithUrl:(NSString *)url Params:(id)params  Callback:(HttpCallBack)callback HttpMethod:(AppRequestHttpMethod)method isAni:(BOOL) ani{
+    
+  
+    
+    
+    
     NSString *weburl = [CSCaches shareInstance].webUrl;
     if (weburl.length < 5) {
         weburl = mainHost;
@@ -114,24 +119,60 @@ static AppRequest *appRequestInstance = nil;
     if (![WHNetWork networkEnable]) {
         [[MYToast makeText:@"请求失败,请检查网络连接"] show];
         callback(NO,nil);
+        
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
+            });
+        
+        
+        
+        
         return;
     }
+    
+    if (ani) {
+    // 3.GCD
+         dispatch_async(dispatch_get_main_queue(), ^{
+          [MBProgressHUD showHUDAddedTo:[self getCurrentVC].view animated:YES];
+         });
+      }
+    
     url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     if (method == AppRequestGet) {
         [self AFGetRequestWithUrl:url params:(NSString *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            // 3.GCD
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                   [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
+                  });
+//
         }];
     } else if(method == AppRequestPost) {
         [self AFPostRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+// 3.GCD
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                  [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
+                 });
         }];
     }else if(method == AppRequestPUT) {
         [self AFPUTRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            // 3.GCD
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                              [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
+                             });
+//             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else if(method == AppRequestDELETE) {
         [self AFDELETERequestWithUrl:url params:(id)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            // 3.GCD
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                              [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
+                             });
+//             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else{
         
@@ -274,6 +315,9 @@ static AppRequest *appRequestInstance = nil;
     NSInteger code = -1;
     NSString * message;
     if (error) {
+        
+    
+        
         code = error.code;
         switch (code) {
             case NSURLErrorNotConnectedToInternet:
@@ -338,6 +382,34 @@ static AppRequest *appRequestInstance = nil;
     
 }
 
+//获取当前视图
+- (UIViewController *)getCurrentVC {
+    UIViewController *result = nil;
 
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal) {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for (UIWindow *temp in windows) {
+            if (temp.windowLevel == UIWindowLevelNormal) {
+                window = temp;
+                break;
+            }
+        }
+    }
+    //取当前展示的控制器
+    result = window.rootViewController;
+    while (result.presentedViewController) {
+        result = result.presentedViewController;
+    }
+    //如果为UITabBarController：取选中控制器
+    if ([result isKindOfClass:[UITabBarController class]]) {
+        result = [(UITabBarController *)result selectedViewController];
+    }
+    //如果为UINavigationController：取可视控制器
+    if ([result isKindOfClass:[UINavigationController class]]) {
+        result = [(UINavigationController *)result visibleViewController];
+    }
+    return result;
+}
 
 @end

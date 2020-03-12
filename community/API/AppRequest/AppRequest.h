@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param method  请求方法参数 post get upload等
  */
 
-- (void)doRequestWithUrl:(NSString *)url Params:(id)params Callback:(HttpCallBack)callback HttpMethod:(AppRequestHttpMethod)method;
+- (void)doRequestWithUrl:(NSString *)url Params:(id)params Callback:(HttpCallBack)callback HttpMethod:(AppRequestHttpMethod)method isAni:(BOOL) ani;
 
 
 /**获取请求状态

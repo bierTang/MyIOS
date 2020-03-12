@@ -74,7 +74,7 @@
 //    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/user/login" Params:param Callback:^(BOOL isSuccess, id result) {
 //        NSLog(@"登录：：%@",result);
 //
-//    } HttpMethod:AppRequestPost];
+//    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 @end

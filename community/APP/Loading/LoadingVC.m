@@ -119,7 +119,7 @@
         [mbHud hideAnimated:YES];
         [[CSCaches shareInstance]saveUserDefalt:@"isFirstLogin" value:@"yes"];
 
-    } HttpMethod:AppRequestGet];
+    } HttpMethod:AppRequestGet isAni:YES];
     
 }
 -(void)goAdsLink{

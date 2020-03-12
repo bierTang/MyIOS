@@ -28,7 +28,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -48,7 +48,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -66,7 +66,7 @@
 //        }
 //
 //
-//    } HttpMethod:AppRequestPost];
+//    } HttpMethod:AppRequestPost isAni:YES];
 //}
 
 -(void)requestSessionID:(NSString *)roomId messId:(NSString *)messId current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack{
@@ -82,7 +82,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///
@@ -98,7 +98,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///单次金币进群
@@ -114,7 +114,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -131,7 +131,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -148,7 +148,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

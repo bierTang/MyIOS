@@ -57,7 +57,7 @@
             [wself.collectionView reloadData];
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
     
     if (self.isMyAttention) {
         self.nodataView = [[NoDataView alloc]initWithTitle:@"暂未添加关注"];

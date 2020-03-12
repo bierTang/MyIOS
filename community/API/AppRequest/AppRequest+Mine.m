@@ -23,7 +23,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 ///我的收藏
 -(void)requestMycollectId:(NSString *)userId page:(NSString *)page current:(NSString *)current Block:(void(^)(AppRequestState state,id result))callBack{
@@ -39,7 +39,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///修改头像
@@ -53,7 +53,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -75,7 +75,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 
@@ -94,7 +94,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///删除我的发布
@@ -110,7 +110,7 @@
         }
         NSLog(@"删除：：%@--%@",result,result[@"msg"]);
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 ///删除我的收藏
 -(void)requestDeleteMyCollectById:(NSString *)colId Block:(void(^)(AppRequestState state,id result))callBack{
@@ -125,7 +125,7 @@
         }
         NSLog(@"删除收藏：：%@--%@",result,result[@"msg"]);
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -144,7 +144,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///会员卡列表
@@ -158,7 +158,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -173,7 +173,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -188,7 +188,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///购买会员
@@ -205,7 +205,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///购买记录
@@ -223,7 +223,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///邀请记录
@@ -240,7 +240,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -258,7 +258,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

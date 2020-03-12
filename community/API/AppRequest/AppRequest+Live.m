@@ -24,7 +24,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 //直播频道列表
@@ -48,7 +48,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet];
+    } HttpMethod:AppRequestGet isAni:YES];
 }
 
 ///http://112.5.37.244:81/cs.php?name=youlemei
@@ -77,7 +77,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet];
+    } HttpMethod:AppRequestGet isAni:YES];
 }
 
 
@@ -107,7 +107,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet];
+    } HttpMethod:AppRequestGet isAni:YES];
 }
 
 

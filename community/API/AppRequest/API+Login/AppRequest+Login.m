@@ -39,7 +39,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 -(void)requestRegister:(NSDictionary *)param Block:(void(^)(AppRequestState state,id result))callBack{
@@ -61,7 +61,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

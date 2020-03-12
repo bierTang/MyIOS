@@ -95,7 +95,7 @@
         AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
         
         callBack(state,result);
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

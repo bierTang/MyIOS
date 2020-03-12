@@ -182,7 +182,7 @@
     
     [[AppRequest sharedInstance]doRequestWithUrl:self.requstStr Params:@{@"user_id":[UserTools userID],@"post_id":self.postId} Callback:^(BOOL isSuccess, id result) {
         NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
     
     self.model.is_favorite = sender.isSelected;
     if (sender.isSelected) {
@@ -211,7 +211,7 @@
     
     [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.postId} Callback:^(BOOL isSuccess, id result) {
         NSLog(@"点赞：：%@",result);
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
     
 }
 

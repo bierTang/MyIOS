@@ -605,7 +605,7 @@
 		50C665DF237BE74E0042277D /* WebServeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServeVC.h; sourceTree = "<group>"; };
 		50C665E0237BE74E0042277D /* WebServeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebServeVC.m; sourceTree = "<group>"; };
 		50C665E2237C06160042277D /* CSShareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSShareVC.h; sourceTree = "<group>"; };
-		50C665E3237C06160042277D /* CSShareVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSShareVC.m; sourceTree = "<group>"; };
+		50C665E3237C06160042277D /* CSShareVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSShareVC.m; sourceTree = "<group>"; wrapsLines = 0; };
 		50C665E5237C1B180042277D /* shareBgImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareBgImg.png; sourceTree = "<group>"; };
 		50C665E7237C1F1A0042277D /* white_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_close.png; sourceTree = "<group>"; };
 		50CBD222236A7DFB00D296C2 /* LoginOutCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginOutCell.h; sourceTree = "<group>"; };

@@ -133,7 +133,7 @@
             }
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 -(void)Headerfresh{
@@ -166,7 +166,7 @@
                 [[MYToast makeText:@"网络请求失败"]show];
             }
             
-        } HttpMethod:AppRequestPost];
+        } HttpMethod:AppRequestPost isAni:YES];
     }else{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.tableview.mj_footer endRefreshingWithNoMoreData];
@@ -284,7 +284,7 @@
             //
             NSLog(@"关注：%@--%@",result,result[@"msg"]);
         }
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 

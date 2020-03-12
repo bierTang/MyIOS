@@ -58,7 +58,7 @@
                 wself.contentLab.text = @"请求出错，请稍后再试";
             }
         }
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
     
 
 }

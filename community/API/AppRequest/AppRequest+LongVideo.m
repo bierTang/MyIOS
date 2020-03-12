@@ -26,7 +26,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -45,7 +45,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 ///观看视频
@@ -63,7 +63,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 
@@ -82,7 +82,7 @@
             callBack(AppRequestState_Fail,result);
         }
         
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 }
 
 @end

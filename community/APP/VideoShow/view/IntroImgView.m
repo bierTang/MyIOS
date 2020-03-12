@@ -133,7 +133,7 @@
     for (int i=0; i<model.images_array.count; i++) {
 //        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] placeholderImage:[UIImage imageNamed:@"videoOccupIcon"]];
         
-        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] placeholderImage:[UIImage imageNamed:@"postImage_hoverIcon"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             self.ImagesArr[i].userInteractionEnabled = YES;
         }];
         self.ImagesArr[i].hidden = NO;

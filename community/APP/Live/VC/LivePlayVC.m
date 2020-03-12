@@ -57,6 +57,8 @@
     [[AppRequest sharedInstance]requestADSforType:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"直播广告：：%@",result[@"code"]);
         if (state == AppRequestState_Success) {
+             [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+            
             wself.adsArr = [AdsModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             if (wself.adsArr.count > 1) {
                 wself.adImage1 = [[UIImageView alloc]init];

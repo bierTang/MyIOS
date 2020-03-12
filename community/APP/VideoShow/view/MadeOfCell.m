@@ -173,7 +173,7 @@
 -(void)refreshData:(VideoModel *)model{
     self.model = model;
     
-    self.nameLab.text = model.user_name;
+    self.nameLab.text = model.nick_name;
     [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
     if (model.img_h > model.img_w) {
         CGFloat sj_w = 0;
@@ -240,7 +240,7 @@
 //
     [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_favorite" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
         NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 
     self.model.is_favorite = sender.isSelected;
     if (sender.isSelected) {
@@ -269,7 +269,7 @@
 
     [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
         NSLog(@"点赞：：%@",result);
-    } HttpMethod:AppRequestPost];
+    } HttpMethod:AppRequestPost isAni:YES];
 
 }
 
