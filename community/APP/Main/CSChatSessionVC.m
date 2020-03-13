@@ -792,10 +792,21 @@
             if ([data intValue]==200) {
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }else{
+                
+                
+                
+                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+                
                 ShowGifVC *vc = [[ShowGifVC alloc]init];
                 vc.gifString = self.dataArr[indexPath.row].content;
                 vc.gifid = self.dataArr[indexPath.row].idss;
                 [wself.navigationController pushViewController:vc animated:YES];
+                }else if([UserTools isLogin]){
+                    NSLog(@"消耗金币");
+                    [wself useCoinPlay];
+                }else{
+                    [HelpTools jianquan:self];
+                }
             }
             
         };
@@ -819,6 +830,10 @@
                          
         
         cell.backBlock = ^(id  _Nonnull data) {
+            
+            
+             if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+            
   //添加图片数据集合
              NSMutableArray *datass = [NSMutableArray array];
             //图片地址集合
@@ -865,6 +880,13 @@
                                   
                               }
                               
+             }else if([UserTools isLogin]){
+                 NSLog(@"消耗金币");
+                 [wself useCoinPlay];
+             }else{
+                 [HelpTools jianquan:self];
+             }
+            
             
         };
         
@@ -879,6 +901,9 @@
         [cell refreshVoice:self.dataArr[indexPath.row]];
         __weak typeof(self) wself = self;
         cell.voicePlayBlock = ^(id  _Nonnull data) {
+            
+             if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+            
             UIButton *btn = data;
             if (btn.isSelected) {
                 
@@ -900,6 +925,12 @@
                 wself.saveIndexPath = nil;
                 [wself.audioPlayer pause];
             }
+        }else if([UserTools isLogin]){
+            NSLog(@"消耗金币");
+            [wself useCoinPlay];
+        }else{
+            [HelpTools jianquan:self];
+        }
         };
         cell.sliderBlock = ^(NSInteger current) {
             [wself.audioPlayer seekToTime:current];

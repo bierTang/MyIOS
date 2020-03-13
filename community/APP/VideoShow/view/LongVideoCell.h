@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "微群社区-Swift.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LongVideoCell : UITableViewCell
@@ -21,12 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)UIView *videoBgView;
 
+
 @property (nonatomic,copy) void (^backBlock)(NSInteger type);
 
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
 -(void)refreshData:(VideoModel *)model;
+
+@property (nonatomic,strong)NoVipView *noVipView;
 
 
 

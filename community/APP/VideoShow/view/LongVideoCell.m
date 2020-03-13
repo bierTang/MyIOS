@@ -8,6 +8,7 @@
 
 #import "LongVideoCell.h"
 
+
 @implementation LongVideoCell
 
 - (void)awakeFromNib {
@@ -129,12 +130,26 @@
         make.bottom.equalTo(self.contentView.bottom);
     }];
     
+    self.noVipView = [[ NoVipView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210*K_SCALE)];
+    [self.contentView addSubview:self.noVipView];
+    self.noVipView.hidden = YES;
+    [self.noVipView makeConstraints:^(MASConstraintMaker *make) {
+           make.left.equalTo(0);
+           make.right.equalTo(0);
+           make.top.equalTo(self.titleLab.bottom);
+           make.height.equalTo(210*K_SCALE);
+       }];
+    self.noVipView.bt1.tag = 3;
+    [self.noVipView.bt1 addTarget:self action:@selector(handleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.noVipView.bt2.tag = 4;
+    [self.noVipView.bt2 addTarget:self action:@selector(handleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 -(void)refreshData:(VideoModel *)model{
     [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
     
-    
+    self.noVipView.hidden = YES;
     
     if (model.img_h > model.img_w) {
         CGFloat sj_w = 0;

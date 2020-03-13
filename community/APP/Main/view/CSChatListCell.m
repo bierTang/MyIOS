@@ -115,7 +115,7 @@
 -(void)refreshCell:(ChatListModel *)model{
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@" ,mainHost,model.path]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.nameLab.text = model.name;
-    self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
+    self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];
     
     
     NSArray *arr = @[@"图片",@"视频",@"文字",@"未知类型",@"未知类型",@"未知类型",@""];

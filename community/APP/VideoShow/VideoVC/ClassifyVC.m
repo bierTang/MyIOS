@@ -11,18 +11,18 @@
 #import "ADsCell.h"
 #import "YLLoopScrollView.h"
 #import "YLCustomView.h"
-
+#import "CSShareVC.h"
 @interface ClassifyVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong)UITableView *tableview;
 @property (nonatomic,strong)NSMutableArray<VideoModel *> *dataArr;
 
-@property (nonatomic,strong)SJVideoPlayer *videoPlayer;
+
 @property (nonatomic,strong)YLLoopScrollView *ylScrollview;
 
 @property (nonatomic,assign)NSInteger currentPage;
 @property (nonatomic,assign)NSInteger totalPage;
-@property (nonatomic,strong)CSTimerManager *timerManager;
+
 @property (nonatomic,copy)NSIndexPath *optionIndexPath;
 
 @end
@@ -188,8 +188,34 @@
     }else{
     MadeOfCell *cell = [[MadeOfCell alloc]cellInitWith:tableView Indexpath:indexPath];
     
-    cell.videoBlock = ^(id  _Nonnull data) {
+    cell.videoBlock = ^(NSInteger type) {
         NSLog(@"视频播放：：%@",wself.dataArr[indexPath.row].file_url);
+        if (type == 3) {
+            //充值
+            if (![UserTools isLogin]) {
+                 [[MYToast makeText:@"请先登录"]show];
+                return ;
+            }
+            ///代理版本
+                   if ([UserTools isAgentVersion]) {
+                       KamiPayController *vc = [[ KamiPayController alloc]init];
+                       [self.navigationController pushViewController:vc animated:YES];
+                       
+                   }else{
+                       //官方版本
+                       CSMallVC *vc = [[CSMallVC alloc]init];
+                       [self.navigationController pushViewController:vc animated:YES];
+                   }
+        }if (type == 4) {
+            //分享
+            if (![UserTools isLogin]) {
+                 [[MYToast makeText:@"请先登录"]show];
+                return ;
+            }
+            CSShareVC *vc = [[CSShareVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            
         
 //        SJPlayModel *playModel =
 //          [SJPlayModel UITableViewCellPlayModelWithPlayerSuperviewTag:indexPath.row+100 atIndexPath:indexPath tableView:self.tableview];
@@ -240,6 +266,7 @@
                 NSLog(@"观看了视频");
             }];
         }
+            }
           // 设置资源
         //asset;
        
@@ -281,8 +308,10 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.videoPlayer stop];
-    self.videoPlayer = nil;
+   if (self.videoPlayer) {
+        [self.videoPlayer stop];
+        self.videoPlayer = nil;
+    }
     [self.timerManager pq_close];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

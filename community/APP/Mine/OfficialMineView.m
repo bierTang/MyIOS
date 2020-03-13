@@ -38,8 +38,8 @@
 -(void)loadDataArr{
     ////数据源设置
     NSMutableArray *arr1 = [NSMutableArray new];
-    NSArray *nameArr1 = @[@"我的关注",@"我的收藏",@"观影记录",@"到期时间",@"清理缓存"];         //,@"我的缓存"
-    NSArray *iconArr1 = @[@"myattention",@"mycollectIcon",@"myPostIcon",@"timelimit",@"mydownload"];
+    NSArray *nameArr1 = @[@"到期时间",@"我的金币",@"交易记录",@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];         //,@"我的缓存"
+    NSArray *iconArr1 = @[@"timelimit",@"mycoin_icon",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
     NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
     NSString *attention_num = @"0";
     if ([[[CSCaches shareInstance]getUserModel:USERMODEL].attention_num intValue] > 0) {
@@ -55,7 +55,7 @@
 //        dis_num = [[CSCaches shareInstance]getUserModel:USERMODEL].discover_num;
     }
     
-    NSArray *subtitle1 = @[attention_num,favorite,dis_num,expireTime,@""];
+    NSArray *subtitle1 = @[expireTime,[NSString stringWithFormat:@"%ld",(long)[UserTools userBlance]],@"",attention_num,favorite,dis_num,@""];
     for (int i = 0; i<nameArr1.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr1[i];
@@ -65,9 +65,9 @@
     }
     
     NSMutableArray *arr2 = [NSMutableArray new];
-    NSArray *nameArr2 = @[@"我的金币",@"购买商城",@"交易记录"];
-    NSArray *iconArr2 = @[@"mycoin_icon",@"mall_icon",@"record_icon"];
-    NSArray *subtitle2 = @[[NSString stringWithFormat:@"%ld",[UserTools userBlance]],@"",@""];
+    NSArray *nameArr2 = @[@"我的金币",@"交易记录"];
+    NSArray *iconArr2 = @[@"mycoin_icon",@"record_icon"];
+    NSArray *subtitle2 = @[[NSString stringWithFormat:@"%ld",(long)[UserTools userBlance]],@"",@""];
     
     for (int i = 0; i<nameArr2.count; i++) {
         SetModel *model = [SetModel new];
@@ -78,8 +78,8 @@
     }
     
     NSMutableArray *arr3 = [NSMutableArray new];
-    NSArray *nameArr3 = @[@"官方客服",@"分享推广"];
-    NSArray *iconArr3 = @[@"serviceIcon",@"share_icon"];
+    NSArray *nameArr3 = @[@"官方客服"];
+    NSArray *iconArr3 = @[@"serviceIcon"];
     for (int i = 0; i<nameArr3.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr3[i];
@@ -89,9 +89,9 @@
     
     
     if ([UserTools isLogin]) {
-        self.dataArr = @[@[@" "],arr1,arr2,arr3,@[@" "]];
+        self.dataArr = @[@[@" "],arr1,arr3,@[@" "]];
     }else{
-        self.dataArr = @[@[@" "],arr1,arr2,arr3];
+        self.dataArr = @[@[@" "],arr1,arr3];
     }
 }
 
@@ -104,9 +104,9 @@
     return [self.dataArr[section] count];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 1) {
-        return 70;
-    }else
+//    if (section == 1) {
+//        return 70;
+//    }else
     return 9;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -115,21 +115,21 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    if (section == 1) {
-        UIView *headView = [[UIView alloc]init];
-        headView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
-        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 70)];
-        image.image = [UIImage imageNamed:@"share_banner"];
-        [headView addSubview:image];
-        image.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapShareImage)];
-        [image addGestureRecognizer:tap];
-        return headView;
-    }else{
+//    if (section == 1) {
+//        UIView *headView = [[UIView alloc]init];
+//        headView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
+//        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH-32, 70)];
+//        image.image = [UIImage imageNamed:@"share_banner"];
+//        [headView addSubview:image];
+//        image.userInteractionEnabled = YES;
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapShareImage)];
+//        [image addGestureRecognizer:tap];
+//        return headView;
+//    }else{
         UIView *headView = [[UIView alloc]init];
         headView.backgroundColor = [UIColor colorWithHexString:@"ededed"];
         return headView;
-    }
+//    }
 }
 -(void)tapShareImage{
     if (self.cellBlock) {
@@ -144,7 +144,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 150;
+        return 210;
     }else{
         return 55;
     }
@@ -154,12 +154,13 @@
     if (indexPath.section == 0 ) {
         CSMineHeaderCell *cell = [[CSMineHeaderCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        [cell.iconBtn1 addTarget:self action:@selector(handleBtnCliecked1:) forControlEvents:UIControlEventTouchUpInside];
+               [cell.iconBtn2 addTarget:self action:@selector(handleBtnCliecked2:) forControlEvents:UIControlEventTouchUpInside];
         [cell refreshInfo:[[CSCaches shareInstance]getUserModel:USERMODEL]];
         return cell;
     }else{
         
-        if (indexPath.section == 4) {
+        if (indexPath.section == 3) {
             LoginOutCell *cell = [[LoginOutCell alloc]cellInitWith:tableView Indexpath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -189,5 +190,12 @@
     [self.tableview reloadData];
 }
 
-
+-(void)handleBtnCliecked1:(UIButton *)sender{
+   [[NSNotificationCenter defaultCenter]postNotificationName:@"myViewbt1" object:nil];
+  
+}
+-(void)handleBtnCliecked2:(UIButton *)sender{
+  
+ [[NSNotificationCenter defaultCenter]postNotificationName:@"myViewbt2" object:nil];
+}
 @end

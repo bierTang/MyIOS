@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ClassifyVC : UIViewController
 
 @property (nonatomic,strong)NSString *type;
-
+@property (nonatomic,strong)SJVideoPlayer *videoPlayer;
+@property (nonatomic,strong)CSTimerManager *timerManager;
 @end
 
 NS_ASSUME_NONNULL_END

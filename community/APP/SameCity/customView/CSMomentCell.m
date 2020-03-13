@@ -279,7 +279,7 @@
         }];
     }
     
-    self.nameLab.text = model.user_name;
+    self.nameLab.text = model.nick_name;
     
     
     if (model.avatar.length > 5) {

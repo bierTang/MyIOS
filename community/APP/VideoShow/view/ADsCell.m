@@ -107,7 +107,7 @@
     
 }
 -(void)refreshData:(VideoModel *)model{
-    self.nameLab.text = model.user_name;
+    self.nameLab.text = model.nick_name;
     
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];

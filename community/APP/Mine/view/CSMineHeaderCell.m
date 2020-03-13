@@ -160,8 +160,18 @@
         make.height.equalTo(21);
     }];
     if (![UserTools isAgentVersion]) {
-        self.iconBtn1.hidden = YES;
-        self.iconBtn2.hidden = YES;
+//        self.iconBtn1.hidden = YES;
+//        self.iconBtn2.hidden = YES;
+        label1.text = @"分享无限看";
+        label2.text = @"购买商城";
+        label11.text = @"分享";
+        label22.text = @"购买";
+        
+    }else{
+        label1.text = @"卡密激活";
+        label2.text = @"卡密购买";
+        label11.text = @"激活";
+        label22.text = @"购买";
     }
     
     UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right"]];

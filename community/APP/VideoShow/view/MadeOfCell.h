@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "微群社区-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,11 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *collectBtn;
 @property(nonatomic,strong)UIButton *praiseBtn;
 
-@property (nonatomic,copy) void (^videoBlock)(id data);
+@property (nonatomic,copy) void (^videoBlock)(NSInteger type);
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
 -(void)refreshData:(VideoModel *)model;
+@property (nonatomic,strong)NoVipView *noVipView;
 
 
 @end

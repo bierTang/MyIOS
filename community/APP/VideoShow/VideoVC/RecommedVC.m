@@ -13,6 +13,9 @@
 #import "IntroImgView.h"
 //#import "VideoPlayView.h"
 #import "ADsCell.h"
+#import "CSShareVC.h"
+
+#import "微群社区-Swift.h"
 @interface RecommedVC ()<UITableViewDelegate,UITableViewDataSource>
 
 //@property (nonatomic,strong)UIScrollView *bgScrollView;
@@ -25,14 +28,14 @@
 
 @property (nonatomic,strong)IntroImgView *introImgview;
 //@property (nonatomic,strong)VideoPlayView *videoView;
-@property (nonatomic,strong)SJVideoPlayer *videoPlayer;
+
 
 @property (nonatomic,assign)NSInteger currentPage;
 @property (nonatomic,assign)NSInteger totalPage;
 
 @property (nonatomic,assign)CGFloat adsHeight;
 
-@property (nonatomic,strong)CSTimerManager *timerManager;
+
 
 @property (nonatomic,copy)NSIndexPath *optionIndexPath;
 
@@ -48,6 +51,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     self.adsHeight = 0*K_SCALE;
     if (self.type.integerValue == 1888) {
         self.adsHeight = 0;
@@ -220,7 +226,7 @@
                 //看缩略图
                 self.introImgview.hidden = NO;
                 [self.introImgview setIntroData:self.dataArr[indexPath.row]];
-            }else{
+            }else if (type == 1){
                 //            self.videoView.hidden = NO;
                 //            [self.videoView playVideo:self.dataArr[indexPath.row].video_url];
                 NSLog(@"看视频：：%@",self.dataArr[indexPath.row].video_url);
@@ -247,7 +253,9 @@
                                 [wself.videoPlayer rotate:SJOrientation_Portrait animated:NO];
                                 [wself.videoPlayer stop];
                                 wself.videoPlayer = nil;
-                                [[MYToast makeText:@"试看结束，请先开通会员"]show];
+//                                [[MYToast makeText:@"试看结束，请先开通会员"]show];
+                                cell.noVipView.hidden = NO;
+
                             });
                             
                         }
@@ -258,6 +266,30 @@
                         NSLog(@"观看了视频");
                     }];
                 }
+            }if (type == 3) {
+                //充值
+                if (![UserTools isLogin]) {
+                     [[MYToast makeText:@"请先登录"]show];
+                    return ;
+                }
+                ///代理版本
+                       if ([UserTools isAgentVersion]) {
+                           KamiPayController *vc = [[ KamiPayController alloc]init];
+                           [self.navigationController pushViewController:vc animated:YES];
+                           
+                       }else{
+                           //官方版本
+                           CSMallVC *vc = [[CSMallVC alloc]init];
+                           [self.navigationController pushViewController:vc animated:YES];
+                       }
+            }if (type == 4) {
+                //分享
+                if (![UserTools isLogin]) {
+                     [[MYToast makeText:@"请先登录"]show];
+                    return ;
+                }
+                CSShareVC *vc = [[CSShareVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
         };
 //        if (self.videoPlayer) {
@@ -269,16 +301,25 @@
     }
 }
 
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    if (self.videoPlayer) {
-        [self.videoPlayer stop];
-        self.videoPlayer = nil;
-    }
-    [self.timerManager pq_close];
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"%s",__func__);
+    [super viewDidAppear:animated];
+   [self stopVideoPlay];
 //    [self.videoView closeView:nil];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    NSLog(@"%s",__func__);
+    [super viewWillDisappear:animated];
+   [self stopVideoPlay];
+//    [self.videoView closeView:nil];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    NSLog(@"%s",__func__);
+    [self stopVideoPlay];
+}
+
 
 //-(VideoPlayView *)videoView{
 //    if (!_videoView) {

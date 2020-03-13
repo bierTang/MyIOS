@@ -24,6 +24,9 @@
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) UIButton *addBtn;
 @property (nonatomic,strong)NSArray <VideoModel *> *titleArr;
+
+@property (nonatomic, strong) LTLayout *layout;
+@property (nonatomic, strong) LTPageView *pageView;
 @end
 
 @implementation CSLongVideoVC
@@ -47,7 +50,7 @@
     }];
     
 }
-
+NSInteger onCount = 0;
 
 -(void)initSegTitle{
     NSMutableArray *titlearr = [NSMutableArray new];
@@ -120,24 +123,51 @@
 //    [self.viewArray insertObject:classVC atIndex:1];
     
     
-     LTLayout *layout =  [[ LTLayout alloc]init];
-        layout.bottomLineColor = [UIColor colorWithHexString:@"09c66a"];
-        layout.titleColor = [UIColor colorWithHexString:@"161616"];
-        layout.titleSelectColor = [UIColor colorWithHexString:@"09c66a"];
-        layout.titleViewBgColor = [UIColor clearColor];
-        layout.titleMargin = 20.0;
+        self.layout =  [[ LTLayout alloc]init];
+        self.layout.bottomLineColor = [UIColor colorWithHexString:@"09c66a"];
+        self.layout.titleColor = [UIColor colorWithHexString:@"161616"];
+        self.layout.titleSelectColor = [UIColor colorWithHexString:@"09c66a"];
+        self.layout.titleViewBgColor = [UIColor clearColor];
+        self.layout.titleMargin = 20.0;
     
         if ([UserTools isAgentVersion]) {
-            layout.allSliderWidth = SCREEN_WIDTH;
+            self.layout.allSliderWidth = SCREEN_WIDTH;
         }else{
-            layout.allSliderWidth = SCREEN_WIDTH - 50;
+            self.layout.allSliderWidth = SCREEN_WIDTH - 50;
         }
     
         
       
-        LTPageView *pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight  - NoneTitleSpaceHight) currentViewController:self viewControllers:self.viewArray titles:titlearr layout:layout titleView:NULL];
-    pageView.isClickScrollAnimation = YES;
-    [self.view addSubview:pageView];
+        self.pageView =  [[ LTPageView alloc]initWithFrame:CGRectMake(0, ItemSpaceHight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight  - NoneTitleSpaceHight) currentViewController:self viewControllers:self.viewArray titles:titlearr layout:self.layout titleView:NULL];
+    self.pageView.isClickScrollAnimation = YES;
+    [self.view addSubview:self.pageView];
+
+    self.pageView.didSelectIndexBlock = ^(LTPageView * _Nonnull l, NSInteger i) {
+        if (onCount == 1) {
+            ClassifyVC * cvc = self.viewArray[onCount];
+            if (cvc.videoPlayer) {
+                   [cvc.videoPlayer stop];
+                   cvc.videoPlayer = nil;
+               }
+               [cvc.timerManager pq_close];
+        }else{
+             RecommedVC *rvc = self.viewArray[onCount];
+            if (rvc.videoPlayer) {
+                              [rvc.videoPlayer stop];
+                              rvc.videoPlayer = nil;
+                          }
+                          [rvc.timerManager pq_close];
+        }
+        onCount = i;
+    };
+//    self.pageView.didSelectIndexBlock = {(_, index) in
+//        print("pageView.didSelectIndexBlock", index)
+//        let v = self.viewControllers[index] as! ViewController
+//        v.status = self.titleStatusArray[index]
+//    }
+    
+    
+    
     
 //    LTSimpleManager *simpleManager = [[ LTSimpleManager alloc]initWithFrame:CGRectMake(0, KNavHeight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight) viewControllers:self.viewArray titles:titlearr currentViewController:self layout:layout titleView:NULL];
 //    simpleManager.delegate = self;
@@ -213,10 +243,13 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     if ([UserTools isAgentVersion]) {
-           self.addBtn.hidden = YES;
+        self.addBtn.hidden = YES;
+        self.layout.allSliderWidth = SCREEN_WIDTH;
       }else{
-          self.addBtn.hidden = NO;
+        self.addBtn.hidden = NO;
+        self.layout.allSliderWidth = SCREEN_WIDTH - 50;
       }
+    self.pageView.titleWidth = self.layout.allSliderWidth;
 }
 - (void)sliderMenuView:(LRSliderMenuView *)sliderMenuView didClickMenuItemAtIndex:(NSInteger)index{
     self.segHead.selectedIndex(index);

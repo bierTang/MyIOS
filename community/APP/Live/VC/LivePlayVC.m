@@ -245,7 +245,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerPlaybackStateDidChangeNotification)
     object:nil];
     
-    self.timer = [NSTimer timerWithTimeInterval:6 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
+    self.timer = [NSTimer timerWithTimeInterval:4 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
 
 }
 -(void)handleTimer{
@@ -285,7 +285,7 @@
     //状态未知
     if(self.player.playbackState == 0){
        NSLog(@"状态未知");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             //状态未知
             if (self.player.playbackState == 0){
                 NSLog(@"状态未知显示退出");

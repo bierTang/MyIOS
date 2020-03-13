@@ -36,7 +36,6 @@ static NSString *USERBLANCE = @"user_blance";
 static NSString *serverQQ = @"28888888";
 
 
-
 static NSString *NOT_LOGIN = @"freshloginOrNot";
 
 static NSString *NOT_CHANGEVIEW = @"not_changeviewcontroller";

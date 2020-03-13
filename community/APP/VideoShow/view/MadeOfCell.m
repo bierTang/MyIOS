@@ -169,6 +169,22 @@
         make.bottom.equalTo(self.contentView.bottom);
     }];
     
+    
+    self.noVipView = [[ NoVipView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210*K_SCALE)];
+    [self.contentView addSubview:self.noVipView];
+    self.noVipView.hidden = YES;
+    [self.noVipView makeConstraints:^(MASConstraintMaker *make) {
+           make.left.equalTo(0);
+           make.right.equalTo(0);
+           make.top.equalTo(self.contentLab.bottom);
+           make.height.equalTo(210*K_SCALE);
+       }];
+    self.noVipView.bt1.tag = 3;
+    [self.noVipView.bt1 addTarget:self action:@selector(playingVideo:) forControlEvents:UIControlEventTouchUpInside];
+    self.noVipView.bt2.tag = 4;
+    [self.noVipView.bt2 addTarget:self action:@selector(playingVideo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
 }
 -(void)refreshData:(VideoModel *)model{
     self.model = model;
@@ -221,7 +237,7 @@
 -(void)playingVideo:(UIButton *)sender{
     
     if (self.videoBlock) {
-        self.videoBlock(sender);
+        self.videoBlock(sender.tag);
     }
     
 }

@@ -117,6 +117,8 @@
     
     if (([subTitle containsString:@"-"])||([title containsString:@"金币"])) {
         self.arrowImg.hidden = YES;
+    }else{
+        self.arrowImg.hidden = NO;
     }
     
     if (btnTitle.length > 0) {

@@ -37,12 +37,23 @@
     
     [self setUpNav];
     UIScrollView *bgView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
-    bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 787*K_SCALE);
-    [self.view addSubview:bgView];
-    self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];
-    [bgView addSubview:self.view1];
-    self.view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 544*K_SCALE, self.view.bounds.size.width, 243*K_SCALE)];
-    [bgView addSubview:self.view2];
+    ///代理版本
+    if ([UserTools isAgentVersion]) {
+        bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 544*K_SCALE);
+        self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];
+        [self.view addSubview:bgView];
+        [bgView addSubview:self.view1];
+    }else{
+        bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 787*K_SCALE);
+        [self.view addSubview:bgView];
+        self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];
+        [bgView addSubview:self.view1];
+        self.view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 544*K_SCALE, self.view.bounds.size.width, 243*K_SCALE)];
+        [bgView addSubview:self.view2];
+    }
+    
+    
+    
     
     UIImageView *bgImgview = [[UIImageView alloc]initWithFrame:self.view1.bounds];
        bgImgview.contentMode = UIViewContentModeScaleAspectFill;
@@ -215,7 +226,7 @@
 //    UIImageWriteToSavedPhotosAlbum(newImage,self,@selector(image:didFinishSavingWithError:contextInfo:),nil);
     
     
-    UIGraphicsBeginImageContext(CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT));
+    UIGraphicsBeginImageContext(self.view1.bounds.size);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     

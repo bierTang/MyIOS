@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatListModel : NSObject
-
+@property (nonatomic,copy)NSString *update_time;    //" = 1570435365;
 @property (nonatomic,copy)NSString *create_time;    //" = 1570435365;
 @property (nonatomic,copy)NSString *idss;    // = 7;
 @property (nonatomic,copy)NSString *introduce;    // = 66666666;

@@ -84,6 +84,8 @@
 		04EA816523B6F0F800CEF675 /* TextReaderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA816423B6F0F800CEF675 /* TextReaderVC.m */; };
 		04EA816723B72AED00CEF675 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA816623B72AED00CEF675 /* AVFoundation.framework */; };
 		04EA816923B72B0000CEF675 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA816823B72B0000CEF675 /* CoreAudio.framework */; };
+		04F4A056241B1EB9009B448A /* NoVipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A055241B1EB9009B448A /* NoVipView.swift */; };
+		04F4A058241B1EC1009B448A /* NoVipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4A057241B1EC1009B448A /* NoVipView.xib */; };
 		04F9178923C202070043E139 /* CSLongVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178823C202070043E139 /* CSLongVideoVC.m */; };
 		04F9179B23C2040F0043E139 /* MLMSegmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178B23C2040F0043E139 /* MLMSegmentManager.m */; };
 		04F9179C23C2040F0043E139 /* MLMSegmentHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178D23C2040F0043E139 /* MLMSegmentHead.m */; };
@@ -381,6 +383,8 @@
 		04EA816423B6F0F800CEF675 /* TextReaderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextReaderVC.m; sourceTree = "<group>"; };
 		04EA816623B72AED00CEF675 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04EA816823B72B0000CEF675 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		04F4A055241B1EB9009B448A /* NoVipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVipView.swift; sourceTree = "<group>"; };
+		04F4A057241B1EC1009B448A /* NoVipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoVipView.xib; sourceTree = "<group>"; };
 		04F9178723C202070043E139 /* CSLongVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLongVideoVC.h; sourceTree = "<group>"; };
 		04F9178823C202070043E139 /* CSLongVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLongVideoVC.m; sourceTree = "<group>"; };
 		04F9178B23C2040F0043E139 /* MLMSegmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMSegmentManager.m; sourceTree = "<group>"; };
@@ -771,6 +775,7 @@
 		04737497241343C4004FB734 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				04F4A04B241B1D25009B448A /* Video */,
 				047374B72415D67E004FB734 /* TableLib */,
 				047374A024136776004FB734 /* SwiftyJSON.swift */,
 				047374CE2415D730004FB734 /* Expansion.swift */,
@@ -920,6 +925,23 @@
 				04B94771240CD3BE008A7E44 /* LRSliderMenuView.m */,
 			);
 			path = KYASliderMenuView;
+			sourceTree = "<group>";
+		};
+		04F4A04B241B1D25009B448A /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				04F4A04C241B1D32009B448A /* view */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		04F4A04C241B1D32009B448A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				04F4A055241B1EB9009B448A /* NoVipView.swift */,
+				04F4A057241B1EC1009B448A /* NoVipView.xib */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		04F9177F23C1B7620043E139 /* VideoShow */ = {
@@ -1824,6 +1846,7 @@
 				50F4E5B123857226001EC7C0 /* headImg_base.png in Resources */,
 				50E7BB7E238E5102001C9C96 /* logo_icon.png in Resources */,
 				50C665E8237C1F1A0042277D /* white_close.png in Resources */,
+				04F4A058241B1EC1009B448A /* NoVipView.xib in Resources */,
 				50759F5D2390C64A00E2705F /* qidong_Ads_1.jpg in Resources */,
 				505B8DB8237E9F90001D5DBB /* LICENSE in Resources */,
 				50938A9C23345D6700FD4011 /* cityImage.png in Resources */,
@@ -1939,6 +1962,7 @@
 				50C665E4237C06160042277D /* CSShareVC.m in Sources */,
 				50938AA52334BBD100FD4011 /* SDPhotoBrowser.m in Sources */,
 				50B57733233CB2F90006C08C /* UserModel.m in Sources */,
+				04F4A056241B1EB9009B448A /* NoVipView.swift in Sources */,
 				504655D723509EA800CC339A /* YLLoopScrollView.m in Sources */,
 				500B23D323420ADA00FFA95A /* SessionImgCell.m in Sources */,
 				505B8DBA237E9F90001D5DBB /* NSString+MLLabel.m in Sources */,

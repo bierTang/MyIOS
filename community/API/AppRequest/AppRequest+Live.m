@@ -48,7 +48,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:YES];
+    } HttpMethod:AppRequestGet isAni:NO];
 }
 
 ///http://112.5.37.244:81/cs.php?name=youlemei
@@ -77,7 +77,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:YES];
+    } HttpMethod:AppRequestGet isAni:NO];
 }
 
 
@@ -107,7 +107,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:YES];
+    } HttpMethod:AppRequestGet isAni:NO];
 }
 
 

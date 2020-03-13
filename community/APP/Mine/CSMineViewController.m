@@ -59,6 +59,9 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addBtnEvent) name:@"myViewEnterServeWeb" object:nil];
    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleBtnCliecked1) name:@"myViewbt1" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleBtnCliecked2) name:@"myViewbt2" object:nil];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tokenWrong_Loginout) name:NOT_TOKENWRONG object:nil];
 }
 
@@ -254,27 +257,64 @@
         return 55;
     }
 }
--(void)handleBtnCliecked1:(UIButton *)sender{
+-(void)handleBtnCliecked1{
+    if (![UserTools isLogin]) {
+        
+            CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+
+            [self.navigationController pushViewController:vc animated:YES];
+       
+        return;
+    }
+    
+    
+    if (![UserTools isAgentVersion]) {
+        CSShareVC *vc = [[CSShareVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        if (!self.cardActView) {
+            self.cardActView = [[CardActivateView alloc]init];
+            [[UIApplication sharedApplication].keyWindow addSubview:self.cardActView];
+            [self.cardActView makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(0);
+                make.top.bottom.equalTo(0);
+            }];
+        }
+        self.cardActView.inputTF.text = @"";
+        self.cardActView.hidden = NO;
+    }
+    
+    
     NSLog(@"激活");
-  if (!self.cardActView) {
-      self.cardActView = [[CardActivateView alloc]init];
-      [[UIApplication sharedApplication].keyWindow addSubview:self.cardActView];
-      [self.cardActView makeConstraints:^(MASConstraintMaker *make) {
-          make.left.right.equalTo(0);
-          make.top.bottom.equalTo(0);
-      }];
-  }
-  self.cardActView.inputTF.text = @"";
-  self.cardActView.hidden = NO;
+  
 }
--(void)handleBtnCliecked2:(UIButton *)sender{
+-(void)handleBtnCliecked2{
+    
+    if (![UserTools isLogin]) {
+        
+            CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+
+            [self.navigationController pushViewController:vc animated:YES];
+      
+        return;
+    }
+    
     NSLog(@"购买");
-   
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
-    self.navigationItem.backBarButtonItem = barItem;
-    barItem.title = @"购买商城";
-    KamiPayController *vc = [[ KamiPayController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+   if (![UserTools isAgentVersion]) {
+       CSMallVC *vc = [[CSMallVC alloc]init];
+       [self.navigationController pushViewController:vc animated:YES];
+   }else{
+       UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+       self.navigationItem.backBarButtonItem = barItem;
+       barItem.title = @"购买商城";
+       KamiPayController *vc = [[ KamiPayController alloc]init];
+       [self.navigationController pushViewController:vc animated:YES];
+   }
+    
+    
+    
+    
+    
  
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -288,8 +328,8 @@
         [cell refreshInfo:[[CSCaches shareInstance]getUserModel:USERMODEL]];
         
         
-        [cell.iconBtn1 addTarget:self action:@selector(handleBtnCliecked1:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.iconBtn2 addTarget:self action:@selector(handleBtnCliecked2:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.iconBtn1 addTarget:self action:@selector(handleBtnCliecked1) forControlEvents:UIControlEventTouchUpInside];
+        [cell.iconBtn2 addTarget:self action:@selector(handleBtnCliecked2) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
         
@@ -411,8 +451,12 @@
     }else if(indexPath.section == 1 && ![UserTools isAgentVersion]){
             //官方版本
             NSLog(@"2222");
-            
             if (indexPath.row == 2) {
+               NSLog(@"记录");
+              CSRecordVC *vc = [[CSRecordVC alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+            }else
+            if (indexPath.row == 5) {
                 NSLog(@"我的发布改成了历史记录");
     //            CSMYPostVC *vc = [[CSMYPostVC alloc]init];
     //            [self.navigationController pushViewController:vc animated:YES];
@@ -422,19 +466,19 @@
                 [self.navigationController pushViewController:reVC animated:YES];
                 
                 
-            }else if (indexPath.row == 0){
+            }else if (indexPath.row == 3){
                 //我的关注
                 CSCityListVC *vc = [[CSCityListVC alloc]init];
                 vc.isMyAttention = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row == 1){
+            }else if (indexPath.row == 4){
                 //我的收藏
                 MyCollectVC *vc = [[MyCollectVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row ==3 && [UserTools isAgentVersion]){
+            }else if (indexPath.row ==6 && [UserTools isAgentVersion]){
                 NSLog(@"缓存1");
                 [self clearCaches];
-            }else if (indexPath.row ==4){
+            }else if (indexPath.row ==6){
                 NSLog(@"缓存");
                 [self clearCaches];
             }
@@ -442,19 +486,10 @@
         }else{
         ///官方版本
         if (![UserTools isAgentVersion]) {
-            if (indexPath.section == 4) {
+            if (indexPath.section == 3) {
                 [self showLoginOut];
-            }else if(indexPath.section == 2){
-                if (indexPath.row == 1) {
-                    CSMallVC *vc = [[CSMallVC alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }else if (indexPath.row == 2){
-                    NSLog(@"记录");
-                    CSRecordVC *vc = [[CSRecordVC alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                
-            }else if (indexPath.section == 3){
+            }
+           else if (indexPath.section == 2){
                 if (indexPath.row == 0) {
                     NSLog(@"客服系统");
                     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
