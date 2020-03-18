@@ -121,8 +121,9 @@
     
     [self.tableview makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
-        make.top.equalTo(self.adsHeight);
-        make.bottom.equalTo(BottomSpaceHight);
+        make.top.bottom.equalTo(0);
+//        make.top.equalTo(self.adsHeight);
+//        make.bottom.equalTo(BottomSpaceHight);
     }];
     
     
@@ -189,6 +190,8 @@
             if (arr.count > 0) {
                 [self initScrollAds:arr andView:headerView];
             }
+        }else{
+            
         }
     }];
        }
@@ -275,12 +278,18 @@
                 ///代理版本
                        if ([UserTools isAgentVersion]) {
                            KamiPayController *vc = [[ KamiPayController alloc]init];
-                           [self.navigationController pushViewController:vc animated:YES];
+                          
+                           [self presentViewController:vc  animated:YES completion:nil];
+//                           [self.navigationController pushViewController:vc animated:YES];
                            
                        }else{
                            //官方版本
-                           CSMallVC *vc = [[CSMallVC alloc]init];
-                           [self.navigationController pushViewController:vc animated:YES];
+//                           CSMallVC *vc = [[CSMallVC alloc]init];
+//                           [self.navigationController pushViewController:vc animated:YES];
+                           
+                           KamiPayController *vc = [[ KamiPayController alloc]init];
+//                           [self.navigationController pushViewController:vc animated:YES];
+                           [self presentViewController:vc  animated:YES completion:nil];
                        }
             }if (type == 4) {
                 //分享

@@ -20,6 +20,7 @@
 
 @property (nonatomic,strong)UIImageView *adImage1;
 @property (nonatomic,strong)UIImageView *adImage2;
+@property (nonatomic,strong)UIImageView *adImage21;
 
 @property (nonatomic,strong)NSArray<AdsModel *> *adsArr;
 
@@ -57,7 +58,7 @@
     [[AppRequest sharedInstance]requestADSforType:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"直播广告：：%@",result[@"code"]);
         if (state == AppRequestState_Success) {
-             [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+            
             
             wself.adsArr = [AdsModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             if (wself.adsArr.count > 1) {
@@ -82,15 +83,31 @@
                 wself.adImage2.alpha = 0.7;
                 [wself.scrollview addSubview:wself.adImage2];
                 [wself.adImage2 makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(SCREEN_WIDTH +16);
-                    make.height.equalTo(36*K_SCALE);
-                    make.width.equalTo(180*K_SCALE);
+                    make.left.equalTo(SCREEN_WIDTH - 80*K_SCALE - 16);
+                    make.height.equalTo(33*K_SCALE);
+                    make.width.equalTo(80*K_SCALE);
                     make.top.equalTo(SCREEN_HEIGHT-BottomSpace-55*K_SCALE);
                 }];
                 UITapGestureRecognizer *tap2= [[UITapGestureRecognizer alloc]initWithTarget:wself action:@selector(handtap:)];
                 [wself.adImage2 addGestureRecognizer:tap2];
                 [wself.adImage2 sd_setImageWithURL:[NSURL URLWithString:wself.adsArr[1].logo] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     wself.adImage2.userInteractionEnabled = YES;
+                }];
+                
+                
+                wself.adImage21 = [[UIImageView alloc]init];
+                wself.adImage21.tag = 1;
+                wself.adImage21.alpha = 0.7;
+                [wself.scrollview addSubview:wself.adImage21];
+                [wself.adImage21 makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(SCREEN_WIDTH*2 - 80*K_SCALE - 16);
+                    make.height.equalTo(33*K_SCALE);
+                    make.width.equalTo(80*K_SCALE);
+                    make.top.equalTo(SCREEN_HEIGHT-BottomSpace-55*K_SCALE);
+                }];
+                [wself.adImage21 addGestureRecognizer:tap2];
+                [wself.adImage21 sd_setImageWithURL:[NSURL URLWithString:wself.adsArr[1].logo] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    wself.adImage21.userInteractionEnabled = YES;
                 }];
                 
             }
@@ -112,6 +129,7 @@
     _player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _player.shouldAutoplay = YES;
     _player.scalingMode = MPMovieScalingModeAspectFill;
+
     [_player prepareToPlay];
     
 //    [_player play];
@@ -238,12 +256,17 @@
     [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
     
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification)
-    object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerNetworkStatusChangeNotification)
-    object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerPlaybackStateDidChangeNotification)
-    object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification)
+//    object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerNetworkStatusChangeNotification)
+//    object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerPlaybackStateDidChangeNotification)
+//    object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(noPlayer:) name:(MPMoviePlayerPlaybackDidFinishNotification)
+       object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(starPlayer:) name:(MPMoviePlayerFirstVideoFrameRenderedNotification)
+          object:nil];
+    
     
     self.timer = [NSTimer timerWithTimeInterval:4 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
 
@@ -267,6 +290,20 @@
     }
     
 }
+
+-(void)noPlayer:(NSNotificationCenter *)not{
+    dispatch_async(dispatch_get_main_queue(), ^{
+         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+                           self.noLiveView.hidden = NO;
+                       });
+}
+-(void)starPlayer:(NSNotificationCenter *)not{
+    
+         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+ 
+}
+
+
 -(void)handlePlayerNotify:(NSNotificationCenter *)not{
     NSLog(@"播放状态：：%d--%@",self.player.playbackState,not);
     

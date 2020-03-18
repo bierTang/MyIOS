@@ -76,7 +76,8 @@
     [self.tableview makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
         make.top.equalTo(0);
-        make.bottom.equalTo(BottomSpaceHight);
+        make.top.bottom.equalTo(0);
+//        make.bottom.equalTo(BottomSpaceHight);
     }];
     
     
@@ -199,8 +200,8 @@
             ///代理版本
                    if ([UserTools isAgentVersion]) {
                        KamiPayController *vc = [[ KamiPayController alloc]init];
-                       [self.navigationController pushViewController:vc animated:YES];
-                       
+//                       [self.navigationController pushViewController:vc animated:YES];
+                       [self presentViewController:vc  animated:YES completion:nil];
                    }else{
                        //官方版本
                        CSMallVC *vc = [[CSMallVC alloc]init];

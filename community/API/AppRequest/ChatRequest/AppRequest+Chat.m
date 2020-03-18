@@ -98,7 +98,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost isAni:YES];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 ///单次金币进群

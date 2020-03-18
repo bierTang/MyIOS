@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)refreshCell:(SessionModel *)model;
 
 @property (nonatomic,copy) void(^backBlock)(id data);
-
+@property (nonatomic,strong)UILabel *timeLabel;
 @end
 
 NS_ASSUME_NONNULL_END

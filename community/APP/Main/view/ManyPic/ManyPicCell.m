@@ -48,7 +48,7 @@
     [self.contentView addSubview:self.headImg];
     [self.headImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(15);
-        make.top.equalTo(2);
+        make.top.equalTo(10);
         make.height.width.equalTo(34);
     }];
     
@@ -57,6 +57,14 @@
     [self.userNameLab makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImg.right).offset(12);
         make.top.equalTo(self.headImg.top).offset(3);
+    }];
+    
+    
+    self.timeLabel = [UILabel labelWithTitle:@"时间" font:9 textColor:@"999999" textAlignment:NSTextAlignmentLeft];
+    [self.contentView addSubview:self.timeLabel];
+    [self.timeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contentView.centerX);
+        make.top.equalTo(self.headImg.top).offset(-3);
     }];
     
     
@@ -111,7 +119,7 @@
         make.left.equalTo(self.headImg.right).offset(5);
         make.top.equalTo(23);
         make.bottom.equalTo(self.describLab.bottom).offset(3);
-        make.width.equalTo(260*K_SCALE);
+        make.width.equalTo(265*K_SCALE);
     }];
 }
 
@@ -155,6 +163,7 @@
 }
 -(void)refreshCell:(SessionModel *)model{
     CGFloat kk = K_SCALE;
+    self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
      
@@ -169,7 +178,7 @@
     self.imgURLArr = model.images_array;
     for (int a =0; a<model.images_array.count; a++) {
         NSString *imageUrl = [NSString stringWithFormat:@"%@",model.images_array[a]];
-        [self.imgArr[a] sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"noData"]];
+        [self.imgArr[a] sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"img_default"]];
         self.imgArr[a].hidden = NO;
 
     }
@@ -177,23 +186,23 @@
     if (model.images_array.count == 1) {
         UIImageView *imgview = self.imgArr[0];
         [imgview remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImg.right).offset(12);
-            make.top.equalTo(25);
+            make.left.equalTo(self.headImg.right).offset(15);
+            make.top.equalTo(32);
             make.width.equalTo(252*kk);
             make.height.equalTo(142*kk);
         }];
         
         [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImg.right).offset(5);
-            make.top.equalTo(23);
-            make.bottom.equalTo(imgview.bottom).offset(3);
-            make.right.equalTo(imgview.right).offset(3);
+            make.left.equalTo(self.headImg.right).offset(8);
+            make.top.equalTo(30);
+            make.bottom.equalTo(imgview.bottom).offset(6);
+            make.right.equalTo(imgview.right).offset(6);
         }];
     }else if (model.images_array.count == 2){
         UIImageView *imgview1 = self.imgArr[0];
         [imgview1 remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImg.right).offset(12);
-            make.top.equalTo(25);
+            make.left.equalTo(self.headImg.right).offset(15);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(165*kk);
         }];
@@ -201,7 +210,7 @@
         UIImageView *imgview2 = self.imgArr[1];
         [imgview2 remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imgview1.right).offset(2);
-            make.top.equalTo(25);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(165*kk);
         }];
@@ -209,8 +218,8 @@
     }else if (model.images_array.count == 3 || model.images_array.count == 6 || model.images_array.count ==9){
         UIImageView *imgview = self.imgArr[0];
         [imgview remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImg.right).offset(12);
-            make.top.equalTo(25);
+            make.left.equalTo(self.headImg.right).offset(15);
+            make.top.equalTo(32);
             make.width.equalTo(252*kk);
             make.height.equalTo(142*kk);
         }];
@@ -232,7 +241,7 @@
         if (model.images_array.count == 3) {
             [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.headImg.right).offset(5);
-                make.top.equalTo(23);
+                make.top.equalTo(30);
                 make.bottom.equalTo(imgview1.bottom).offset(3);
                 make.right.equalTo(imgview2.right).offset(3);
             }];
@@ -282,14 +291,14 @@
                 }];
                 [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.headImg.right).offset(5);
-                    make.top.equalTo(23);
+                    make.top.equalTo(30);
                     make.bottom.equalTo(imgview8.bottom).offset(3);
                     make.right.equalTo(imgview.right).offset(3);
                 }];
             }else{
                 [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.headImg.right).offset(5);
-                    make.top.equalTo(23);
+                    make.top.equalTo(30);
                     make.bottom.equalTo(imgview5.bottom).offset(3);
                     make.right.equalTo(imgview.right).offset(3);
                 }];
@@ -305,14 +314,14 @@
         
         [imgview remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImg.right).offset(12);
-            make.top.equalTo(25);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(125*kk);
         }];
         
         [imgview1 remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imgview.right).offset(2);
-            make.top.equalTo(25);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(125*kk);
         }];
@@ -355,14 +364,14 @@
             
             [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.headImg.right).offset(5);
-                make.top.equalTo(23);
+                make.top.equalTo(30);
                 make.bottom.equalTo(imgview6.bottom).offset(3);
                 make.right.equalTo(imgview1.right).offset(3);
             }];
         }else{
             [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.headImg.right).offset(5);
-                make.top.equalTo(23);
+                make.top.equalTo(30);
                 make.bottom.equalTo(imgview3.bottom).offset(3);
                 make.right.equalTo(imgview1.right).offset(3);
             }];
@@ -376,14 +385,14 @@
         UIImageView *imgview4 = self.imgArr[4];
         [imgview remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImg.right).offset(12);
-            make.top.equalTo(25);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(125*kk);
         }];
         
         [imgview1 remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imgview.right).offset(2);
-            make.top.equalTo(25);
+            make.top.equalTo(32);
             make.width.equalTo(125*kk);
             make.height.equalTo(125*kk);
         }];
@@ -432,14 +441,14 @@
             }];
             [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.headImg.right).offset(5);
-                make.top.equalTo(23);
+                make.top.equalTo(30);
                 make.bottom.equalTo(imgview7.bottom).offset(3);
                 make.right.equalTo(imgview1.right).offset(3);
             }];
         }else{
             [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.headImg.right).offset(5);
-                make.top.equalTo(23);
+                make.top.equalTo(30);
                 make.bottom.equalTo(imgview2.bottom).offset(3);
                 make.right.equalTo(imgview1.right).offset(3);
             }];
@@ -459,16 +468,16 @@
     if (model.descriptions.length > 0) {
         [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImg.right).offset(5);
-            make.top.equalTo(23);
+            make.top.equalTo(30);
             make.bottom.equalTo(self.describLab.bottom).offset(3);
-            make.width.equalTo(260*kk);
+            make.width.equalTo(267*kk);
         }];
     }else{
         [self.bgImg remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImg.right).offset(5);
-            make.top.equalTo(23);
+            make.top.equalTo(30);
             make.bottom.equalTo(self.imgArr[model.images_array.count-1].bottom).offset(3);
-            make.width.equalTo(260*kk);
+            make.width.equalTo(267*kk);
         }];
     }
     

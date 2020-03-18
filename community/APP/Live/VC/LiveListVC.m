@@ -16,6 +16,7 @@
 @interface LiveListVC ()
 
 //@property (nonatomic,strong)YLLoopScrollView *ylScrollview;
+@property (nonatomic,strong)LiveListView *liveView;
 
 @end
 
@@ -44,12 +45,12 @@
 }
 -(void)initUI{
     
-        LiveListView *liveView = [[LiveListView alloc]init];
-    liveView.showHeader = YES;
-        [self addChildViewController:liveView];
-        [self.view addSubview:liveView.view];
+         self.liveView = [[LiveListView alloc]init];
+        self.liveView.showHeader = YES;
+        [self addChildViewController:self.liveView];
+        [self.view addSubview:self.liveView.view];
         
-        liveView.liveBlock = ^(LiveModel * _Nonnull model) {
+        self.liveView.liveBlock = ^(LiveModel * _Nonnull model) {
             if ([HelpTools isMemberShip]) {
                 LivePlayVC *liveVC = [[LivePlayVC alloc]init];
                 liveVC.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -65,45 +66,63 @@
             }
         };
     
-        [liveView.view makeConstraints:^(MASConstraintMaker *make) {
+
+        [self.liveView.view makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(0);
             make.left.right.equalTo(0);
             make.bottom.equalTo(-BottomSpaceHight);
         }];
-        
-        [[AppRequest sharedInstance]requestLiveListPingdao:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
-            NSLog(@"aa");
-            if (state == AppRequestState_Success) {
-                //遍历赋值
-                NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-                
-                NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
-                 for (PingdaoModel *str in arr) {
-                    LiveModel *mo = [[LiveModel alloc]init];
-                    if(str.cover.length > 1){
-                       mo.imgUrl = str.cover;
-                    }else{
-                        mo.userName = str.headimage;
-                    }
-                     if(str.title.length > 1){
-                         mo.userName = str.title;
-                     }else{
-                         mo.userName = str.name;
-                     }
-                    
-                    mo.nums = str.Popularity;
-                    mo.pull = str.video;
-                    mo.city = str.city;
-                     
-                     [mos addObject:mo];
-                 }
-                
-                [liveView reLoadCollectionView:mos];
-            }
-        }];
+    
+    MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
+       [header setTitle:@"刷新" forState:MJRefreshStateIdle];
+       [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
+       [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
+       self.liveView.collectionView.mj_header = header;
+    
+    
+        [self requestData];
 }
-
-
+-(void)freshData{
+    [self requestData];
+}
+-(void)requestData{
+    [[AppRequest sharedInstance]requestLiveListPingdao:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
+             NSLog(@"aa");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.liveView.collectionView.mj_header isRefreshing]) {
+                [self.liveView.collectionView.mj_header endRefreshing];
+            }
+        });
+        
+             if (state == AppRequestState_Success) {
+                 //遍历赋值
+                 NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                 
+                 NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
+                  for (PingdaoModel *str in arr) {
+                     LiveModel *mo = [[LiveModel alloc]init];
+                     if(str.cover.length > 1){
+                        mo.imgUrl = str.cover;
+                     }else{
+                         mo.userName = str.headimage;
+                     }
+                      if(str.title.length > 1){
+                          mo.userName = str.title;
+                      }else{
+                          mo.userName = str.name;
+                      }
+                     
+                     mo.nums = str.Popularity;
+                     mo.pull = str.video;
+                     mo.city = str.city;
+                      
+                      [mos addObject:mo];
+                  }
+                 
+                 [self.liveView reLoadCollectionView:mos];
+             }
+         }];
+}
 ////轮播图
 //-(void)initScrollAds:(NSArray *)arr{
 //

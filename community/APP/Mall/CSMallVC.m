@@ -136,6 +136,7 @@
         [self.navigationController pushViewController:vc animated:YES];
         
     }];
+    
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"cancel");
     }];

@@ -29,7 +29,7 @@ __strong __typeof(obj) obj = obj##Weak
 //equalTo(@30)默认不支持，添加下面宏定义后，可以直接使用 equalTo(30)
 #define MAS_SHORTHAND_GLOBALS
 
-
+#import "SimplePing.h"
 #import "AFNetworking.h"
 
 #import "StaticDefine.h"

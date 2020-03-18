@@ -146,7 +146,7 @@
     }];
     
     
-    UILabel *label22 = [UILabel labelWithTitle:@"ID:" font:11 textColor:@"09c76a" textAlignment:NSTextAlignmentCenter];
+    UILabel *label22 = [UILabel labelWithTitle:@"ID:" font:11 textColor:@"ff5346" textAlignment:NSTextAlignmentCenter];
     label22.text = @"购买";
     label22.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
     label22.layer.cornerRadius = 10;

@@ -118,7 +118,7 @@
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];
     
     
-    NSArray *arr = @[@"图片",@"视频",@"文字",@"未知类型",@"未知类型",@"未知类型",@""];
+    NSArray *arr = @[@"[图片]",@"[视频]",@"文字",@"[gif动图]",@"mp3",@"小说",@"广告"];
     self.contentLab.text = arr[model.type];
     if (model.type == 2) {
         self.contentLab.text = model.message;
@@ -128,11 +128,13 @@
         self.diamondImg.hidden = YES;
         self.priceLabel.text = @"";
     }else if(model.group_allow){
-        self.diamondImg.hidden = NO;
-        self.priceLabel.text = [NSString stringWithFormat:@"剩余时间:%@",model.life_expiration];
+        self.diamondImg.hidden = YES;
+//        self.diamondImg.hidden = NO;
+//        self.priceLabel.text = [NSString stringWithFormat:@"剩余时间:%@",model.life_expiration];
     }else if(model.need_coin > 0){
-        self.diamondImg.hidden = NO;
-        self.priceLabel.text = [NSString stringWithFormat:@"%ld金币",model.need_coin];
+        self.diamondImg.hidden = YES;
+//        self.diamondImg.hidden = NO;
+//        self.priceLabel.text = [NSString stringWithFormat:@"%ld金币",model.need_coin];
     }else{
         self.diamondImg.hidden = YES;
         self.priceLabel.text = @"";

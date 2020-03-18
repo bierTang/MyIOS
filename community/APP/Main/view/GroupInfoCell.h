@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)UILabel *subTitle;
 
-
+@property (nonatomic,strong)UISwitch *aswitch;
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
 -(void)refreshCell:(NSString *)name subtitle:(NSString *)subTitle showArrow:(BOOL )arrow;

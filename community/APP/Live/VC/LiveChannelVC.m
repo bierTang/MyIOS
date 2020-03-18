@@ -41,19 +41,8 @@
     
     [self initUI];
     
-    [[AppRequest sharedInstance]requestLiveChannelListBlock:^(AppRequestState state, id  _Nonnull result) {
-        NSLog(@"频道列表");
-        if (state == AppRequestState_Success) {
-            
-            self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-            
-            [self.collectionView reloadData];
-            if (self.dataArr.count > 0) {
-                [[NSNotificationCenter defaultCenter]postNotificationName:NOT_LIVETOTAL object:@{@"total":[NSString stringWithFormat:@"%ld",self.dataArr.count]}];
-            }
-        }
-    }];
-    
+
+     [self requestData];
 }
 
 -(void)initUI{
@@ -64,8 +53,36 @@
         make.left.right.equalTo(0);
         make.top.bottom.equalTo(0);
     }];
-    
+    MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
+      [header setTitle:@"刷新" forState:MJRefreshStateIdle];
+      [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
+      [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
+      self.collectionView.mj_header = header;
 }
+
+-(void)freshData{
+    [self requestData];
+}
+-(void)requestData{
+    [[AppRequest sharedInstance]requestLiveChannelListBlock:^(AppRequestState state, id  _Nonnull result) {
+        NSLog(@"频道列表");
+        dispatch_async(dispatch_get_main_queue(), ^{
+                           if ([self.collectionView.mj_header isRefreshing]) {
+                               [self.collectionView.mj_header endRefreshing];
+                           }
+                       });
+        if (state == AppRequestState_Success) {
+            
+            self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            
+            [self.collectionView reloadData];
+            if (self.dataArr.count > 0) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:NOT_LIVETOTAL object:@{@"total":[NSString stringWithFormat:@"%ld",self.dataArr.count]}];
+            }
+        }
+    }];
+}
+
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -102,11 +119,11 @@
 
 #pragma mark  定义每个UICollectionView的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return  CGSizeMake((SCREEN_WIDTH-20)/3.0,125*K_SCALE );
+    return  CGSizeMake((SCREEN_WIDTH-2)/3.0,(SCREEN_WIDTH-2)/3.0 );
 }
 #pragma mark  定义整个CollectionViewCell与整个View的间距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(1,10,1,10);//（上、左、下、右）
+    return UIEdgeInsetsMake(1,1,1,1);//（上、左、下、右）
 }
 //#pragma mark  定义每个UICollectionView的横向间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{

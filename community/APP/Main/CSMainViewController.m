@@ -214,12 +214,12 @@
 }
 
 -(void)loadData{
-    NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_MainAds Identify:@"MainAds" versionCode:@"1"];
-    NSArray *Array = [jsonCode  mj_JSONObject];
-    if (Array.count > 0 && !self.ylScrollview) {
-        NSArray *arr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:Array];
-        [self initScrollAds:arr];
-    }
+//    NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_MainAds Identify:@"MainAds" versionCode:@"1"];
+//    NSArray *Array = [jsonCode  mj_JSONObject];
+//    if (Array.count > 0 && !self.ylScrollview) {
+//        NSArray *arr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:Array];
+//        [self initScrollAds:arr];
+//    }
     
     __weak typeof(self) wself = self;
     [[AppRequest sharedInstance]requestChatList:@"1" Page:@"50" Block:^(AppRequestState state, id  _Nonnull result) {
@@ -244,6 +244,12 @@
                     }
                     
                 }
+            }else{
+                [self.tableView updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.left.equalTo(0);
+                    make.top.equalTo(0);
+                    make.bottom.equalTo(-KTabBarHeight);
+                }];
             }
         }else{
             //[[MYToast makeText:@"列表获取失败"]show];
@@ -275,6 +281,13 @@
     self.ylScrollview.pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     self.ylScrollview.frame = CGRectMake(0,0,SCREEN_WIDTH,125*K_SCALE);
     [self.view addSubview:self.ylScrollview];
+    
+    [self.tableView updateConstraints:^(MASConstraintMaker *make) {
+                       make.right.left.equalTo(0);
+                       make.top.equalTo(125*K_SCALE);
+                       make.bottom.equalTo(-KTabBarHeight);
+                   }];
+    
 }
 -(void)setUpNav{
     UIView *rightButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 78, 44)];

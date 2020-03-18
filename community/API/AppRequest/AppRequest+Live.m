@@ -24,7 +24,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost isAni:YES];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 //直播频道列表

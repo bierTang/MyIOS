@@ -21,10 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UILabel *titleLab;
 
 
-
+@property (nonatomic,strong)UILabel *timeLabel;
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
-
+-(void)refreshCell:(SessionModel *)model;
 
 @end
 

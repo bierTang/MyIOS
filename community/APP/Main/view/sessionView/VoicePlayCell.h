@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, VedioStatus) {
+    VedioStatusFailed,        // 播放失败
+    VedioStatusBuffering,     // 缓冲中
+    VedioStatusPlaying,       // 播放中
+    VedioStatusFinished,       //停止播放
+    VedioStatusPause       // 暂停播放
+};
+
+
 @interface VoicePlayCell : UITableViewCell
 
 @property (nonatomic,strong)UIImageView *headImg;
@@ -34,9 +43,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
+@property (nonatomic,assign)NSString* mp3Add;
 
 -(void)refreshVoice:(SessionModel *)model;
+@property (nonatomic,strong)UILabel *timeLabel;
+//重写的音频播放
+@property (nonatomic, strong) AVPlayer *player;
 
+@property (nonatomic, strong) AVPlayerItem *playerItem;
+
+@property (nonatomic, strong) id timeObserver;
+
+/*
+ * 是否处于seek阶段/seek中间会存在一个不同步问题
+ * 所以在seek中间不处理 addPeriodicTimeObserverForInterval
+ */
+@property (nonatomic, assign) BOOL isSeeking;
+//是否拖拽中
+@property (nonatomic, assign) BOOL isDragging;
+////播放状态
+@property (nonatomic, assign) VedioStatus playerStatus;
+//总播放时长
+@property (nonatomic, assign) CGFloat totalTime;
+
+@property (nonatomic, assign) CGFloat minimumValue;
+@property (nonatomic, assign) NSInteger maximumValue;
+
+@property (nonatomic, assign) CGFloat value;
+@property (nonatomic, assign) CGFloat trackValue;
 @end
 
 NS_ASSUME_NONNULL_END

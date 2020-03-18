@@ -50,7 +50,7 @@
     [self.contentView addSubview:self.headImg];
     [self.headImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(15);
-        make.top.equalTo(2);
+        make.top.equalTo(10);
         make.height.width.equalTo(34);
     }];
     
@@ -60,7 +60,12 @@
         make.left.equalTo(self.headImg.right).offset(12);
         make.top.equalTo(self.headImg.top).offset(3);
     }];
-    
+    self.timeLabel = [UILabel labelWithTitle:@"时间" font:9 textColor:@"999999" textAlignment:NSTextAlignmentLeft];
+      [self.contentView addSubview:self.timeLabel];
+      [self.timeLabel makeConstraints:^(MASConstraintMaker *make) {
+          make.centerX.equalTo(self.contentView.centerX);
+          make.top.equalTo(self.headImg.top).offset(-3);
+      }];
     UIImage *img = [UIImage imageNamed:@"chatBgImg"];
     // 四个数值对应图片中距离上、左、下、右边界的不拉伸部分的范围宽度
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(25, 15, 8, 8) resizingMode:UIImageResizingModeStretch];
@@ -72,7 +77,7 @@
     self.videoImg.contentMode = UIViewContentModeScaleAspectFill;
     self.videoImg.clipsToBounds = YES;
     [self.videoImg makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(25);
+        make.top.equalTo(33);
         make.left.equalTo(self.headImg.right).offset(12);
         make.width.equalTo(260*K_SCALE);
 //        make.height.greaterThanOrEqualTo(160*K_SCALE);
@@ -115,7 +120,7 @@
     
     [self.bgImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImg.right).offset(5);
-        make.top.equalTo(23);
+        make.top.equalTo(30);
         make.bottom.equalTo(self.describLab.bottom).offset(3);
         make.right.equalTo(self.videoImg.right).offset(3);
     }];
@@ -131,12 +136,13 @@
 
 -(void)refreshCell:(SessionModel *)model index:(NSInteger *)i{
 //    NSLog(@"加载了：：%d",model.hadLoaded);
+    self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     self.userNameLab.text = model.nick_name;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     __weak typeof(self) wself = self;
     
 //   self.videoImg.tag = i;
-    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.images]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.images]] placeholderImage:[UIImage imageNamed:@"loadNormal"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 //        NSLog(@"图片错误：：%@--%ld",error,cacheType);
         if (image.size.height > image.size.width) {
             [self.videoImg updateConstraints:^(MASConstraintMaker *make) {

@@ -49,6 +49,12 @@
         make.right.equalTo(-16);
         make.centerY.equalTo(self.contentView.centerY);
     }];
+    self.aswitch = [[UISwitch alloc]init];
+    [self.contentView addSubview:self.aswitch];
+    [self.aswitch makeConstraints:^(MASConstraintMaker *make) {
+          make.right.equalTo(-16);
+          make.centerY.equalTo(self.contentView.centerY);
+      }];
     
     
     self.subTitle = [UILabel labelWithTitle:@"ff" font:15 textColor:@"6E6E6E" textAlignment:NSTextAlignmentRight];
@@ -77,6 +83,11 @@
         self.arrowImg.hidden = YES;
     }else{
         self.arrowImg.hidden = NO;
+    }
+    if ([name  isEqual: @"置顶"]) {
+        self.aswitch.hidden = NO;
+    }else{
+        self.aswitch.hidden = YES;
     }
 //    self.arrowImg.hidden = !arrow;
 }

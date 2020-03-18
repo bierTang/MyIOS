@@ -38,8 +38,10 @@
 -(void)loadDataArr{
     ////数据源设置
     NSMutableArray *arr1 = [NSMutableArray new];
-    NSArray *nameArr1 = @[@"到期时间",@"我的金币",@"交易记录",@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];         //,@"我的缓存"
-    NSArray *iconArr1 = @[@"timelimit",@"mycoin_icon",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
+//    NSArray *nameArr1 = @[@"到期时间",@"我的金币",@"交易记录",@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];         //,@"我的缓存"
+     NSArray *nameArr1 = @[@"到期时间",@"交易记录",@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];
+//    NSArray *iconArr1 = @[@"timelimit",@"mycoin_icon",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
+    NSArray *iconArr1 = @[@"timelimit",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
     NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
     NSString *attention_num = @"0";
     if ([[[CSCaches shareInstance]getUserModel:USERMODEL].attention_num intValue] > 0) {
@@ -55,7 +57,9 @@
 //        dis_num = [[CSCaches shareInstance]getUserModel:USERMODEL].discover_num;
     }
     
-    NSArray *subtitle1 = @[expireTime,[NSString stringWithFormat:@"%ld",(long)[UserTools userBlance]],@"",attention_num,favorite,dis_num,@""];
+//    NSArray *subtitle1 = @[expireTime,[NSString stringWithFormat:@"%ld",(long)[UserTools userBlance]],@"",attention_num,favorite,dis_num,@""];
+    NSArray *subtitle1 = @[expireTime,@"",attention_num,favorite,dis_num,@""];
+
     for (int i = 0; i<nameArr1.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr1[i];

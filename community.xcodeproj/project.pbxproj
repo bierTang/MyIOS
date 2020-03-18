@@ -86,6 +86,9 @@
 		04EA816923B72B0000CEF675 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA816823B72B0000CEF675 /* CoreAudio.framework */; };
 		04F4A056241B1EB9009B448A /* NoVipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A055241B1EB9009B448A /* NoVipView.swift */; };
 		04F4A058241B1EC1009B448A /* NoVipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4A057241B1EC1009B448A /* NoVipView.xib */; };
+		04F4A0982421C6A1009B448A /* AdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0972421C6A1009B448A /* AdCell.m */; };
+		04F4A0C124221BD1009B448A /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0BF24221BD1009B448A /* SimplePingHelper.m */; };
+		04F4A0C224221BD1009B448A /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0C024221BD1009B448A /* SimplePing.m */; };
 		04F9178923C202070043E139 /* CSLongVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178823C202070043E139 /* CSLongVideoVC.m */; };
 		04F9179B23C2040F0043E139 /* MLMSegmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178B23C2040F0043E139 /* MLMSegmentManager.m */; };
 		04F9179C23C2040F0043E139 /* MLMSegmentHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178D23C2040F0043E139 /* MLMSegmentHead.m */; };
@@ -385,6 +388,12 @@
 		04EA816823B72B0000CEF675 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		04F4A055241B1EB9009B448A /* NoVipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVipView.swift; sourceTree = "<group>"; };
 		04F4A057241B1EC1009B448A /* NoVipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoVipView.xib; sourceTree = "<group>"; };
+		04F4A0962421C6A1009B448A /* AdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdCell.h; sourceTree = "<group>"; };
+		04F4A0972421C6A1009B448A /* AdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdCell.m; sourceTree = "<group>"; };
+		04F4A0BD24221BD1009B448A /* SimplePingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePingHelper.h; sourceTree = "<group>"; };
+		04F4A0BE24221BD1009B448A /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
+		04F4A0BF24221BD1009B448A /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
+		04F4A0C024221BD1009B448A /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		04F9178723C202070043E139 /* CSLongVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLongVideoVC.h; sourceTree = "<group>"; };
 		04F9178823C202070043E139 /* CSLongVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLongVideoVC.m; sourceTree = "<group>"; };
 		04F9178B23C2040F0043E139 /* MLMSegmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMSegmentManager.m; sourceTree = "<group>"; };
@@ -944,6 +953,25 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		04F4A0992421FA24009B448A /* Ping */ = {
+			isa = PBXGroup;
+			children = (
+				04F4A0BC24221BD1009B448A /* Models */,
+			);
+			path = Ping;
+			sourceTree = "<group>";
+		};
+		04F4A0BC24221BD1009B448A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04F4A0BD24221BD1009B448A /* SimplePingHelper.h */,
+				04F4A0BE24221BD1009B448A /* SimplePing.h */,
+				04F4A0BF24221BD1009B448A /* SimplePingHelper.m */,
+				04F4A0C024221BD1009B448A /* SimplePing.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		04F9177F23C1B7620043E139 /* VideoShow */ = {
 			isa = PBXGroup;
 			children = (
@@ -1344,6 +1372,7 @@
 		50822008231CA0A6006F55B0 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				04F4A0992421FA24009B448A /* Ping */,
 				5082200B231CA115006F55B0 /* AppRequest */,
 			);
 			path = API;
@@ -1679,6 +1708,8 @@
 				04EA815E23B5A82C00CEF675 /* VoicePlayCell.m */,
 				04EA816023B5A84100CEF675 /* TextReadCell.h */,
 				04EA816123B5A84100CEF675 /* TextReadCell.m */,
+				04F4A0962421C6A1009B448A /* AdCell.h */,
+				04F4A0972421C6A1009B448A /* AdCell.m */,
 			);
 			path = sessionView;
 			sourceTree = "<group>";
@@ -1932,6 +1963,7 @@
 				509C889023330F9000E54CD6 /* ZJUnFoldAttributedString.m in Sources */,
 				50417E2423273FE6004C49FA /* CSMYPostVC.m in Sources */,
 				50C665E1237BE74E0042277D /* WebServeVC.m in Sources */,
+				04F4A0C124221BD1009B448A /* SimplePingHelper.m in Sources */,
 				04EA815F23B5A82C00CEF675 /* VoicePlayCell.m in Sources */,
 				508C9F432323577300EE9E37 /* CSMineHeaderCell.m in Sources */,
 				508C9F4023233AAB00EE9E37 /* CSMineCell.m in Sources */,
@@ -1983,6 +2015,7 @@
 				509DA2A32356C480001CCF7C /* ChatSendView.m in Sources */,
 				04EA816223B5A84100CEF675 /* TextReadCell.m in Sources */,
 				50DA4C8823602EE1008F9F37 /* HelpTools.m in Sources */,
+				04F4A0982421C6A1009B448A /* AdCell.m in Sources */,
 				04A7608723B9D627009A902A /* AudioStreamer.m in Sources */,
 				50BD38EF233A3A6E00711B75 /* CityContentModel.m in Sources */,
 				047374A124136776004FB734 /* SwiftyJSON.swift in Sources */,
@@ -1994,6 +2027,7 @@
 				50938AA72334BBD100FD4011 /* SDBrowserImageView.m in Sources */,
 				0470737023D19822002BF95D /* HeadImgSelectCell.m in Sources */,
 				047374CA2415D67F004FB734 /* LTPageView.swift in Sources */,
+				04F4A0C224221BD1009B448A /* SimplePing.m in Sources */,
 				505B8DBB237E9F90001D5DBB /* NSAttributedString+MLLabel.m in Sources */,
 				5064CC7E2330732E0008ACD4 /* CSSwitchCell.m in Sources */,
 				04932A5E23F3DBDF00F3F173 /* LiveSegView.m in Sources */,

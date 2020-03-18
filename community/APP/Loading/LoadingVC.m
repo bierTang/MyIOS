@@ -8,7 +8,8 @@
 
 #import "LoadingVC.h"
 #import "CSTabBarVC.h"
-
+#import "BGFMDB.h"
+#import "SimplePingHelper.h"
 @interface LoadingVC ()
 
 @property (nonatomic,strong)UIScrollView *scrollView;
@@ -19,6 +20,11 @@
 
 
 @property (nonatomic,copy)NSString *linkString;
+//有多少个地址
+@property (nonatomic,copy)NSArray *webUrls;
+
+//p到第多少个了
+@property (nonatomic,assign)NSInteger indexP;
 
 @end
 
@@ -26,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.indexP = 0;
     self.timeCount = 5;
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -95,9 +101,13 @@
     MBProgressHUD *mbHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     mbHud.label.text = @"线路选择中";
     
+    
+    
+
+    
     __weak typeof(self) wself = self;
     [[AppRequest sharedInstance]doRequestWithUrl:@"http://vq.v-qun.com" Params:@"/index.php/index/common/choice_line" Callback:^(BOOL isSuccess, id result) {
-        NSLog(@"线路：%@",result);
+        
         if (isSuccess) {
             if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
                 adImage.hidden = NO;
@@ -109,17 +119,36 @@
                 [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
             }
             if (result[@"data"][@"url"]) {
+                NSLog(@"线路：%@",result[@"data"][@"url"]);
                 NSArray *arr = result[@"data"][@"url"];
                 if (arr[0]) {
                     [CSCaches shareInstance].webUrl = @"http://vq.v-qun.com";
                 }
+                NSMutableArray *webs = [NSMutableArray new];
+                for (int i = 0; i < arr.count; i++) {
+                    [webs addObject:arr[i][@"url"]];
+                    
+                }
+                for (NSString *i in webs){
+                    i.bg_tableName = @"WEBURLS";
+                }
+                
+                [NSString bg_saveOrUpdateArray:webs];
+                NSLog(@"线路x1：%@",webs[0]);
+              
             }
+          
         }
         mbHud.removeFromSuperViewOnHide = YES;
         [mbHud hideAnimated:YES];
         [[CSCaches shareInstance]saveUserDefalt:@"isFirstLogin" value:@"yes"];
 
-    } HttpMethod:AppRequestGet isAni:YES];
+    } HttpMethod:AppRequestGet isAni:NO];
+    
+    // ping
+    [self tapPingTo:@"11vq.v-qun.com"];
+    
+   
     
 }
 -(void)goAdsLink{
@@ -152,14 +181,37 @@
     [self presentViewController:tabbarvc animated:NO completion:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tapPingTo:(NSString *)host {
+    NSLog(@"-----------");
+    NSLog(@"Tapped Ping");
+    [SimplePingHelper ping:host target:self sel:@selector(pingResult:)];
 }
-*/
+
+- (void)pingResult:(NSNumber*)success {
+
+    if (success.boolValue) {
+        NSLog(@"Ping SUCCESS");
+        [CSCaches shareInstance].webUrl = self.webUrls[self.indexP];
+    } else {
+        NSLog(@"Ping FAILURE");
+        /**
+           同步查询所有数据.
+           */
+           self.webUrls = [NSString bg_findAll:@"WEBURLS"];
+        for (NSString *i in self.webUrls){
+            NSLog(@"地址 %@",i);
+        }
+        if (self.webUrls.count > self.indexP) {
+            
+            NSString *strUrl = [self.webUrls[self.indexP] stringByReplacingOccurrencesOfString:@"http:" withString:@""];  //去掉http:测试
+            NSString *strUrl1 = [strUrl stringByReplacingOccurrencesOfString:@"https:" withString:@""];  //去掉https:测试
+            NSString *strUrl2 = [strUrl1 stringByReplacingOccurrencesOfString:@"/:" withString:@""];  //去掉/测试
+            NSLog(@"ping地址 %@",strUrl2);
+            // ping
+            [self tapPingTo:strUrl2];
+            self.indexP++;
+        }
+    }
+}
 
 @end

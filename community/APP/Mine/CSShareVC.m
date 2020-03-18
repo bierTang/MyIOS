@@ -39,10 +39,12 @@
     UIScrollView *bgView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     ///代理版本
     if ([UserTools isAgentVersion]) {
-        bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 544*K_SCALE);
+        bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 644*K_SCALE);
         self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];
         [self.view addSubview:bgView];
         [bgView addSubview:self.view1];
+        self.view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 544*K_SCALE, self.view.bounds.size.width, 100*K_SCALE)];
+        [bgView addSubview:self.view2];
     }else{
         bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 787*K_SCALE);
         [self.view addSubview:bgView];
@@ -161,14 +163,13 @@
            make.right.equalTo(-16);
            make.top.equalTo(recom.bottom).offset(20);
        }];
+
+    //代理版本
+      if ([UserTools isAgentVersion]) {
+          self.reContentLab.hidden = true;
+          recom.hidden = true;
+      }
     
-//    self.recomLab = [UILabel labelWithTitle:@"推荐有礼" font:14 textColor:@"666666" textAlignment:NSTextAlignmentLeft];
-//    self.recomLab.font = [UIFont boldSystemFontOfSize:14];
-//    [self.view2 addSubview:self.recomLab];
-//    [self.recomLab makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(16);
-//        make.bottom.equalTo(self.reContentLab.top).offset(-15);
-//    }];
     
     [[AppRequest sharedInstance]requestQRcode:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
         if (state == AppRequestState_Success) {

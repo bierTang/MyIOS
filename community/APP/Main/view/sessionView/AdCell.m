@@ -1,23 +1,22 @@
 //
-//  SessionTextCell.m
+//  AdCell.m
 //  community
 //
-//  Created by 蔡文练 on 2019/10/10.
-//  Copyright © 2019 cwl. All rights reserved.
+//  Created by MAC on 2020/3/18.
+//  Copyright © 2020 cwl. All rights reserved.
 //
 
-#import "SessionTextCell.h"
+#import "AdCell.h"
 
-@implementation SessionTextCell
+@implementation AdCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath{
-    static NSString *cellId =@"SessionTextCell";
-    SessionTextCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    static NSString *cellId =@"AdCell";
+    AdCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (cell == nil) {
@@ -33,11 +32,13 @@
     }
     return self;
 }
+
 -(void)initUI{
     self.backgroundColor = [UIColor clearColor];
+    //    self.contentView.backgroundColor = [UIColor clearColor];
     self.bgImg = [[UIImageView alloc]init];
     [self.contentView addSubview:self.bgImg];
-    
+    //////
     self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
     [self.contentView addSubview:self.headImg];
     [self.headImg makeConstraints:^(MASConstraintMaker *make) {
@@ -63,51 +64,58 @@
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(25, 15, 8, 8) resizingMode:UIImageResizingModeStretch];
     self.bgImg.image = img;
     
-    self.describLab = [MLEmojiLabel new];
-    self.describLab.delegate = self;
-    self.describLab.font = [UIFont systemFontOfSize:16];
-    self.describLab.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//    [UILabel labelWithTitle:@"" font:14 textColor:@"161616" textAlignment:NSTextAlignmentLeft];
-    self.describLab.numberOfLines = 0;
-    [self.contentView addSubview:self.describLab];
+    self.adImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"text_icon"]];
+
+    [self.contentView addSubview:self.adImg];
     
-    [self.describLab makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.headImg.right).offset(16);
-        make.top.equalTo(36);
-        make.right.lessThanOrEqualTo(-54);
-        make.bottom.equalTo(self.contentView.bottom).offset(-14);
+    [self.adImg makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImg.right).offset(15);
+        make.top.equalTo(37);
+        make.width.equalTo(220);
+        make.bottom.equalTo(self.contentView.bottom).offset(-15);
     }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showAd:)];
+    [self.adImg addGestureRecognizer:tap];
+   self.adImg.userInteractionEnabled = YES;
     
     [self.bgImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImg.right).offset(5);
         make.top.equalTo(30);
-        make.bottom.equalTo(self.describLab.bottom).offset(5);
-        make.right.equalTo(self.describLab.right).offset(5);
+        make.height.equalTo(300*K_SCALE);
+        make.bottom.equalTo(self.contentView.bottom).offset(-3);
+        make.right.equalTo(self.adImg.right).offset(5);
     }];
 }
-- (void)mlEmojiLabel:(MLEmojiLabel *)emojiLabel didSelectLink:(NSString *)link withType:(MLEmojiLabelLinkType)type
-{
+
+-(void)showAd:(UITapGestureRecognizer *)tap{
+
     
-    if (![link hasPrefix:@"http"]) {
-        link = [NSString stringWithFormat:@"http://%@",link];
+    if(self.adBlock){
+      
+        self.adBlock(0);
     }
-    if (link.length > 5 && ([link containsString:@"www"]||[link containsString:@"http"])) {
-        if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:link] options:@{} completionHandler:nil];
-        } else {
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:link]];
-        }
-    }
+    
+    
 }
 
 -(void)refreshCell:(SessionModel *)model{
     self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
-  self.userNameLab.text = model.nick_name;
-  [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
-//    if (model.descriptions.length > 0) {
-        self.describLab.text = model.descriptions;
-//    }
-    
+   self.userNameLab.text = model.nick_name;
+   [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+   __weak typeof(self) wself = self;
+     [self.adImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.images]] placeholderImage:[UIImage imageNamed:@"loadNormal"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    //        NSLog(@"图片错误：：%@--%ld",error,cacheType);
+            if (image.size.height > image.size.width) {
+                [self.adImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(205*K_SCALE);
+                }];
+            }else{
+                [self.adImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(260*K_SCALE);
+                }];
+            }
+            
+        }];
 }
 
 

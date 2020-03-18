@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
 -(void)refreshCell:(SessionModel *)model;
-
+@property (nonatomic,strong)UILabel *timeLabel;
 
 @end
 

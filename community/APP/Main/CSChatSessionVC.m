@@ -8,6 +8,7 @@
 
 #import "CSChatSessionVC.h"
 //#import "SessionImgCell.h"
+#import "AdCell.h"
 #import "ManyPicCell.h"
 #import "SessionGifCell.h"
 #import "SessionTextCell.h"
@@ -41,6 +42,10 @@
 #define QMLog(format, ...)
 #endif
 
+
+
+
+
 @interface CSChatSessionVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
@@ -60,6 +65,8 @@
 
 @property (nonatomic,strong)AudioStreamer *audioPlayer;
 
+@property (nonatomic,strong)AVPlayer *aplayer;
+
 @property (nonatomic,copy)NSString *mp3String;
 
 @property (nonatomic,strong)CSTimerManager *timerManager;
@@ -75,6 +82,9 @@
 @property (nonatomic,strong)UIButton *bottomBtn;
 //底部的数量
 @property (nonatomic,strong)UILabel *countLabel;
+
+
+
 
 @end
 
@@ -128,8 +138,16 @@
         // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
         // 排序结果
-        [self.tempArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
-        self.dataArr = self.tempArr;
+        NSMutableArray *tArr = [NSMutableArray new];
+       
+        [tArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+        self.dataArr = tArr;
+        
+        
+        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+         NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:NO];
+       
+         [self.tempArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor1]]];
         
         
 //        self.dataArr = [[Array reverseObjectEnumerator]allObjects];
@@ -400,6 +418,12 @@
     NSURL *originalURL = [NSURL URLWithString:urlstring];
     NSURL *proxyURL = [KTVHTTPCache proxyURLWithOriginalURL:originalURL];
     self.audioPlayer = [[AudioStreamer alloc] initWithURL:proxyURL];
+    
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:urlstring] options:nil];
+    AVPlayerItem *songitem = [[AVPlayerItem alloc] initWithAsset:asset];
+    self.aplayer = [[AVPlayer alloc] initWithPlayerItem:songitem];
+    
+    
 }
 - (void)destroyStreamer
 {
@@ -415,7 +439,8 @@
 }
 
 -(void)handlejoinGroup{
-    [self useCoinPlay];
+//    [self useCoinPlay];
+     [HelpTools jianquan:self];
 }
 
 
@@ -536,6 +561,7 @@
    
         [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[0].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
             [wself.tableView.mj_header endRefreshing];
+            QMLog(@"传的id:%ld",(long)self.dataArr[0].id);
              QMLog(@"下拉更新:%@",result);
 //            [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if (state == AppRequestState_Success) {
@@ -664,13 +690,20 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         nowSection = indexPath.row;
     }
+    
+    //大于20个就显示
+       if (self.dataArr.count > 20 && nowSection <= self.dataArr.count - 20) {
+           self.bottomBtn.hidden = NO;
+       }
+       
+    
     //滑动到少于4个时就隐藏掉
     if (nowSection >= self.dataArr.count - 4) {
         self.bottomBtn.hidden = YES;
         self.countLabel.hidden = YES;
                                    
     }
-    
+   
     NSLog(@"当前滑动到:%ld",nowSection);
     NSLog(@"一共有:%ld",self.dataArr.count);
 }
@@ -685,6 +718,12 @@
 //    NSLog(@"消失啦%s", __FUNCTION__);
     NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
     [defaults setInteger:nowSection forKey:[@"Look" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+    
+    if (self.saveIndexPath) {
+        VoicePlayCell *cell1 = (VoicePlayCell *)[self.tableView cellForRowAtIndexPath:self.saveIndexPath];
+        [cell1 performSelector:@selector(destroyPlayer)];
+           }
+    
     
     [super viewDidDisappear:animated];
 }
@@ -704,7 +743,8 @@
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }else{
                 NSLog(@"视频播放地址：：%@",wself.dataArr[indexPath.row].content);
-                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+//                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+                     if ([HelpTools isMemberShip] ) {
 //                    CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
 //                    vc.modalPresentationStyle = UIModalPresentationFullScreen;
 //                    vc.playUrl = wself.dataArr[indexPath.row].content;//[NSString stringWithFormat:@"%@%@",mainHost,wself.dataArr[indexPath.row].content];
@@ -733,7 +773,7 @@
 //                                                           data.videoURL = [NSURL URLWithString:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
                                                   data.thumbURL = [NSURL URLWithString:obj.images];
                                                 data.projectiveView = [self videoAtIndex:idx];
-//                                                           data.autoPlayCount = NSUIntegerMax;
+//                                                           data.autoPlayCount = 1;
                                                            
                                                            [urlArr addObject:obj.content];
                                                 [datass addObject:data];
@@ -752,12 +792,15 @@
                         
                         NSInteger index = [urlArr indexOfObject:self.dataArr[indexPath.row].content];
                         NSLog(@"-1---%ld---",index);
+                        //单独把这个视频自动播放一次
+                        YBIBVideoData *data = datass[index];
+                        data.autoPlayCount = 1;
                         
                          YBImageBrowser *browser = [YBImageBrowser new];
                         //                    // 调低图片的缓存数量
                         //                    browser.ybib_imageCache.imageCacheCountLimit = 100;
                         //                    // 预加载数量设为 0
-                        //                    browser.preloadCount = 10;
+                                            browser.preloadCount = 5;
                                             
                                             
                                                 browser.dataSourceArray = datass;
@@ -773,7 +816,8 @@
                   
                 }else if([UserTools isLogin]){
                     NSLog(@"消耗金币");
-                    [wself useCoinPlay];
+//                    [wself useCoinPlay];
+                     [HelpTools jianquan:self];
                 }else{
                     [HelpTools jianquan:self];
                 }
@@ -795,15 +839,16 @@
                 
                 
                 
-                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
-                
+//                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+                 if ([HelpTools isMemberShip]) {
                 ShowGifVC *vc = [[ShowGifVC alloc]init];
                 vc.gifString = self.dataArr[indexPath.row].content;
                 vc.gifid = self.dataArr[indexPath.row].idss;
                 [wself.navigationController pushViewController:vc animated:YES];
                 }else if([UserTools isLogin]){
                     NSLog(@"消耗金币");
-                    [wself useCoinPlay];
+//                    [wself useCoinPlay];
+                     [HelpTools jianquan:self];
                 }else{
                     [HelpTools jianquan:self];
                 }
@@ -832,8 +877,8 @@
         cell.backBlock = ^(id  _Nonnull data) {
             
             
-             if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
-            
+             if ([HelpTools isMemberShip]) {
+//            if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
   //添加图片数据集合
              NSMutableArray *datass = [NSMutableArray array];
             //图片地址集合
@@ -882,7 +927,8 @@
                               
              }else if([UserTools isLogin]){
                  NSLog(@"消耗金币");
-                 [wself useCoinPlay];
+//                 [wself useCoinPlay];
+                  [HelpTools jianquan:self];
              }else{
                  [HelpTools jianquan:self];
              }
@@ -902,37 +948,79 @@
         __weak typeof(self) wself = self;
         cell.voicePlayBlock = ^(id  _Nonnull data) {
             
-             if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
-            
-            UIButton *btn = data;
-            if (btn.isSelected) {
-                
-                if (wself.saveIndexPath == indexPath) {
-                    [wself.audioPlayer pause];
-                    NSLog(@"继续播放");
-                }else{
-                    wself.mp3String = wself.dataArr[indexPath.row].content;
-                    [wself createStreamer:wself.mp3String];
-                    NSLog(@"开始播放声音");
-                    [wself.audioPlayer start];
-                    if (wself.saveIndexPath) {
-                        wself.dataArr[wself.saveIndexPath.row].mp3isPlaying = NO;
-                         [wself.tableView reloadRowsAtIndexPaths:@[wself.saveIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    }
-                    wself.saveIndexPath = indexPath;
-                }
-            }else{
-                wself.saveIndexPath = nil;
-                [wself.audioPlayer pause];
-            }
+//             if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
+            if ([HelpTools isMemberShip]) {
+                  if (wself.saveIndexPath == indexPath) {
+                                     [cell performSelector:@selector(playButtonAction)];
+//                                     [wself.audioPlayer pause];
+                                     NSLog(@"继续播放");
+                                 }else{
+                                     wself.mp3String = wself.dataArr[indexPath.row].content;
+                                     //当前选中的不等于上次选中的，上次选中的又有，就要消除上次选中的
+                                     if (wself.saveIndexPath) {
+                                         VoicePlayCell *cell1 = (VoicePlayCell *)[self.tableView cellForRowAtIndexPath:wself.saveIndexPath];
+                                         [cell1 performSelector:@selector(destroyPlayer)];
+                                     }
+                                         [cell performSelector:@selector(playButtonAction)];
+                                         wself.saveIndexPath = indexPath;
+                                     
+                                     
+                                 }
+             
+                 
+//            UIButton *btn = data;
+//            if (btn.isSelected) {
+//
+//                if (wself.saveIndexPath == indexPath) {
+//                    [cell performSelector:@selector(playButtonAction:)];
+//                    [wself.audioPlayer pause];
+//                    NSLog(@"继续播放");
+//                }else{
+//                    wself.mp3String = wself.dataArr[indexPath.row].content;
+////                    if (wself.saveIndexPath) {
+////                        <#statements#>
+////                    }
+//                    [cell performSelector:@selector(playButtonAction:)];
+//
+//
+//
+//                     wself.saveIndexPath = indexPath;
+//
+////                    if (wself.mp3String.length > 5) {
+////                          [wself createStreamer:wself.mp3String];
+//////                        [wself.aplayer addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+////                                          NSLog(@"开始播放声音%@",wself.mp3String);
+////
+////                        [wself.audioPlayer addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+////
+////                                          [wself.audioPlayer start];
+////
+////                                          if (wself.saveIndexPath) {
+////                                              wself.dataArr[wself.saveIndexPath.row].mp3isPlaying = NO;
+////                                               [wself.tableView reloadRowsAtIndexPaths:@[wself.saveIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+////                                          }
+////                                          wself.saveIndexPath = indexPath;
+////
+////                    }else{
+////                        wself.dataArr[wself.saveIndexPath.row].mp3isPlaying = NO;
+////                        [wself.tableView reloadRowsAtIndexPaths:@[wself.saveIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+////                    }
+//
+//                }
+//            }else{
+//                wself.saveIndexPath = nil;
+//                [wself.audioPlayer pause];
+//            }
         }else if([UserTools isLogin]){
             NSLog(@"消耗金币");
-            [wself useCoinPlay];
+//            [wself useCoinPlay];
+             [HelpTools jianquan:self];
         }else{
             [HelpTools jianquan:self];
         }
         };
         cell.sliderBlock = ^(NSInteger current) {
+            
             [wself.audioPlayer seekToTime:current];
         };
         
@@ -940,8 +1028,19 @@
     }else if(self.dataArr[indexPath.row].ad_type == 5){
         TextReadCell *cell = [[TextReadCell alloc]cellInitWith:tableView Indexpath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+       [cell refreshCell:self.dataArr[indexPath.row]];
+//        cell.titleLab.text = [self.dataArr[indexPath.row].name stringByAppendingString:@".txt"];
         
-        cell.titleLab.text = [self.dataArr[indexPath.row].name stringByAppendingString:@".txt"];
+        return cell;
+    }else if(self.dataArr[indexPath.row].ad_type == 6){
+        AdCell *cell = [[AdCell alloc]cellInitWith:tableView Indexpath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell refreshCell:self.dataArr[indexPath.row]];
+        cell.adBlock = ^(id  _Nonnull data) {
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:self.dataArr[indexPath.row].content] options: @{} completionHandler: nil];
+
+        };
+        NSLog(@"广告类型%@",self.dataArr[indexPath.row].mj_JSONString);
         
         return cell;
     }else{
@@ -1079,6 +1178,8 @@
     SessionVideoCell *cell = (SessionVideoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     return cell ? cell.videoImg : nil;
 }
+
+
 
 
 @end

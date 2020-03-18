@@ -9,7 +9,7 @@
 #import "HelpTools.h"
 #import <CommonCrypto/CommonDigest.h>
 //#import <CommonCrypto/CommonCryptor.h>
-
+#import "微群社区-Swift.h"
 #define cachePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
 
 @implementation HelpTools
@@ -238,10 +238,12 @@
     
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去开通" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        CSMallVC *vc = [[CSMallVC alloc]init];
-        [svc.navigationController pushViewController:vc animated:YES];
+//        CSMallVC *vc = [[CSMallVC alloc]init];
+//        [svc.navigationController pushViewController:vc animated:YES];
         
-        
+        KamiPayController *vc = [[ KamiPayController alloc]init];
+        [svc presentViewController:vc  animated:YES completion:nil];
+//        [svc.navigationController pushViewController:vc animated:YES];
     }];
     [action1 setValue:RGBColor(9, 198, 106) forKey:@"_titleTextColor"];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -276,23 +278,29 @@
         return NO;
     }else if ([HelpTools isMemberShip]){
         return YES;
-    }else if ([UserTools userBlance] > 0){
-        return YES;
-    }else{
+    }
+//    else if ([UserTools userBlance] > 0){
+//        return YES;
+//    }
+    else{
         NSString *warnStr = @"请联系代理购买激活码";
         if (![UserTools isAgentVersion]) {
-            warnStr = @"请购买金币或购买会员";
+            warnStr = @"请开通会员";
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您的权限不足" message:warnStr preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去充值" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             if (![UserTools isAgentVersion]) {
-                UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
-                svc.navigationItem.backBarButtonItem = barItem;
-                barItem.title = @"购买商城";
+//                UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+//                svc.navigationItem.backBarButtonItem = barItem;
+//                barItem.title = @"购买商城";
+//
+//                CSMallVC *vc = [[CSMallVC alloc]init];
+//                [svc.navigationController pushViewController:vc animated:YES];
                 
-                CSMallVC *vc = [[CSMallVC alloc]init];
-                [svc.navigationController pushViewController:vc animated:YES];
+                KamiPayController *vc = [[ KamiPayController alloc]init];
+//                [svc.navigationController pushViewController:vc animated:YES];
+                [svc presentViewController:vc  animated:YES completion:nil];
             }else{
                 svc.tabBarController.selectedIndex = 4;
             }

@@ -119,8 +119,8 @@
 -(void)refreshData{
     ////数据源设置
     NSMutableArray *arr1 = [NSMutableArray new];
-    NSArray *nameArr1 = @[@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];         //,@"我的缓存"
-    NSArray *iconArr1 = @[@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
+    NSArray *nameArr1 = @[@"我的关注",@"我的收藏",@"观影记录",@"清理缓存",@"分享推广"];         //,@"我的缓存"
+    NSArray *iconArr1 = @[@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload",@"share_icon"];
     NSString *attention_num = @"0";
     if ([[[CSCaches shareInstance]getUserModel:USERMODEL].attention_num intValue] > 0) {
         attention_num = [[CSCaches shareInstance]getUserModel:USERMODEL].attention_num;
@@ -133,7 +133,7 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].discover_num.length > 0) {
 //        dis_num = [[CSCaches shareInstance]getUserModel:USERMODEL].discover_num;
     }
-    NSArray *subtitle1 = @[attention_num,favorite,dis_num,@"",@""];
+    NSArray *subtitle1 = @[attention_num,favorite,dis_num,@"",@"",@""];
     for (int i = 0; i<nameArr1.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr1[i];
@@ -301,14 +301,21 @@
     
     NSLog(@"购买");
    if (![UserTools isAgentVersion]) {
-       CSMallVC *vc = [[CSMallVC alloc]init];
-       [self.navigationController pushViewController:vc animated:YES];
+//       CSMallVC *vc = [[CSMallVC alloc]init];
+//       [self.navigationController pushViewController:vc animated:YES];
+        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+             self.navigationItem.backBarButtonItem = barItem;
+             barItem.title = @"购买商城";
+             KamiPayController *vc = [[ KamiPayController alloc]init];
+//             [self.navigationController pushViewController:vc animated:YES];
+       [self presentViewController:vc  animated:YES completion:nil];
    }else{
        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
        self.navigationItem.backBarButtonItem = barItem;
        barItem.title = @"购买商城";
        KamiPayController *vc = [[ KamiPayController alloc]init];
-       [self.navigationController pushViewController:vc animated:YES];
+//       [self.navigationController pushViewController:vc animated:YES];
+       [self presentViewController:vc  animated:YES completion:nil];
    }
     
     
@@ -444,19 +451,21 @@
             NSLog(@"缓存1");
             [self clearCaches];
         }else if (indexPath.row ==4){
-            NSLog(@"缓存");
-            [self clearCaches];
+            NSLog(@"分享");
+//            [self clearCaches];
+            CSShareVC *vc = [[CSShareVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
     }else if(indexPath.section == 1 && ![UserTools isAgentVersion]){
             //官方版本
             NSLog(@"2222");
-            if (indexPath.row == 2) {
+            if (indexPath.row == 1) {
                NSLog(@"记录");
               CSRecordVC *vc = [[CSRecordVC alloc]init];
               [self.navigationController pushViewController:vc animated:YES];
             }else
-            if (indexPath.row == 5) {
+            if (indexPath.row == 4) {
                 NSLog(@"我的发布改成了历史记录");
     //            CSMYPostVC *vc = [[CSMYPostVC alloc]init];
     //            [self.navigationController pushViewController:vc animated:YES];
@@ -466,19 +475,19 @@
                 [self.navigationController pushViewController:reVC animated:YES];
                 
                 
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 2){
                 //我的关注
                 CSCityListVC *vc = [[CSCityListVC alloc]init];
                 vc.isMyAttention = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row == 4){
+            }else if (indexPath.row == 3){
                 //我的收藏
                 MyCollectVC *vc = [[MyCollectVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row ==6 && [UserTools isAgentVersion]){
+            }else if (indexPath.row ==5 && [UserTools isAgentVersion]){
                 NSLog(@"缓存1");
                 [self clearCaches];
-            }else if (indexPath.row ==6){
+            }else if (indexPath.row ==5){
                 NSLog(@"缓存");
                 [self clearCaches];
             }
