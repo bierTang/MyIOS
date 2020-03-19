@@ -118,7 +118,7 @@
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];
     
     
-    NSArray *arr = @[@"[图片]",@"[视频]",@"文字",@"[gif动图]",@"mp3",@"小说",@"广告"];
+    NSArray *arr = @[@"[图片]",@"[视频]",@"文字",@"[gif动图]",@"[mp3]",@"[小说]",@"[广告]"];
     self.contentLab.text = arr[model.type];
     if (model.type == 2) {
         self.contentLab.text = model.message;

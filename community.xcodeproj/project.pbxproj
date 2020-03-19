@@ -89,6 +89,9 @@
 		04F4A0982421C6A1009B448A /* AdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0972421C6A1009B448A /* AdCell.m */; };
 		04F4A0C124221BD1009B448A /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0BF24221BD1009B448A /* SimplePingHelper.m */; };
 		04F4A0C224221BD1009B448A /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0C024221BD1009B448A /* SimplePing.m */; };
+		04F4A0C82422FB78009B448A /* WebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0C62422FB77009B448A /* WebModel.m */; };
+		04F4A0CB242326BC009B448A /* DaChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0C9242326BB009B448A /* DaChannelModel.m */; };
+		04F4A0CE24232819009B448A /* DaLiveChannelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0CC24232818009B448A /* DaLiveChannelVC.m */; };
 		04F9178923C202070043E139 /* CSLongVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178823C202070043E139 /* CSLongVideoVC.m */; };
 		04F9179B23C2040F0043E139 /* MLMSegmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178B23C2040F0043E139 /* MLMSegmentManager.m */; };
 		04F9179C23C2040F0043E139 /* MLMSegmentHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9178D23C2040F0043E139 /* MLMSegmentHead.m */; };
@@ -394,6 +397,12 @@
 		04F4A0BE24221BD1009B448A /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
 		04F4A0BF24221BD1009B448A /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
 		04F4A0C024221BD1009B448A /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
+		04F4A0C62422FB77009B448A /* WebModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebModel.m; sourceTree = "<group>"; };
+		04F4A0C72422FB78009B448A /* WebModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebModel.h; sourceTree = "<group>"; };
+		04F4A0C9242326BB009B448A /* DaChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaChannelModel.m; sourceTree = "<group>"; };
+		04F4A0CA242326BB009B448A /* DaChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaChannelModel.h; sourceTree = "<group>"; };
+		04F4A0CC24232818009B448A /* DaLiveChannelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaLiveChannelVC.m; sourceTree = "<group>"; };
+		04F4A0CD24232818009B448A /* DaLiveChannelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaLiveChannelVC.h; sourceTree = "<group>"; };
 		04F9178723C202070043E139 /* CSLongVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSLongVideoVC.h; sourceTree = "<group>"; };
 		04F9178823C202070043E139 /* CSLongVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSLongVideoVC.m; sourceTree = "<group>"; };
 		04F9178B23C2040F0043E139 /* MLMSegmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMSegmentManager.m; sourceTree = "<group>"; };
@@ -842,6 +851,8 @@
 		04932A5623F3BE9E00F3F173 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				04F4A0CD24232818009B448A /* DaLiveChannelVC.h */,
+				04F4A0CC24232818009B448A /* DaLiveChannelVC.m */,
 				04932A5923F3BEC700F3F173 /* CSLiveVC.h */,
 				04932A5A23F3BEC700F3F173 /* CSLiveVC.m */,
 				04A7B08B23F5300B0043BE16 /* LiveListVC.h */,
@@ -857,6 +868,8 @@
 		04932A5723F3BEA700F3F173 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04F4A0CA242326BB009B448A /* DaChannelModel.h */,
+				04F4A0C9242326BB009B448A /* DaChannelModel.m */,
 				04B4316723FA2C0500744764 /* LiveModel.h */,
 				04B4316823FA2C0500744764 /* LiveModel.m */,
 				04B7950123FE1E6E001AB36B /* AdsModel.h */,
@@ -956,6 +969,8 @@
 		04F4A0992421FA24009B448A /* Ping */ = {
 			isa = PBXGroup;
 			children = (
+				04F4A0C72422FB78009B448A /* WebModel.h */,
+				04F4A0C62422FB77009B448A /* WebModel.m */,
 				04F4A0BC24221BD1009B448A /* Models */,
 			);
 			path = Ping;
@@ -2016,6 +2031,7 @@
 				04EA816223B5A84100CEF675 /* TextReadCell.m in Sources */,
 				50DA4C8823602EE1008F9F37 /* HelpTools.m in Sources */,
 				04F4A0982421C6A1009B448A /* AdCell.m in Sources */,
+				04F4A0CB242326BC009B448A /* DaChannelModel.m in Sources */,
 				04A7608723B9D627009A902A /* AudioStreamer.m in Sources */,
 				50BD38EF233A3A6E00711B75 /* CityContentModel.m in Sources */,
 				047374A124136776004FB734 /* SwiftyJSON.swift in Sources */,
@@ -2130,6 +2146,7 @@
 				047374CC2415D67F004FB734 /* LTScrollExtension.swift in Sources */,
 				50DE47F3238D19F100033363 /* GroupMemberCell.m in Sources */,
 				50F9B04823769CD5002E1321 /* CSRecordModel.m in Sources */,
+				04F4A0CE24232819009B448A /* DaLiveChannelVC.m in Sources */,
 				04F9179B23C2040F0043E139 /* MLMSegmentManager.m in Sources */,
 				505B8DBF237E9F90001D5DBB /* NSString+MLExpression.m in Sources */,
 				04E6AC0223B30E56001F988B /* CTBFileMannger.m in Sources */,
@@ -2137,6 +2154,7 @@
 				04AD394323B1BD2A000B632F /* ManyPicCell.m in Sources */,
 				50EA9C9B2366DEA700FD70AB /* CSEditVC.m in Sources */,
 				5057D2FE235EF61B001532A1 /* AppRequest+Mine.m in Sources */,
+				04F4A0C82422FB78009B448A /* WebModel.m in Sources */,
 				50FB9292237D6E5500371007 /* ShareRecordCell.m in Sources */,
 				505B8DC2237E9F90001D5DBB /* MLLabelLayoutManager.m in Sources */,
 				50414CC623549CC100CD5FB5 /* MemberView.m in Sources */,

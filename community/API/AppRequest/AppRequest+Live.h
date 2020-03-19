@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)requestLiveAddressListBlock:(void(^)(AppRequestState state,id result))callBack;
 
 //直播频道列表
--(void)requestLiveChannelListBlock:(void(^)(AppRequestState state,id result))callBack;
+-(void)requestLiveChannelList:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack;
+-(void)requestLiveChannelListDa:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack;
 
 
 -(void)requestLiveList:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack;

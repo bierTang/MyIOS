@@ -13,11 +13,13 @@
 #import "LiveListVC.h"
 #import "LiveListHeaderView.h"
 #import "ChannelModel.h"
+#import "DaChannelModel.h"
 @interface LiveChannelVC () <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 
 @property (nonatomic,strong)NSArray<ChannelModel *> *dataArr;
+
 
 @end
 
@@ -42,7 +44,7 @@
     [self initUI];
     
 
-     [self requestData];
+     
 }
 
 -(void)initUI{
@@ -60,11 +62,21 @@
       self.collectionView.mj_header = header;
 }
 
+- (void)setName:(NSString *)name{
+//    if (_name != name) {
+        _name = name;
+         [self requestData];
+//    }
+}
+
+
+
 -(void)freshData{
     [self requestData];
 }
 -(void)requestData{
-    [[AppRequest sharedInstance]requestLiveChannelListBlock:^(AppRequestState state, id  _Nonnull result) {
+    NSLog(@"实际请求地址%@",_name);
+    [[AppRequest sharedInstance]requestLiveChannelList:_name Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"频道列表");
         dispatch_async(dispatch_get_main_queue(), ^{
                            if ([self.collectionView.mj_header isRefreshing]) {
@@ -74,6 +86,11 @@
         if (state == AppRequestState_Success) {
             
             self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            //等于0可能是大众频道的数据，取pingtai
+            if (self.dataArr.count == 0) {
+                self.dataArr = [DaChannelModel mj_objectArrayWithKeyValuesArray:result[@"pingtai"]];
+            }
+            
             
             [self.collectionView reloadData];
             if (self.dataArr.count > 0) {
@@ -153,8 +170,12 @@
 
 #pragma mark  定义每个UICollectionView头部尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if ([CSCaches shareInstance].lunboArr > 0) {
+        return CGSizeMake(0,125*K_SCALE);
+    }else{
+        return CGSizeMake(0,0);
+    }
     
-    return CGSizeMake(0,125*K_SCALE);
     
 }
 
@@ -165,7 +186,11 @@
     mo.imgUrl = self.dataArr[indexPath.item].logo;
     mo.userName = self.dataArr[indexPath.item].name;
     mo.nums = self.dataArr[indexPath.item].quantity;
-    mo.pull = self.dataArr[indexPath.item].source;
+    NSString *liveURL0 = [CSCaches shareInstance].live_url;
+       
+        //替换某个字符
+    NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].source]];
+    mo.pull = url;
     
     [CSCaches shareInstance].currentLiveModel = mo;
     

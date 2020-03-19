@@ -46,7 +46,10 @@
 -(void)initUI{
     
          self.liveView = [[LiveListView alloc]init];
+   
         self.liveView.showHeader = YES;
+ 
+        
         [self addChildViewController:self.liveView];
         [self.view addSubview:self.liveView.view];
         
@@ -97,14 +100,19 @@
              if (state == AppRequestState_Success) {
                  //遍历赋值
                  NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-                 
+                 //可能是大众频道的数据
+                 if(!arr){
+                     arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]];
+                 }
                  NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
                   for (PingdaoModel *str in arr) {
                      LiveModel *mo = [[LiveModel alloc]init];
                      if(str.cover.length > 1){
                         mo.imgUrl = str.cover;
+                     }else if(str.headimage.length > 1){
+                        mo.imgUrl = str.headimage;
                      }else{
-                         mo.userName = str.headimage;
+                         mo.imgUrl = str.img;
                      }
                       if(str.title.length > 1){
                           mo.userName = str.title;
@@ -113,8 +121,17 @@
                       }
                      
                      mo.nums = str.Popularity;
-                     mo.pull = str.video;
-                     mo.city = str.city;
+                      if (str.video.length > 1) {
+                          mo.pull = str.video;
+                      }else{
+                          mo.pull = str.address;
+                      }
+                      if (mo.city.length > 1) {
+                          mo.city = str.city;
+                      }else{
+                          mo.city = @"未知";
+                      }
+                     
                       
                       [mos addObject:mo];
                   }

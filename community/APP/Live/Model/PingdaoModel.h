@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *video;
 @property (nonatomic,strong)NSString *Popularity;
 @property (nonatomic,strong)NSString *id;
+@property (nonatomic,strong)NSString *img;
+@property (nonatomic,strong)NSString *address;
 @end
 
 NS_ASSUME_NONNULL_END

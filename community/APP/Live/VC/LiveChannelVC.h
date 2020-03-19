@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) void(^backBlock)(NSString *str);
 
+@property (nonatomic, copy) NSString *name;
+- (void)setName:(NSString *)name;
 @end
 
 NS_ASSUME_NONNULL_END

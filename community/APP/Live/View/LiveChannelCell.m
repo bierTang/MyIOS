@@ -8,6 +8,8 @@
 
 #import "LiveChannelCell.h"
 #import "ChannelModel.h"
+#import "DaChannelModel.h"
+
 @implementation LiveChannelCell
 
 
@@ -78,4 +80,17 @@
     self.onlineNum.text = model.quantity;
     
 }
+
+-(void)refreshItemDa:(DaChannelModel *)model{
+    
+    self.titleLab.text = model.title;
+    NSString *imgStr = model.xinimg;
+    if (imgStr.length < 6) {
+        imgStr = model.xinimg;
+    }
+    [self.bgImage sd_setImageWithURL:[NSURL URLWithString:imgStr] placeholderImage:[UIImage imageNamed:@"headImg_base_1"]];
+    self.onlineNum.text = model.Number;
+    
+}
+
 @end

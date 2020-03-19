@@ -45,8 +45,8 @@
 }
 
 -(void)initUI{
-    self.dataArr = @[@[@"a"],@[@"群名称",@"所属板块",@"群介绍"],@[@"投诉"]];
-    self.subArr = @[@[@"a"],@[[CSCaches shareInstance].groupInfoModel.name,@"暂无",@""],@[@""]];
+    self.dataArr = @[@[@"a"],@[@"群名称",@"所属板块",@"群介绍",@"消息置顶"],@[@"投诉"]];
+    self.subArr = @[@[@"a"],@[[CSCaches shareInstance].groupInfoModel.name,@"暂无",@"",@""],@[@""]];
 
     [self.view addSubview:self.tableView];
     

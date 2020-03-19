@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSString *liveDescString;
 @property (nonatomic,strong)NSString *live_url;
-
+@property (nonatomic,strong)NSString *anchor_url;
 @property (nonatomic,strong)LiveModel *currentLiveModel;
 
 +(CSCaches *)shareInstance;

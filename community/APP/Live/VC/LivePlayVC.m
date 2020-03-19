@@ -253,15 +253,10 @@
         make.width.equalTo(70);
     }];
     //放到scrollview上就是在最上面显示
-    [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
+    [hud hideAnimated:true afterDelay:2.5];
     
-    
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification)
-//    object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerNetworkStatusChangeNotification)
-//    object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePlayerNotify:) name:(MPMoviePlayerPlaybackStateDidChangeNotification)
-//    object:nil];
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(noPlayer:) name:(MPMoviePlayerPlaybackDidFinishNotification)
        object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(starPlayer:) name:(MPMoviePlayerFirstVideoFrameRenderedNotification)

@@ -33,7 +33,7 @@
         }];
         
         [greenView makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(125*K_SCALE);
+            make.top.equalTo(self.ylScrollview.bottom);
             make.left.right.equalTo(0);
             make.height.equalTo(98*K_SCALE);
         }];
@@ -128,7 +128,12 @@
     
     self.ylScrollview.pageControl.currentPageIndicatorTintColor = [UIColor greenColor];//RGBColor(245, 162, 0);
     self.ylScrollview.pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-    self.ylScrollview.frame = CGRectMake(0,0,SCREEN_WIDTH,125*K_SCALE);
+    if (arr.count > 0) {
+        self.ylScrollview.frame = CGRectMake(0,0,SCREEN_WIDTH,125*K_SCALE);
+    }else{
+        self.ylScrollview.frame = CGRectMake(0,0,0,0);
+    }
+    
     [self addSubview:self.ylScrollview];
     
 

@@ -233,23 +233,25 @@
             wself.dataArr = [ChatListModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
             [wself.tableView reloadData];
             if(result[@"data"][@"ad_lists"]){
+                
                 if (!wself.ylScrollview) {
                     NSArray *arr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"ad_lists"]];
                     
                     if (arr.count > 0) {
                         [CSDataBase insertCacheDataByIdentify:@"MainAds" CacheType:DB_MainAds versionCode:@"1" data:[result[@"data"][@"ad_lists"] mj_JSONString]];
-                    }
-                    if (!wself.ylScrollview) {
-                        [wself initScrollAds:arr];
+                   if (!wself.ylScrollview) {
+                       [wself initScrollAds:arr];
+                   }
+                    }else{
+                        [self.tableView updateConstraints:^(MASConstraintMaker *make) {
+                            make.right.left.equalTo(0);
+                            make.top.equalTo(0);
+                            make.bottom.equalTo(-KTabBarHeight);
+                        }];
                     }
                     
+                    
                 }
-            }else{
-                [self.tableView updateConstraints:^(MASConstraintMaker *make) {
-                    make.right.left.equalTo(0);
-                    make.top.equalTo(0);
-                    make.bottom.equalTo(-KTabBarHeight);
-                }];
             }
         }else{
             //[[MYToast makeText:@"列表获取失败"]show];

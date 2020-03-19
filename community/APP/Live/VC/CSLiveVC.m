@@ -20,7 +20,7 @@
 
 #import "LivePlayVC.h"
 #import "SegHeadView.h"
-
+#import "DaLiveChannelVC.h"
 
 
 #import "微群社区-Swift.h"
@@ -67,21 +67,7 @@
         }
     }];
     
-//    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0,60,0,0) titles:@[@"1",@"2"] headStyle:SegmentHeadStyleDefault layoutStyle:MLMSegmentLayoutLeft];
-//    [self.view addSubview:self.segHead];
-    
-//    LiveSegView *liveSeg = [[LiveSegView alloc]init];
-//    liveSeg.backBlock = ^(UIButton * _Nonnull sender) {
-//        //
-//        wself.segHead.selectedIndex(sender.tag);
-//    };
-//    [self.view addSubview:liveSeg];
-//    [liveSeg makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.equalTo(0);
-//        make.height.equalTo(30);
-//        make.top.equalTo(125*K_SCALE);
-//    }];
-    
+
     
     LiveListView *liveView = [[LiveListView alloc]init];
     liveView.liveBlock = ^(LiveModel * _Nonnull model) {
@@ -106,12 +92,12 @@
     
     
     LiveChannelVC *vc = [[LiveChannelVC alloc]init];
-    
+    DaLiveChannelVC *vc1 = [[DaLiveChannelVC alloc]init];
     
     self.viewArray = [NSMutableArray new];
     [self.viewArray addObject:self.liveView];
     [self.viewArray addObject:vc];
-  
+    [self.viewArray addObject:vc1];
     
 
     
@@ -121,6 +107,7 @@
     NSMutableArray *titleArray = [NSMutableArray new];
     [titleArray addObject:@"推荐"];
     [titleArray addObject:@"频道"];
+    [titleArray addObject:@"大众频道"];
     LTLayout *layout =  [[ LTLayout alloc]init];
         layout.bottomLineColor = [UIColor colorWithHexString:@"09c66a"];
         layout.titleColor = [UIColor colorWithHexString:@"161616"];
@@ -136,9 +123,19 @@
     pageView.didSelectIndexBlock = ^(LTPageView * v, NSInteger index) {
         if (index == 1) {
             self.totalChannelLab.hidden = NO;
-        }else{
+            LiveChannelVC *vc = self.viewArray[1];
+            [vc setName:[CSCaches shareInstance].live_url];
+//            NSLog(@"请求地址是：%@",vc.name);
+        }else if (index == 2) {
+            self.totalChannelLab.hidden = NO;
+            DaLiveChannelVC *vc = self.viewArray[2];
+            [vc setName:[CSCaches shareInstance].anchor_url];
+        //            NSLog(@"请求地址是：%@",vc.strUrl);
+            }else{
             self.totalChannelLab.hidden = YES;
         }
+        
+        
     };
 
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
@@ -186,6 +183,7 @@
         if (state == AppRequestState_Success) {
             [CSCaches shareInstance].liveDescString = result[@"data"][@"desc"];
             [CSCaches shareInstance].live_url = result[@"data"][@"live_url"];
+            [CSCaches shareInstance].anchor_url = result[@"data"][@"anchor_url"];
             NSArray *arr = [result[@"data"][@"recommend"] componentsSeparatedByString:@"="];
             NSString *recomString = @"aiqinghai";
             if (arr[0]) {

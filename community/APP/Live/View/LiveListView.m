@@ -89,7 +89,12 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader] && self.showHeader) {//这是头部视图
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LiveListHeaderView" forIndexPath:indexPath];
         LiveListHeaderView *SectionHeadView = [[LiveListHeaderView alloc]init];
-        SectionHeadView.frame =CGRectMake(0, 0,SCREEN_WIDTH,255*K_SCALE);
+        if ([CSCaches shareInstance].lunboArr > 0) {
+             SectionHeadView.frame =CGRectMake(0, 0,SCREEN_WIDTH,255*K_SCALE);
+        }else{
+             SectionHeadView.frame =CGRectMake(0, 0,SCREEN_WIDTH,120*K_SCALE);
+        }
+       
         SectionHeadView.backgroundColor = [UIColor whiteColor];
         
         [header addSubview:SectionHeadView];
@@ -97,7 +102,12 @@
     }else if([kind isEqualToString:UICollectionElementKindSectionHeader] && !self.showHeader){
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LiveListHeaderView" forIndexPath:indexPath];
         LiveListHeaderView *SectionHeadView = [[LiveListHeaderView alloc]init];
-        SectionHeadView.frame =CGRectMake(0, 0,SCREEN_WIDTH,125*K_SCALE);
+        if ([CSCaches shareInstance].lunboArr > 0) {
+            SectionHeadView.frame =CGRectMake(0, 0,SCREEN_WIDTH,125*K_SCALE);
+        }else{
+            SectionHeadView.frame =CGRectMake(0, 0,0,0);
+        }
+        
         SectionHeadView.clipsToBounds =YES;
         SectionHeadView.backgroundColor = [UIColor whiteColor];
         
@@ -110,9 +120,18 @@
 #pragma mark  定义每个UICollectionView头部尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (self.showHeader) {
-        return CGSizeMake(SCREEN_WIDTH,255*K_SCALE);
+        if ([CSCaches shareInstance].lunboArr > 0) {
+            return CGSizeMake(SCREEN_WIDTH,255*K_SCALE);
+        }else{
+            return CGSizeMake(SCREEN_WIDTH,120*K_SCALE);
+        }
+        
     }else{
+        if ([CSCaches shareInstance].lunboArr > 0) {
         return CGSizeMake(0,125*K_SCALE);
+        }else{
+            return CGSizeMake(0,0);
+        }
     }
 }
 #pragma mark  点击CollectionView触发事件
@@ -135,7 +154,6 @@
 
     for (int i = 0; i < arr.count; i++) {
         a = [self guolv:arr];
-           
        }
 
     

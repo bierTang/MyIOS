@@ -35,6 +35,8 @@
 
 @property (nonatomic,assign)CGFloat adsHeight;
 
+//广告数组
+@property (nonatomic,strong)NSArray<YLCustomViewModel *> *adArr;
 
 
 @property (nonatomic,copy)NSIndexPath *optionIndexPath;
@@ -61,27 +63,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.dataArr = [NSMutableArray new];
-//    self.bgScrollView = [[UIScrollView alloc]init];
-//    [self.view addSubview:self.bgScrollView];
-//
-//    [self.bgScrollView makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.equalTo(0);
-//        make.top.bottom.equalTo(0);
-//    }];
-//    NSLog(@"类型2：：%@",self.type);
 
-//    if (self.type.integerValue != 1888) {
-//        [[AppRequest sharedInstance]requestADSforType:@"7" Block:^(AppRequestState state, id  _Nonnull result) {
-//            NSLog(@"轮播广告：：%@",result[@"code"]);
-//            if (state == AppRequestState_Success) {
-//                NSArray *arr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-//                if (arr.count > 0) {
-//                    [self initScrollAds:arr];
-//                }
-//            }
-//        }];
-//    }
-    
     
     [self initTableView];
     
@@ -186,15 +168,16 @@
     [[AppRequest sharedInstance]requestADSforType:@"7" Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"轮播广告：：%@",result[@"code"]);
         if (state == AppRequestState_Success) {
-            NSArray *arr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-            if (arr.count > 0) {
-                [self initScrollAds:arr andView:headerView];
+            self.adArr = [YLCustomViewModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (self.adArr.count > 0) {
+                
+                [self initScrollAds:self.adArr andView:headerView];
+                tableView.reloadData;
             }
-        }else{
-            
         }
     }];
        }
+        
     return headerView;
     }
 }
@@ -202,7 +185,12 @@
     if (self.type.intValue == 1888) {
         return 0;
     }else{
-    return 125*K_SCALE;
+        if (self.adArr.count > 0) {
+            return 125*K_SCALE;
+        }else{
+            return 1;
+        }
+    
     }
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

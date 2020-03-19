@@ -261,7 +261,12 @@
 
                             self.bottomBtn.hidden = NO;
                             self.countLabel.hidden = NO;
-                            self.countLabel.text = [NSString stringWithFormat:@"%ld", arr.count];
+                            if(arr.count > 99){
+                                self.countLabel.text = @"99+";
+                            }else{
+                                self.countLabel.text = [NSString stringWithFormat:@"%ld", arr.count];
+                            }
+                            
                         }
 
 

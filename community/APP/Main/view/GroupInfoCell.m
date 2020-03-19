@@ -84,8 +84,9 @@
     }else{
         self.arrowImg.hidden = NO;
     }
-    if ([name  isEqual: @"置顶"]) {
+    if ([name  isEqual: @"消息置顶"]) {
         self.aswitch.hidden = NO;
+        self.arrowImg.hidden = YES;
     }else{
         self.aswitch.hidden = YES;
     }
