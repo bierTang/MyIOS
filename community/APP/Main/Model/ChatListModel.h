@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign)BOOL isFreeGroup;
 
+@property (nonatomic,strong)NSString *group_status;
+@property (nonatomic,strong)NSString *group_name;
 
 @end
 

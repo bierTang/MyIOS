@@ -113,6 +113,13 @@
 }
 
 -(void)refreshCell:(ChatListModel *)model{
+    if ([model.group_status  isEqual: @"1"]) {
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"f8f8f8"];
+    }else{
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
+    }
+    
+    
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@" ,mainHost,model.path]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.nameLab.text = model.name;
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];

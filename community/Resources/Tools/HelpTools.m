@@ -242,8 +242,8 @@
 //        [svc.navigationController pushViewController:vc animated:YES];
         
         KamiPayController *vc = [[ KamiPayController alloc]init];
-        [svc presentViewController:vc  animated:YES completion:nil];
-//        [svc.navigationController pushViewController:vc animated:YES];
+//        [svc presentViewController:vc  animated:YES completion:nil];
+        [svc.navigationController pushViewController:vc animated:YES];
     }];
     [action1 setValue:RGBColor(9, 198, 106) forKey:@"_titleTextColor"];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -299,8 +299,8 @@
 //                [svc.navigationController pushViewController:vc animated:YES];
                 
                 KamiPayController *vc = [[ KamiPayController alloc]init];
-//                [svc.navigationController pushViewController:vc animated:YES];
-                [svc presentViewController:vc  animated:YES completion:nil];
+                [svc.navigationController pushViewController:vc animated:YES];
+//                [svc presentViewController:vc  animated:YES completion:nil];
             }else{
                 svc.tabBarController.selectedIndex = 4;
             }

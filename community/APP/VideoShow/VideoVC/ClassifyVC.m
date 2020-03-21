@@ -200,11 +200,12 @@
             ///代理版本
                    if ([UserTools isAgentVersion]) {
                        KamiPayController *vc = [[ KamiPayController alloc]init];
-//                       [self.navigationController pushViewController:vc animated:YES];
-                       [self presentViewController:vc  animated:YES completion:nil];
+                       [self.navigationController pushViewController:vc animated:YES];
+//                       [self presentViewController:vc  animated:YES completion:nil];
                    }else{
                        //官方版本
-                       CSMallVC *vc = [[CSMallVC alloc]init];
+//                       CSMallVC *vc = [[CSMallVC alloc]init];
+                       KamiPayController *vc = [[ KamiPayController alloc]init];
                        [self.navigationController pushViewController:vc animated:YES];
                    }
         }if (type == 4) {

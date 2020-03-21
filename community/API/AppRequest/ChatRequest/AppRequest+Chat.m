@@ -135,6 +135,29 @@
 }
 
 
+///群置顶
+-(void)requestGroupTop:(NSString *)groupId userid:(NSString *)userid status:(NSString *)status Block:(void(^)(AppRequestState state,id result))callBack{
+    //没有登录不需要置顶
+    if (!userid) {
+        return;
+    }
+    NSDictionary *param = @{@"group_id":groupId, @"user_id":userid, @"status":status};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/group/group_top" Params:param Callback:^(BOOL isSuccess, id result) {
+        if (isSuccess) {
+            AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
+            callBack(state,result);
+        }else {
+            callBack(AppRequestState_Fail,result);
+        }
+        
+        
+    } HttpMethod:AppRequestPost isAni:YES];
+}
+
+
+
+
+
 ///版本更新
 -(void)requestUpdateBlock:(void(^)(AppRequestState state,id result))callBack{
     
@@ -148,7 +171,7 @@
         }
         
         
-    } HttpMethod:AppRequestPost isAni:YES];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 

@@ -129,7 +129,7 @@
                       if (mo.city.length > 1) {
                           mo.city = str.city;
                       }else{
-                          mo.city = @"未知";
+                          mo.city = @"";
                       }
                      
                       

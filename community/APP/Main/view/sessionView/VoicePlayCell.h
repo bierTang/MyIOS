@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, VedioStatus) {
 @property (nonatomic,copy) void(^voicePlayBlock)(id data);
 
 @property (nonatomic,copy) void(^sliderBlock)(NSInteger current);
+@property (nonatomic,copy) void(^startBlock)(NSInteger current);
 
 @property (nonatomic,assign)NSInteger currentCount;
 @property (nonatomic,assign)NSInteger totalCount;

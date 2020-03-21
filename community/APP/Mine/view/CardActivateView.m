@@ -34,7 +34,7 @@
         make.centerY.equalTo(self.centerY);
     }];
     
-    UILabel *title = [UILabel labelWithTitle:@"请输入激活码" font:14 textColor:@"181818" textAlignment:NSTextAlignmentCenter];
+    UILabel *title = [UILabel labelWithTitle:@"请输入激活码" font:16 textColor:@"181818" textAlignment:NSTextAlignmentCenter];
     [self.bgView addSubview:title];
     [title makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(10);
@@ -43,7 +43,7 @@
     
     self.inputTF = [[UITextField alloc]init];
     self.inputTF.placeholder = @"请输入您购买的激活码";
-    self.inputTF.font = [UIFont systemFontOfSize:13*K_SCALE];
+    self.inputTF.font = [UIFont systemFontOfSize:16*K_SCALE];
     [self.bgView addSubview:self.inputTF];
     
     [self.inputTF makeConstraints:^(MASConstraintMaker *make) {
@@ -64,7 +64,7 @@
     }];
     
     UIView *grayLine = [[UIView alloc]init];
-    grayLine.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+    grayLine.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
     [self.bgView addSubview:grayLine];
     [grayLine makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line.bottom).offset(15);
@@ -72,7 +72,7 @@
         make.height.equalTo(0.5);
     }];
     
-    UIButton *leftBtn = [UIButton buttonWithTitle:@"关闭" font:13*K_SCALE titleColor:@"6e6e6e"];
+    UIButton *leftBtn = [UIButton buttonWithTitle:@"关闭" font:15*K_SCALE titleColor:@"666666"];
     [leftBtn addTarget:self action:@selector(handClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgView addSubview:leftBtn];
     leftBtn.tag = 1;
@@ -85,7 +85,7 @@
 //        make.height.equalTo(
     }];
     
-    UIButton *rightBtn = [UIButton buttonWithTitle:@"确认" font:13*K_SCALE titleColor:@"09c66a"];
+    UIButton *rightBtn = [UIButton buttonWithTitle:@"确认" font:15*K_SCALE titleColor:@"09c66a"];
     [rightBtn addTarget:self action:@selector(handClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgView addSubview:rightBtn];
     rightBtn.tag = 2;

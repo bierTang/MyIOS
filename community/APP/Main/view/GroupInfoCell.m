@@ -84,7 +84,7 @@
     }else{
         self.arrowImg.hidden = NO;
     }
-    if ([name  isEqual: @"消息置顶"]) {
+    if ([name  isEqual: @"群聊置顶"]) {
         self.aswitch.hidden = NO;
         self.arrowImg.hidden = YES;
     }else{

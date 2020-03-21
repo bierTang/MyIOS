@@ -126,16 +126,27 @@
     
     [self.bgImage sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
     self.titleLab.text = model.userName;
+    if (model.nums.length == 0) {
+        self.onlineIcon.hidden = YES;
+    }else{
+        self.onlineIcon.hidden = NO;
+    }
     self.onlineNum.text = model.nums;
     self.cityLabel.text = model.city;
     //4.根据text的font和字符串自动算出size（重点）
     CGSize size = [model.city sizeWithAttributes:@{NSFontAttributeName:self.cityLabel.font}];
-    [self.cityImg updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(size.width+30);
-        make.height.equalTo(22);
-        make.left.equalTo(0);
-        make.top.equalTo(0);
-    }];
+    if (model.city.length == 0) {
+        self.cityImg.hidden = YES;
+    }else{
+        self.cityImg.hidden = NO;
+        [self.cityImg updateConstraints:^(MASConstraintMaker *make) {
+               make.width.equalTo(size.width+30);
+               make.height.equalTo(22);
+               make.left.equalTo(0);
+               make.top.equalTo(0);
+           }];
+    }
+   
 //    self.cityImg.frame = CGRectMake(0,0,size.width+30,20);
 }
 

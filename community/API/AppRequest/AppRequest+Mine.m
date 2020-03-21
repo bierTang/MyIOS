@@ -177,6 +177,21 @@
 }
 
 
+///提示信息
+-(void)requestCardInfo:(NSString *)userId Block:(void(^)(AppRequestState state,id result))callBack{
+    
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/user/announcement" Params:@{@"is_sys":userId} Callback:^(BOOL isSuccess, id result) {
+        if (isSuccess) {
+            AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
+            callBack(state,result);
+        }else{
+            callBack(AppRequestState_Fail,result);
+        }
+        
+    } HttpMethod:AppRequestPost isAni:YES];
+}
+
+
 ///金币列表
 -(void)requestMerBerCoinListBlock:(void(^)(AppRequestState state,id result))callBack{
     

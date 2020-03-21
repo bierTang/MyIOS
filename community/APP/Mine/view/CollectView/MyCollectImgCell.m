@@ -81,6 +81,8 @@
     
     self.videoBgImg = [[UIImageView alloc]init];
     [self.videoBgView addSubview:self.videoBgImg];
+    self.videoBgImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.videoBgImg.layer.masksToBounds = YES;
     [self.videoBgImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
         make.bottom.top.equalTo(0);

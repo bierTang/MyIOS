@@ -27,7 +27,8 @@
 @property (nonatomic,strong)NSTimer *timer;
 
 @property (nonatomic,strong)UIScrollView *scrollview;
-
+//菊花
+@property (nonatomic, strong) UIActivityIndicatorView * activityIndicator;
 @end
 
 @implementation LivePlayVC
@@ -53,6 +54,8 @@
     self.scrollview.showsVerticalScrollIndicator = NO;
     self.scrollview.showsHorizontalScrollIndicator = NO;
     self.scrollview.contentOffset = CGPointMake(SCREEN_WIDTH, 0);
+    
+
     
     __weak typeof(self) wself = self;
     [[AppRequest sharedInstance]requestADSforType:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
@@ -252,9 +255,27 @@
         make.height.equalTo(50);
         make.width.equalTo(70);
     }];
-    //放到scrollview上就是在最上面显示
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
-    [hud hideAnimated:true afterDelay:2.5];
+//    //放到scrollview上就是在最上面显示
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
+//    [hud hideAnimated:true afterDelay:2.5];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhiteLarge)];
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.width.height.equalTo(100);
+       }];
+    //设置小菊花的frame
+//    self.activityIndicator.frame= CGRectMake(100, 100, 100, 100);
+    //设置小菊花颜色
+//    self.activityIndicator.color = [UIColor redColor];
+//    //设置背景颜色
+//    self.activityIndicator.backgroundColor = [UIColor cyanColor];
+    //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+//    self.activityIndicator.hidesWhenStopped = NO;
+    [self.activityIndicator startAnimating];
+   
+    
     
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(noPlayer:) name:(MPMoviePlayerPlaybackDidFinishNotification)
@@ -267,7 +288,8 @@
 
 }
 -(void)handleTimer{
-    [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+    [self.activityIndicator stopAnimating];
+//    [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
 //    if (self.player.playbackState == 0){
         self.noLiveView.hidden = NO;
 //    }
@@ -288,13 +310,14 @@
 
 -(void)noPlayer:(NSNotificationCenter *)not{
     dispatch_async(dispatch_get_main_queue(), ^{
-         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+        [self.activityIndicator stopAnimating];
+//         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
                            self.noLiveView.hidden = NO;
                        });
 }
 -(void)starPlayer:(NSNotificationCenter *)not{
-    
-         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+    [self.activityIndicator stopAnimating];
+//         [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
  
 }
 
@@ -336,7 +359,8 @@
     
     if(self.player.playbackState == MPMoviePlaybackStatePlaying){
         NSLog(@"正在播放");
-        [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+        [self.activityIndicator stopAnimating];
+//        [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
     }
     
 //    MPMoviePlaybackStateStopped,

@@ -27,13 +27,14 @@
 
 @property (nonatomic,assign)NSInteger memberNum;
 
+@property (nonatomic,strong)UISwitch *aswitch;
 @end
 
 @implementation GroupInfoVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self initUI];
     
     [[AppRequest sharedInstance]requestGroupMemBer:[CSCaches shareInstance].groupInfoModel.idss Block:^(AppRequestState state, id  _Nonnull result) {
@@ -45,11 +46,14 @@
 }
 
 -(void)initUI{
-    self.dataArr = @[@[@"a"],@[@"群名称",@"所属板块",@"群介绍",@"消息置顶"],@[@"投诉"]];
-    self.subArr = @[@[@"a"],@[[CSCaches shareInstance].groupInfoModel.name,@"暂无",@"",@""],@[@""]];
-
+    self.dataArr = @[@[@"a"],@[@"群名称",@"所属板块",@"群聊置顶",@"群介绍"],@[@"投诉"]];
+    NSString *gName = [CSCaches shareInstance].groupInfoModel.group_name;
+    self.subArr = @[@[@"a"],@[[CSCaches shareInstance].groupInfoModel.name,gName ? gName:@"暂无",@"",@""],@[@""]];
+    self.navigationItem.title = [CSCaches shareInstance].groupInfoModel.name;
     [self.view addSubview:self.tableView];
-    
+    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.right.equalTo(self.view);
+    }];
 }
 
 -(UITableView *)tableView{
@@ -91,7 +95,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 200*K_SCALE;
+        NSLog(@"状态%ld",self.memberNum);
+        NSLog(@"状态%ld",self.memberNum/5);
+        return 725*K_SCALE;
     }else{
         return 44*K_SCALE;
     }
@@ -107,6 +113,19 @@
         GroupInfoCell *cell = [[GroupInfoCell alloc]cellInitWith:tableView Indexpath:indexPath];
         
         [cell refreshCell:self.dataArr[indexPath.section][indexPath.row] subtitle:self.subArr[indexPath.section][indexPath.row] showArrow:YES];
+        
+        
+//        NSLog(@"状态%@",[CSCaches shareInstance].groupInfoModel.group_status);
+        NSString *str = [CSCaches shareInstance].groupInfoModel.group_status;
+        if ([str  isEqual: @"1"]) {
+            cell.aswitch.on = YES;
+        }else{
+            cell.aswitch.on = NO;
+        }
+        self.aswitch = cell.aswitch;
+        // 添加事件
+        [cell.aswitch addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];   // 开关事件切换通知
+        
         return cell;
     }
     
@@ -114,7 +133,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 1 && indexPath.row == 2) {
+    if (indexPath.section == 1 && indexPath.row == 3) {
         //
         UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
         self.navigationItem.backBarButtonItem = barItem;
@@ -130,6 +149,34 @@
         barItem.title = @"在线客服";
         WebServeVC *vc = [[WebServeVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
+// switch改变
+-(void)switchChange:(id)sender{
+   UISwitch* openbutton = (UISwitch*)sender;
+   Boolean ison = openbutton.isOn;
+    if(![UserTools userID]){
+               openbutton.on = NO;
+               [[MYToast makeText:@"请先登录"]show];
+           }
+    if(ison){
+        NSLog(@"打开了");
+        
+        [[AppRequest sharedInstance]requestGroupTop:[CSCaches shareInstance].groupInfoModel.idss userid:[UserTools userID] status:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+            
+        }];
+  
+        
+        
+        
+    }else{
+        NSLog(@"关闭了");
+        
+        [[AppRequest sharedInstance]requestGroupTop:[CSCaches shareInstance].groupInfoModel.idss userid:[UserTools userID] status:@"0" Block:^(AppRequestState state, id  _Nonnull result) {
+            
+        }];
     }
 }
 

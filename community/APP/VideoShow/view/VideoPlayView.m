@@ -40,7 +40,7 @@
         make.top.equalTo(10);
     }];
     
-    self.adsUpImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.adsUpImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self addSubview:self.adsUpImg];
     [self.adsUpImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -48,7 +48,7 @@
         make.height.equalTo(125*K_SCALE);
     }];
     
-    self.adsDownImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.adsDownImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self addSubview:self.adsDownImg];
     [self.adsDownImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);

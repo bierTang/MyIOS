@@ -86,7 +86,7 @@
 //        make.bottom.equalTo(self.contentView.bottom);
     }];
     
-    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self.videoBgView addSubview:self.videoImg];
     [self.videoImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -112,7 +112,7 @@
 //    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
 //    self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
 //    self.contentLab.text = model.descriptions;
-    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
+    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
 }
 

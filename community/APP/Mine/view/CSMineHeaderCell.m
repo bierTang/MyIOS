@@ -206,7 +206,7 @@
         }else{
             self.headImg.image = [UIImage imageNamed:@"1"];
         }
-        self.IdLab.text = [NSString stringWithFormat:@"ID:%@",model.idss];
+        self.IdLab.text = [NSString stringWithFormat:@"ID:%@",model.mobile];
         self.nameLab.text = model.nickname;
     }else{
         self.headImg.image = [UIImage imageNamed:@"headImg_base"];

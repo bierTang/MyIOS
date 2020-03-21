@@ -8,6 +8,11 @@
 
 #import "PhotoContainer.h"
 
+#import "YBImageBrowser.h"
+#import "YBIBVideoData.h"
+#if __has_include("YBIBDefaultWebImageMediator.h")
+#import "YBIBDefaultWebImageMediator.h"
+#endif
 @implementation PhotoContainer
 
 - (instancetype)initWithSize:(CGSize)size
@@ -83,12 +88,43 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"dianjiitemmmmmm");
 
-    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
-    browser.currentImageIndex = indexPath.item;
-    browser.sourceImagesContainerView = self.collectview;
-    browser.imageCount = self.dataArr.count;
-    browser.delegate = self;
-    [browser show];
+    //添加图片数据集合
+                 NSMutableArray *datass = [NSMutableArray array];
+               
+                   [self.dataArr enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                         
+                                  YBIBImageData *data = [YBIBImageData new];
+                                   data.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,obj]];
+    //                                              data.projectiveView = cell.bgImg;
+                                      
+
+                                     [datass addObject:data];
+                                                    
+                                   
+                                     }];
+                                       YBImageBrowser *browser = [YBImageBrowser new];
+                                      //                    // 调低图片的缓存数量
+                                      //                    browser.ybib_imageCache.imageCacheCountLimit = 100;
+                                      //                    // 预加载数量设为 0
+    //                                                      browser.preloadCount = 10;
+                                                            browser.webImageMediator = [YBIBDefaultWebImageMediator new];
+                                                              browser.dataSourceArray = datass;
+                                                              browser.currentPage = indexPath.row;
+                                                              // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                                                              browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                                                              [browser show];
+    
+    
+    
+    
+    
+    
+//    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+//    browser.currentImageIndex = indexPath.item;
+//    browser.sourceImagesContainerView = self.collectview;
+//    browser.imageCount = self.dataArr.count;
+//    browser.delegate = self;
+//    [browser show];
     
 }
 

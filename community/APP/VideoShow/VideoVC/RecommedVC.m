@@ -266,9 +266,9 @@
                 ///代理版本
                        if ([UserTools isAgentVersion]) {
                            KamiPayController *vc = [[ KamiPayController alloc]init];
-                          
-                           [self presentViewController:vc  animated:YES completion:nil];
-//                           [self.navigationController pushViewController:vc animated:YES];
+                          vc.title = @"购买商城";
+//                           [self presentViewController:vc  animated:YES completion:nil];
+                           [self.navigationController pushViewController:vc animated:YES];
                            
                        }else{
                            //官方版本
@@ -276,8 +276,9 @@
 //                           [self.navigationController pushViewController:vc animated:YES];
                            
                            KamiPayController *vc = [[ KamiPayController alloc]init];
-//                           [self.navigationController pushViewController:vc animated:YES];
-                           [self presentViewController:vc  animated:YES completion:nil];
+                           vc.title = @"购买商城";
+                           [self.navigationController pushViewController:vc animated:YES];
+//                           [self presentViewController:vc  animated:YES completion:nil];
                        }
             }if (type == 4) {
                 //分享

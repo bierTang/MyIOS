@@ -75,7 +75,7 @@
         make.height.lessThanOrEqualTo(60);
     }];
     
-    self.BlurImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.BlurImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self.contentView addSubview:self.BlurImg];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -105,7 +105,7 @@
         make.bottom.equalTo(self.videoBgView.bottom);
     }];
     
-    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self.videoBgView addSubview:self.videoImg];
     [self.videoImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -190,7 +190,7 @@
     self.model = model;
     
     self.nameLab.text = model.nick_name;
-    [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
+    [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     if (model.img_h > model.img_w) {
         CGFloat sj_w = 0;
         sj_w = (400.0*K_SCALE)/model.img_h * model.img_w;
@@ -222,7 +222,7 @@
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     self.contentLab.text = model.descriptions;
-    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
+    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
     self.collectNumLab.text = self.model.favorite_num;
     self.praiseNumLab.text = self.model.like_num;

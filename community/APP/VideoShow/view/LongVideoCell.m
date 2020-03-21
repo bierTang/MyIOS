@@ -46,7 +46,7 @@
         make.height.equalTo(35*K_SCALE);
     }];
     
-    self.BlurImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.BlurImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self.contentView addSubview:self.BlurImg];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -75,7 +75,7 @@
         make.bottom.equalTo(self.videoBgView.bottom);
     }];
     
-    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"madeOfVideo"]];
+    self.videoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
     [self.videoBgView addSubview:self.videoImg];
     [self.videoImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -147,7 +147,7 @@
 }
 
 -(void)refreshData:(VideoModel *)model{
-    [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
+    [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
     self.noVipView.hidden = YES;
     
@@ -176,7 +176,7 @@
     
     
     self.titleLab.text = model.descriptions;
-    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"madeOfVideo"]];
+    [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
 }
 

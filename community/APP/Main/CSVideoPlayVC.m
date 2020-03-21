@@ -97,22 +97,22 @@
         return;
     }
     if (longpress.state == UIGestureRecognizerStateBegan) {
-        CSAlertView *alertView = [[CSAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        alertView.backBlock = ^{
-//            [self saveImage];
-            DownVideoTool *dlowd = [DownVideoTool new];
-            [dlowd downloadVideo:self.playUrl];
-            dlowd.progressBlock = ^(id  _Nonnull progress) {
-                NSProgress *progre = progress;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.progLab.text = [NSString stringWithFormat:@"%.2f %%",progre.fractionCompleted * 100];
-                });
-            };
-            dlowd.completBlock = ^{
-                self.progLab.text = @"";
-            };
-        };
-        [[UIApplication sharedApplication].keyWindow addSubview:alertView];
+//        CSAlertView *alertView = [[CSAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        alertView.backBlock = ^{
+////            [self saveImage];
+//            DownVideoTool *dlowd = [DownVideoTool new];
+//            [dlowd downloadVideo:self.playUrl];
+//            dlowd.progressBlock = ^(id  _Nonnull progress) {
+//                NSProgress *progre = progress;
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    self.progLab.text = [NSString stringWithFormat:@"%.2f %%",progre.fractionCompleted * 100];
+//                });
+//            };
+//            dlowd.completBlock = ^{
+//                self.progLab.text = @"";
+//            };
+//        };
+//        [[UIApplication sharedApplication].keyWindow addSubview:alertView];
     }
 }
 

@@ -34,7 +34,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = @"分享推广";
-    
+    UIBarButtonItem* backButtonItem = [[UIBarButtonItem alloc]init];
+     
+    backButtonItem.title = @"返回";
+     
+    self.navigationItem.backBarButtonItem = backButtonItem;
+
     [self setUpNav];
     UIScrollView *bgView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     ///代理版本

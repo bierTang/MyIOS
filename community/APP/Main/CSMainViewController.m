@@ -447,4 +447,48 @@
 }
 
 
+//侧滑允许编辑cell
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    //第一个不需要侧滑
+    if(indexPath.row == 0){
+        return NO;
+    }else{
+        //没有登录不需要置顶
+           if (![UserTools isLogin]) {
+               return NO;
+           }else{
+               return YES;
+           }
+        
+    }
+    
+}
+
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *topRowAction;
+    if ([self.dataArr[indexPath.row].group_status  isEqual: @"1"]) {
+       topRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"取消置顶"handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                [[AppRequest sharedInstance]requestGroupTop:self.dataArr[indexPath.row].idss userid:[UserTools userID] status:@"0" Block:^(AppRequestState state, id  _Nonnull result) {
+                    [self loadData];
+                }];
+           }];
+    }else{
+        topRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"置顶"handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                    [[AppRequest sharedInstance]requestGroupTop:self.dataArr[indexPath.row].idss userid:[UserTools userID] status:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
+                        [self loadData];
+                    }];
+               }];
+        
+        
+    
+    }
+    // 添加一个编辑按钮
+    
+    topRowAction.backgroundColor = [UIColor colorWithHexString:@"999999"];
+    // 将设置好的按钮放到数组中返回
+    return @[topRowAction];
+}
+
 @end

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 -(void)requestGroupMemBer:(NSString *)groupId Block:(void(^)(AppRequestState state,id result))callBack;
 
-
+-(void)requestGroupTop:(NSString *)groupId userid:(NSString *)userid status:(NSString *)status Block:(void(^)(AppRequestState state,id result))callBack;
 ///版本更新
 -(void)requestUpdateBlock:(void(^)(AppRequestState state,id result))callBack;
 

@@ -270,6 +270,9 @@
     
     if (![UserTools isAgentVersion]) {
         CSShareVC *vc = [[CSShareVC alloc]init];
+        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+        self.navigationItem.backBarButtonItem = barItem;
+        barItem.title = @"我的";
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         if (!self.cardActView) {
@@ -305,17 +308,17 @@
 //       [self.navigationController pushViewController:vc animated:YES];
         UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
              self.navigationItem.backBarButtonItem = barItem;
-             barItem.title = @"购买商城";
+             barItem.title = @"我的";
              KamiPayController *vc = [[ KamiPayController alloc]init];
-//             [self.navigationController pushViewController:vc animated:YES];
-       [self presentViewController:vc  animated:YES completion:nil];
+             [self.navigationController pushViewController:vc animated:YES];
+//       [self presentViewController:vc  animated:YES completion:nil];
    }else{
        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
        self.navigationItem.backBarButtonItem = barItem;
-       barItem.title = @"购买商城";
+       barItem.title = @"我的";
        KamiPayController *vc = [[ KamiPayController alloc]init];
-//       [self.navigationController pushViewController:vc animated:YES];
-       [self presentViewController:vc  animated:YES completion:nil];
+       [self.navigationController pushViewController:vc animated:YES];
+//       [self presentViewController:vc  animated:YES completion:nil];
    }
     
     
@@ -354,9 +357,11 @@
                     [cell messageText:model.midTitle];
                 }else if (indexPath.row == 2){
                     [cell messageText:model.midTitle];
+                }else{
+                    [cell messageText:@""];
                 }
             }else if(indexPath.section == 2){
-                
+                [cell messageText:@""];
             }
             cell.BtnBlock = ^{
                 NSLog(@"btnBlocc::%ld--%ld--%@",indexPath.section,indexPath.row,model.btnName);
@@ -453,6 +458,9 @@
         }else if (indexPath.row ==4){
             NSLog(@"分享");
 //            [self clearCaches];
+            UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+            self.navigationItem.backBarButtonItem = barItem;
+            barItem.title = @"我的";
             CSShareVC *vc = [[CSShareVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -510,6 +518,9 @@
                 }else{
                     NSLog(@"分享推广");
                     CSShareVC *vc = [[CSShareVC alloc]init];
+                    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+                    self.navigationItem.backBarButtonItem = barItem;
+                    barItem.title = @"我的";
                     [self.navigationController pushViewController:vc animated:YES];
                 }
             }

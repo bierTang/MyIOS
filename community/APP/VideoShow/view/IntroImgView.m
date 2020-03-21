@@ -8,6 +8,11 @@
 
 #import "IntroImgView.h"
 
+#import "YBImageBrowser.h"
+#import "YBIBVideoData.h"
+#if __has_include("YBIBDefaultWebImageMediator.h")
+#import "YBIBDefaultWebImageMediator.h"
+#endif
 @implementation IntroImgView
 
 - (instancetype)init
@@ -101,16 +106,45 @@
 }
 -(void)showBigImage:(UITapGestureRecognizer *)tap{
     NSLog(@"大图：%ld",tap.view.tag);
-    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+//    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     NSInteger tag = tap.view.tag;
     if (!tag) {
         tag = 0;
     }
-    browser.currentImageIndex = tag;
-    browser.sourceImagesContainerView = self.ImagesArr[0].superview;
-    browser.imageCount = self.allImgsArr.count;
-    browser.delegate = self;
-    [browser show];
+    
+    //添加图片数据集合
+                 NSMutableArray *datass = [NSMutableArray array];
+               
+                   [self.allImgsArr enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                         
+                                  YBIBImageData *data = [YBIBImageData new];
+                                   data.imageURL = [NSURL URLWithString:obj];
+    //                                              data.projectiveView = cell.bgImg;
+                                      
+
+                                     [datass addObject:data];
+                                                    
+                                   
+                                     }];
+                                       YBImageBrowser *browser = [YBImageBrowser new];
+                                      //                    // 调低图片的缓存数量
+                                      //                    browser.ybib_imageCache.imageCacheCountLimit = 100;
+                                      //                    // 预加载数量设为 0
+    //                                                      browser.preloadCount = 10;
+                                                            browser.webImageMediator = [YBIBDefaultWebImageMediator new];
+                                                              browser.dataSourceArray = datass;
+                                                              browser.currentPage = tag;
+                                                              // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                                                              browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                                                              [browser show];
+    
+    
+    
+//    browser.currentImageIndex = tag;
+//    browser.sourceImagesContainerView = self.ImagesArr[0].superview;
+//    browser.imageCount = self.allImgsArr.count;
+//    browser.delegate = self;
+//    [browser show];
 }
 #pragma mark - SDPhotoBrowserDelegate
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
@@ -133,7 +167,7 @@
     for (int i=0; i<model.images_array.count; i++) {
 //        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] placeholderImage:[UIImage imageNamed:@"videoOccupIcon"]];
         
-        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] placeholderImage:[UIImage imageNamed:@"postImage_hoverIcon"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [self.ImagesArr[i] sd_setImageWithURL:[NSURL URLWithString:model.images_array[i]] placeholderImage:[UIImage imageNamed:@"img_default"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             self.ImagesArr[i].userInteractionEnabled = YES;
         }];
         self.ImagesArr[i].hidden = NO;
