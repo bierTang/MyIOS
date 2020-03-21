@@ -26,7 +26,7 @@
 
 //p到第多少个了
 @property (nonatomic,assign)NSInteger indexP;
-
+@property (nonatomic,strong) UIImageView *adImage;
 @end
 
 @implementation LoadingVC
@@ -66,14 +66,14 @@
     }
     
     
-    UIImageView *adImage = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    adImage.contentMode = UIViewContentModeScaleAspectFill;
-    adImage.hidden = YES;
-    adImage.image = [UIImage imageNamed:@"qidong.jpg"];
-    [self.view addSubview:adImage];
+    self.adImage = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    self.adImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.adImage.hidden = YES;
+    self.adImage.image = [UIImage imageNamed:@"qidong.jpg"];
+    [self.view addSubview:self.adImage];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(goAdsLink)];
-    [adImage addGestureRecognizer:tap];
-    adImage.userInteractionEnabled = YES;
+    [self.adImage addGestureRecognizer:tap];
+    self.adImage.userInteractionEnabled = YES;
     
     UIView *circle = [[UIView alloc]init];
     circle.backgroundColor = [UIColor grayColor];
@@ -95,7 +95,7 @@
         make.center.equalTo(circle.center);
     }];
     if ([[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length == 0) {
-        adImage.hidden = YES;
+        self.adImage.hidden = YES;
         circle.hidden = YES;
         self.timeLab.hidden = YES;
     }
@@ -111,9 +111,9 @@
         
         if (isSuccess) {
             if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-                adImage.hidden = NO;
+                self.adImage.hidden = NO;
                 NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
-                [adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
+                [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
                 wself.linkString = result[@"data"][@"ad_lists"][@"link"];
             }
             if (result[@"data"][@"file_url"]) {
@@ -204,6 +204,36 @@
             self.indexP = 1;
         }
         [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
+        
+        [[AppRequest sharedInstance]doRequestWithUrl:self.webUrls[self.indexP-1].url Params:@"/index.php/index/common/choice_line" Callback:^(BOOL isSuccess, id result) {
+               
+               if (isSuccess) {
+                   if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
+                       self.adImage.hidden = NO;
+                       NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
+                       [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
+                       self.linkString = result[@"data"][@"ad_lists"][@"link"];
+                   }
+                   if (result[@"data"][@"file_url"]) {
+                       [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
+                   }
+                   [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
+                   if (result[@"data"][@"url"]) {
+                       NSLog(@"线路：%@",result[@"data"][@"url"]);
+                       NSArray *arr = result[@"data"][@"url"];
+                       NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"url"]];
+                       for (WebModel *i in arrModel){
+                           i.bg_tableName = @"WEBLINE";
+                       }
+                       [WebModel bg_saveOrUpdateArray:arrModel];
+                     
+                   }
+                 
+               }
+
+           } HttpMethod:AppRequestGet isAni:NO];
+        
+        
         
     } else {
         NSLog(@"Ping FAILURE");
