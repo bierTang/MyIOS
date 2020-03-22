@@ -65,7 +65,13 @@
     // 四个数值对应图片中距离上、左、下、右边界的不拉伸部分的范围宽度
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(25, 15, 8, 8) resizingMode:UIImageResizingModeStretch];
     self.bgImg.image = img;
-    
+    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+       [self.contentView addSubview:self.activityIndicator];
+       [self.activityIndicator makeConstraints:^(MASConstraintMaker *make) {
+           make.centerY.equalTo(self.bgImg);
+           make.width.height.equalTo(50);
+           make.left.equalTo(self.bgImg.right).offset(5);
+          }];
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.playBtn setImage:[UIImage imageNamed:@"play_mp3icon"] forState:UIControlStateNormal];

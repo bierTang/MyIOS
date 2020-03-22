@@ -107,28 +107,32 @@
 
     
     __weak typeof(self) wself = self;
-    [[AppRequest sharedInstance]doRequestWithUrl:@"http://vq.v-qun.com" Params:@"/index.php/index/common/choice_line" Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api.vq1.xyz" Params:@"/index.php" Callback:^(BOOL isSuccess, id result) {
         
         if (isSuccess) {
-            if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-                self.adImage.hidden = NO;
-                NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
-                [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
-                wself.linkString = result[@"data"][@"ad_lists"][@"link"];
-            }
-            if (result[@"data"][@"file_url"]) {
-                [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
-            }
-            if (result[@"data"][@"url"]) {
-                NSLog(@"线路：%@",result[@"data"][@"url"]);
-                NSArray *arr = result[@"data"][@"url"];
-                NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"url"]];
+//            if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
+//                self.adImage.hidden = NO;
+//                NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
+//                [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
+//                wself.linkString = result[@"data"][@"ad_lists"][@"link"];
+//            }
+//            if (result[@"data"][@"file_url"]) {
+//                [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
+//            }
+            if (result[@"data"]) {
+                NSLog(@"线路：%@",result[@"data"]);
+                NSArray *arr = result[@"data"];
+                NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
                 if (arr[0]) {
                     [CSCaches shareInstance].webUrl = @"http://vq.v-qun.com";
                 }
 
                 for (WebModel *i in arrModel){
                     i.bg_tableName = @"WEBLINE";
+                    if (![i.url containsString:@"http://"]&&![i.url containsString:@"https://"]) {
+                        i.url = [NSString stringWithFormat:@"%@%@",@"https://",i.url];
+                    }
+                    
                 }
                 
                 [WebModel bg_saveOrUpdateArray:arrModel];
@@ -205,23 +209,29 @@
         }
         [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
         
-        [[AppRequest sharedInstance]doRequestWithUrl:self.webUrls[self.indexP-1].url Params:@"/index.php/index/common/choice_line" Callback:^(BOOL isSuccess, id result) {
+        
+        [[AppRequest sharedInstance]requestADSforType:@"11" Block:^(AppRequestState state, id  _Nonnull result) {
+               NSLog(@"首页广告：：%@",result);
+               if (state == AppRequestState_Success) {
+                               if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
+                                   self.adImage.hidden = NO;
+                                   NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][0][@"logo"]];
+                                   [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
+                                   self.linkString = result[@"data"][0][@"link"];
+                               }
+
+               }
+           }];
+        
+        
+        [[AppRequest sharedInstance]doRequestWithUrl:self.webUrls[self.indexP-1].url Params:@"/index.php" Callback:^(BOOL isSuccess, id result) {
                
                if (isSuccess) {
-                   if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-                       self.adImage.hidden = NO;
-                       NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
-                       [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
-                       self.linkString = result[@"data"][@"ad_lists"][@"link"];
-                   }
-                   if (result[@"data"][@"file_url"]) {
-                       [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
-                   }
+
                    [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
-                   if (result[@"data"][@"url"]) {
-                       NSLog(@"线路：%@",result[@"data"][@"url"]);
-                       NSArray *arr = result[@"data"][@"url"];
-                       NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"url"]];
+                   if (result[@"data"]) {
+                       NSLog(@"线路：%@",result[@"data"]);
+                       NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
                        for (WebModel *i in arrModel){
                            i.bg_tableName = @"WEBLINE";
                        }

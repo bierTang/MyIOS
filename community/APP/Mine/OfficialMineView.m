@@ -11,6 +11,7 @@
 #import "CSMineCell.h"
 #import "CSMineHeaderCell.h"
 #import "LoginOutCell.h"
+#import "CopyRightCell.h"
 
 @implementation OfficialMineView
 
@@ -82,20 +83,36 @@
     }
     
     NSMutableArray *arr3 = [NSMutableArray new];
-    NSArray *nameArr3 = @[@"官方客服"];
-    NSArray *iconArr3 = @[@"serviceIcon"];
+    NSArray *nameArr3 = @[@"官方客服",@"官方QQ",@"官方微信",];
+    NSArray *iconArr3 = @[@"serviceIcon",@"QQIcon",@"wechatIcon"];
+    NSString *wx = @" ";
+       NSString *qq = @" ";
+       
+       if ([[CSCaches shareInstance]getUserModel:USERMODEL].wx.length > 0) {
+           wx = [[CSCaches shareInstance]getUserModel:USERMODEL].wx;
+       }
+       if ([[CSCaches shareInstance]getUserModel:USERMODEL].qq.length > 0) {
+           qq = [[CSCaches shareInstance]getUserModel:USERMODEL].qq;
+       }
+       
+       NSArray *midtitle2 = @[@"",qq,wx,];
+       NSArray *btnNameArr = @[@"",@"复制",@"复制"];
+    
+    
     for (int i = 0; i<nameArr3.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr3[i];
         model.leftTitle = nameArr3[i];
+        model.midTitle = midtitle2[i];
+        model.btnName = btnNameArr[i];
         [arr3 addObject:model];
     }
     
     
     if ([UserTools isLogin]) {
-        self.dataArr = @[@[@" "],arr1,arr3,@[@" "]];
+        self.dataArr = @[@[@" "],arr1,arr3,@[@" "],@[@" "]];
     }else{
-        self.dataArr = @[@[@" "],arr1,arr3];
+        self.dataArr = @[@[@" "],arr1,arr3,@[@" "]];
     }
 }
 
@@ -165,14 +182,42 @@
     }else{
         
         if (indexPath.section == 3) {
+            if ([UserTools isLogin]) {
+                           //登录了就出现退出登录
             LoginOutCell *cell = [[LoginOutCell alloc]cellInitWith:tableView Indexpath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+                }else{
+                    //没登录就出现版权
+                    CopyRightCell *cell = [[CopyRightCell alloc]cellInitWith:tableView Indexpath:indexPath];
+                               return cell;
+                }
+        }else if (indexPath.section == 4) {
+            CopyRightCell *cell = [[CopyRightCell alloc]cellInitWith:tableView Indexpath:indexPath];
             return cell;
         }else{
             CSMineCell *cell = [[CSMineCell alloc]cellInitWith:tableView Indexpath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             SetModel *model = self.dataArr[indexPath.section][indexPath.row];
+            if (indexPath.section == 2) {
+                           if (indexPath.row == 1) {
+                               [cell messageText:model.midTitle];
+                           }else if (indexPath.row == 2){
+                               [cell messageText:model.midTitle];
+                           }else{
+                               [cell messageText:@""];
+                           }
+                       }
+            cell.BtnBlock = ^{
+                 NSLog(@"btnBlocc::%ld--%ld--%@",indexPath.section,indexPath.row,model.btnName);
+                                          if (indexPath.section == 2 && indexPath.row >= 1) {
+                                              UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                                              pasteboard.string = model.midTitle;
+                                              [[MYToast makeText:@"复制成功"]show];
+                                          }
+            };
+
+            
             [cell refreshCellIcon:model.iconName andTitle:model.leftTitle subtitle:model.rightTitle funBtnTitle:model.btnName];
             
             return cell;

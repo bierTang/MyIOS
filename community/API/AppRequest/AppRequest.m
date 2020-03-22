@@ -124,9 +124,7 @@ static AppRequest *appRequestInstance = nil;
             dispatch_async(dispatch_get_main_queue(), ^{
              [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
             });
-        
-        
-        
+
         
         return;
     }
@@ -146,7 +144,11 @@ static AppRequest *appRequestInstance = nil;
                   dispatch_async(dispatch_get_main_queue(), ^{
                    [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                   });
-//
+                
+           
+            
+            
+            
         }];
     } else if(method == AppRequestPost) {
         [self AFPostRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
@@ -196,6 +198,22 @@ static AppRequest *appRequestInstance = nil;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
+            if( [result[@"code"] integerValue] == 10019){
+                           [[MYToast makeText:@"登录失效"]show];
+                [UserTools loginOut];
+                // 前提当前控制器在一个navigationController中
+                               // 取nav的栈顶控制器
+               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
+                   CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+
+                                  [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
+               }
+               
+
+               
+                
+                
+                      }
             callback(isSuccessed, result);
         }];
         
@@ -206,6 +224,10 @@ static AppRequest *appRequestInstance = nil;
         }];
     }];
 }
+
+
+
+
 /**
  *  @param url     请求的URL
  *  @param params  请求参数
@@ -223,7 +245,22 @@ static AppRequest *appRequestInstance = nil;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
+            if( [result[@"code"] integerValue] == 10019){
+                 [[MYToast makeText:@"登录失效"]show];
+                [UserTools loginOut];
+                           // 前提当前控制器在一个navigationController中
+                                    // 取nav的栈顶控制器
+                    if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
+                        CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+
+                                       [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
+                    }
+            }
+         
             callback(isSuccessed, result);
+            
+            
+            
         }];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         @strongity(self);

@@ -714,6 +714,7 @@
  
 
  NSInteger nowSection = -1;
+NSInteger topSection = -1;
 // 获取tableView最上面悬停的SectionHeaderView
 - (void)getNowTopSectionView {
     NSArray <UITableViewCell *> *cellArray = [self.tableView visibleCells];
@@ -728,17 +729,33 @@
        if (self.dataArr.count > 20 && nowSection <= self.dataArr.count - 20) {
            self.bottomBtn.hidden = NO;
        }
-       
+    
+
+   
     
     //滑动到少于10个时就隐藏掉
     if (nowSection >= self.dataArr.count - 10) {
         self.bottomBtn.hidden = YES;
         self.countLabel.hidden = YES;
                                    
+    }else{
+        if (nowSection > topSection) {
+//            NSLog(@"往下滑动:%ld",nowSection);
+//            NSLog(@"往下滑动1:%ld",topSection);
+             if (!self.countLabel.isHidden) {
+                 //小于99个才开始显示
+                 if (nowSection >= self.dataArr.count - 99) {
+                     self.countLabel.text = [NSString stringWithFormat:@"%ld", self.dataArr.count - nowSection];
+                 }
+                   
+               }
+        }
+        
+        
     }
-   
-    NSLog(@"当前滑动到:%ld",nowSection);
-    NSLog(@"一共有:%ld",self.dataArr.count);
+    topSection = nowSection;
+//    NSLog(@"当前滑动到:%ld",nowSection);
+//    NSLog(@"一共有:%ld",self.dataArr.count);
 }
 //视图将要消失
 - (void)viewWillDisappear:(BOOL)animated {
@@ -772,7 +789,7 @@
 //                self.dataArr[indexPath.row].hadLoaded = YES;
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }else{
-                NSLog(@"视频播放地址：：%@",wself.dataArr[indexPath.row].content);
+                NSLog(@"视频播放地址：：%@",wself.dataArr[indexPath.row].video_url);
 //                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
                      if ([HelpTools isMemberShip] ) {
 //                    CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
@@ -799,17 +816,17 @@
                                                        if(obj.ad_type == 1){
                                                            //              网络视频
                                                 YBIBVideoData *data = [YBIBVideoData new];
-                                                data.videoURL = [NSURL URLWithString:obj.content];
+                                                data.videoURL = [NSURL URLWithString:obj.video_url];
 //                                                           data.videoURL = [NSURL URLWithString:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
                                                   data.thumbURL = [NSURL URLWithString:obj.images];
                                                 data.projectiveView = [self videoAtIndex:idx];
 //                                                           data.autoPlayCount = 1;
-                                                           
-                                                           [urlArr addObject:obj.content];
+                                                           data.allowSaveToPhotoAlbum = NO;
+                                                           [urlArr addObject:obj.video_url];
                                                 [datass addObject:data];
                                                                 }
                                                                }];
-                  
+                 
                     
                      NSLog(@"资源有%lu",(unsigned long)self.datas.count);
                     NSLog(@"点击的是%lu",(unsigned long)indexPath.row);
@@ -818,9 +835,9 @@
                     
                     
                     //是否包含
-                    if ([urlArr containsObject:self.dataArr[indexPath.row].content]) {
+                    if ([urlArr containsObject:self.dataArr[indexPath.row].video_url]) {
                         
-                        NSInteger index = [urlArr indexOfObject:self.dataArr[indexPath.row].content];
+                        NSInteger index = [urlArr indexOfObject:self.dataArr[indexPath.row].video_url];
                         NSLog(@"-1---%ld---",index);
                         //单独把这个视频自动播放一次
                         YBIBVideoData *data = datass[index];
@@ -836,7 +853,7 @@
                                                 browser.dataSourceArray = datass;
                                                 browser.currentPage = index;
                                                 // 只有一个保存操作的时候，可以直接右上角显示保存按钮
-                                                browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+//                                                browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
                                                 [browser show];
                         
                     }
@@ -996,14 +1013,20 @@
                                      //当前选中的不等于上次选中的，上次选中的又有，就要消除上次选中的
                                      if (wself.saveIndexPath) {
                                         
+                                         VoicePlayCell *cell = [[VoicePlayCell alloc]cellInitWith:tableView Indexpath:wself.saveIndexPath];
+                                         [cell.activityIndicator stopAnimating];
+                                         
+                                         
                                          [self destroyPlayer];
                                          wself.dataArr[wself.saveIndexPath.row].mp3isPlaying = NO;
                                           [wself.tableView reloadRowsAtIndexPaths:@[wself.saveIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                         
                                      }
                                      wself.dataArr[indexPath.row].mp3isPlaying = YES;
                                          [self playButtonAction];
                                          wself.saveIndexPath = indexPath;
                                      
+                                     [cell.activityIndicator startAnimating];
                                      
                                  }
              
@@ -1278,6 +1301,14 @@
             if (weakSelf.playerItem.currentTime.value<0) {
                 currentPlayTime = 0.1; //防止出现时间计算越界问题
             }
+            
+            
+            if(currentPlayTime > 2){
+                VoicePlayCell *cell = (VoicePlayCell *)[self.tableView cellForRowAtIndexPath:self.saveIndexPath];
+                [cell.activityIndicator stopAnimating];
+            }
+            
+            
             
             NSLog(@"当前播放到:%f",currentPlayTime);
             //拖拽期间不更新数据

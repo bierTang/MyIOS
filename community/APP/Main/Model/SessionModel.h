@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,assign)NSInteger ad_type;  //" = 1;
-@property (nonatomic,strong)NSString *content;  // = "/uploads/files/20191009/dfa134000cc06b6d21ebc79ef61c9d1d.mp4";
+@property (nonatomic,strong)NSString *content;
+@property (nonatomic,strong)NSString *video_url; // = "/uploads/files/20191009/dfa134000cc06b6d21ebc79ef61c9d1d.mp4";
 @property (nonatomic,strong)NSString *create_time;  //" = 1570610823;
 @property (nonatomic,strong)NSString *descriptions;  // = xxxxxxxxxx;
 @property (nonatomic,assign)NSInteger end_time;  //" = 0;

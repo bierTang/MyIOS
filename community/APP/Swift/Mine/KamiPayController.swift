@@ -13,6 +13,18 @@ class KamiPayController: UIViewController {
     var id2 = serveHost
     var id3 = serveHost
     var str = "0"
+    var qqStr = ""
+    var wxStr = ""
+    
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var qqLabel: UILabel!
+    @IBOutlet weak var qqButton: UIButton!
+    
+    @IBOutlet weak var wxLabel: UILabel!
+    @IBOutlet weak var wxButton: UIButton!
+    
+    
+    
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var infoLabel: UILabel!
     
@@ -22,10 +34,24 @@ class KamiPayController: UIViewController {
         view1.layer.cornerRadius = 8
         view1.layer.masksToBounds = true
 
-
+        if (CSCaches.shareInstance().getUserModel(USERMODEL).wx.count > 0) {
+               wxStr = CSCaches.shareInstance().getUserModel(USERMODEL).wx
+           }
+           if (CSCaches.shareInstance().getUserModel(USERMODEL).qq.count > 0) {
+               qqStr = CSCaches.shareInstance().getUserModel(USERMODEL).qq
+           }
+        qqLabel.text = qqStr
+        wxLabel.text = wxStr
+        qqButton.layer.cornerRadius = 4
+        wxButton.layer.cornerRadius = 4
         
         //代理版本才需要请求接口
         if (UserTools.isAgentVersion()) {
+           
+           
+            
+            
+            
             str = "1"
             AppRequest.sharedInstance().requestMerBerCardBlock { (state, result) in
                       
@@ -174,6 +200,20 @@ class KamiPayController: UIViewController {
                UIApplication.shared.openURL(url!)
         }
        }
+    
+    @IBAction func copy1(_ sender: Any) {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = qqStr
+        MYToast.makeText("复制成功")?.show()
+        
+    }
+    @IBAction func copy2(_ sender: Any) {
+         let pasteboard = UIPasteboard.general
+               pasteboard.string = wxStr
+        MYToast.makeText("复制成功")?.show()
+    }
+    
+    
     
     
 

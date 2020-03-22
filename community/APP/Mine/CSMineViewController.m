@@ -19,6 +19,8 @@
 #import "MyCollectVC.h"
 #import "CSMyInfoVC.h"
 #import "LoginOutCell.h"
+#import "CopyRightCell.h"
+
 #import "CardActivateView.h"
 
 #import "OfficialMineView.h"
@@ -171,12 +173,12 @@
         [arr2 addObject:model];
     }
     
-    self.dataArr = @[@[@" "],arr2,arr1,@[@" "]];
+    self.dataArr = @[@[@" "],arr2,arr1,@[@" "],@[@" "]];
     
     if ([UserTools isLogin]) {
-        self.dataArr = @[@[@" "],arr2,arr1,@[@" "]];
+        self.dataArr = @[@[@" "],arr2,arr1,@[@" "],@[@" "]];
     }else{
-        self.dataArr = @[@[@" "],arr2,arr1];
+        self.dataArr = @[@[@" "],arr2,arr1,@[@" "]];
     }
 
 //    for (id s self.dataArr) {
@@ -206,8 +208,7 @@
         [[AppRequest sharedInstance]requestGetMyinfo:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
              [wself reLoadinfo];
             NSLog(@"个人信息::%@--%@",result,result[@"msg"]);
-           
-            
+                       
         }];
     }
 }
@@ -329,7 +330,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SetModel *model11 = self.dataArr[indexPath.section][indexPath.row];
-    NSLog(@"内容%@",model11);
+//    NSLog(@"内容%@",model11);
     
     if (indexPath.section == 0 ) {
         CSMineHeaderCell *cell = [[CSMineHeaderCell alloc]cellInitWith:tableView Indexpath:indexPath];
@@ -344,9 +345,20 @@
     }else{
         
         if (indexPath.section == 3) {
+            if ([UserTools isLogin]) {
+                //登录了就出现退出登录
             LoginOutCell *cell = [[LoginOutCell alloc]cellInitWith:tableView Indexpath:indexPath];
             return cell;
-        }else{
+            }else{
+                //没登录就出现版权
+                CopyRightCell *cell = [[CopyRightCell alloc]cellInitWith:tableView Indexpath:indexPath];
+                           return cell;
+            }
+        }else if (indexPath.section == 4) {
+            CopyRightCell *cell = [[CopyRightCell alloc]cellInitWith:tableView Indexpath:indexPath];
+            return cell;
+        }
+        else{
             CSMineCell *cell = [[CSMineCell alloc]cellInitWith:tableView Indexpath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -410,9 +422,12 @@
     }
     if (indexPath.section !=0 && indexPath.section != self.dataArr.count-1) {
         SetModel *model = self.dataArr[indexPath.section][indexPath.row];
-        if (model && model.leftTitle) {
-            barItem.title = model.leftTitle;
+        if (model.mj_JSONString.length > 5) {
+            if (model && model.leftTitle) {
+                barItem.title = model.leftTitle;
+            }
         }
+        
     }
     
     if (indexPath.section == 0) {
@@ -515,14 +530,15 @@
                     WebServeVC *vc = [[WebServeVC alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
 //                    [self presentViewController:vc animated:YES completion:nil];
-                }else{
-                    NSLog(@"分享推广");
-                    CSShareVC *vc = [[CSShareVC alloc]init];
-                    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
-                    self.navigationItem.backBarButtonItem = barItem;
-                    barItem.title = @"我的";
-                    [self.navigationController pushViewController:vc animated:YES];
                 }
+//                else{
+//                    NSLog(@"分享推广");
+//                    CSShareVC *vc = [[CSShareVC alloc]init];
+//                    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+//                    self.navigationItem.backBarButtonItem = barItem;
+//                    barItem.title = @"我的";
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
             }
         }else{///代理版本
             if(indexPath.section == 1){

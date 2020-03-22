@@ -72,6 +72,10 @@ typedef NS_ENUM(NSUInteger, VedioStatus) {
 
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, assign) CGFloat trackValue;
+
+
+//菊花
+@property (nonatomic, strong) UIActivityIndicatorView * activityIndicator;
 @end
 
 NS_ASSUME_NONNULL_END

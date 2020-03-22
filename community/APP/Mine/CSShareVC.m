@@ -40,10 +40,11 @@
      
     self.navigationItem.backBarButtonItem = backButtonItem;
 
-    [self setUpNav];
+    
     UIScrollView *bgView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     ///代理版本
     if ([UserTools isAgentVersion]) {
+    
         bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 644*K_SCALE);
         self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];
         [self.view addSubview:bgView];
@@ -51,6 +52,7 @@
         self.view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 544*K_SCALE, self.view.bounds.size.width, 100*K_SCALE)];
         [bgView addSubview:self.view2];
     }else{
+        [self setUpNav];
         bgView.contentSize = CGSizeMake(self.view.bounds.size.width, 787*K_SCALE);
         [self.view addSubview:bgView];
         self.view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 544*K_SCALE)];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042C00EA2427499E0084682B /* CopyRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C00E82427499E0084682B /* CopyRightCell.m */; };
 		044421B824187D47000A7DD8 /* BGDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 044421A624187D47000A7DD8 /* BGDB.m */; };
 		044421B924187D47000A7DD8 /* NSCache+BGCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 044421A724187D47000A7DD8 /* NSCache+BGCache.m */; };
 		044421BA24187D47000A7DD8 /* NSObject+BGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 044421A824187D47000A7DD8 /* NSObject+BGModel.m */; };
@@ -262,6 +263,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042C00E82427499E0084682B /* CopyRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyRightCell.m; sourceTree = "<group>"; };
+		042C00E92427499E0084682B /* CopyRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyRightCell.h; sourceTree = "<group>"; };
 		044421A124187D47000A7DD8 /* NSCache+BGCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BGCache.h"; sourceTree = "<group>"; };
 		044421A224187D47000A7DD8 /* NSObject+BGModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BGModel.h"; sourceTree = "<group>"; };
 		044421A324187D47000A7DD8 /* BGTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTool.h; sourceTree = "<group>"; };
@@ -1577,6 +1580,8 @@
 				508C9F3F23233AAB00EE9E37 /* CSMineCell.m */,
 				50CBD222236A7DFB00D296C2 /* LoginOutCell.h */,
 				50CBD223236A7DFB00D296C2 /* LoginOutCell.m */,
+				042C00E92427499E0084682B /* CopyRightCell.h */,
+				042C00E82427499E0084682B /* CopyRightCell.m */,
 				508C9F412323577300EE9E37 /* CSMineHeaderCell.h */,
 				508C9F422323577300EE9E37 /* CSMineHeaderCell.m */,
 				502E24B92329DE2800F1D4EE /* CSCellView.h */,
@@ -2140,6 +2145,7 @@
 				50806081231E4833009995EF /* MYToast.m in Sources */,
 				044421BB24187D47000A7DD8 /* BGTool.m in Sources */,
 				50821FD7231C9E21006F55B0 /* AppDelegate.m in Sources */,
+				042C00EA2427499E0084682B /* CopyRightCell.m in Sources */,
 				5082201C231CEFD9006F55B0 /* CSMainViewController.m in Sources */,
 				50D2EC8123794F890052395D /* CardModel.m in Sources */,
 				5080607A231E43B6009995EF /* MonitorData.m in Sources */,
