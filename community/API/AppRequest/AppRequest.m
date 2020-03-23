@@ -203,13 +203,19 @@ static AppRequest *appRequestInstance = nil;
                 [UserTools loginOut];
                 // 前提当前控制器在一个navigationController中
                                // 取nav的栈顶控制器
-               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
-                   CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+//               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
+//                   CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+//
+//                                  [self.getCurrentVC.navigationController pushViewController:vc animated:NO];
+//               }
+//
+                if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
+                                       [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
+                                   }else{
+                                       CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
-                                  [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
-               }
-               
-
+                                       [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
+                                   }
                
                 
                 
@@ -248,12 +254,15 @@ static AppRequest *appRequestInstance = nil;
             if( [result[@"code"] integerValue] == 10019){
                  [[MYToast makeText:@"登录失效"]show];
                 [UserTools loginOut];
+                
                            // 前提当前控制器在一个navigationController中
                                     // 取nav的栈顶控制器
-                    if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
+                    if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
+                        [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
+                    }else{
                         CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
-                                       [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
+                        [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
                     }
             }
          

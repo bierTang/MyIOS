@@ -114,14 +114,29 @@
         make.centerY.equalTo(self.nameLab.centerY);
     }];
     
+    
     UIButton *delBtn = [UIButton buttonWithTitle:@"删除" font:11 titleColor:@"adadad"];
-    [delBtn addTarget:self action:@selector(cancelCollect:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:delBtn];
-    delBtn.tag = 66;
-    [delBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.nameLab.centerY);
-        make.right.equalTo(-16);
+      [delBtn addTarget:self action:@selector(cancelCollect:) forControlEvents:UIControlEventTouchUpInside];
+      [self.contentView addSubview:delBtn];
+      delBtn.tag = 66;
+      [delBtn makeConstraints:^(MASConstraintMaker *make) {
+          make.centerY.equalTo(self.nameLab.centerY);
+          make.right.equalTo(-16);
+      }];
+   
+    
+    _delView = [[UIView alloc]init];
+    [self.contentView addSubview:_delView];
+    _delView.backgroundColor = [UIColor colorWithHexString:@"000000"];
+    _delView.alpha = 0.3;
+    [_delView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(0);
+        make.bottom.equalTo(0);
     }];
+    _delView.hidden = YES;
+    
+  //下面这段代码是 将view1调整到父视图的最上面
+     [self.contentView bringSubviewToFront:delBtn];
     
     UIView *grayView = [[UIView alloc]init];
     [self.contentView addSubview:grayView];
@@ -150,7 +165,11 @@
 
 
 -(void)refreshModel:(CityContentModel *)model{
-    
+    if ([model.is_del  isEqual: @"1"]) {
+        _delView.hidden = YES;
+    }else{
+        _delView.hidden = YES;
+    }
     if (model.video.length > 5) {
         self.containerView.hidden = YES;
         self.videoBgView.hidden = NO;

@@ -29,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic,copy)NSString *is_best;    //" = 0;
 @property (nonatomic,strong)NSString *like_num;    //" = 0;
 
-@property (nonatomic,assign)BOOL is_favorite;
-@property (nonatomic,assign)BOOL is_like;
+@property (nonatomic,assign)NSString *is_favorite;
+@property (nonatomic,assign)NSString *is_like;
 @property (nonatomic,copy)NSString *logo;    // = "http://199.180.102.241:2100/20200106/sMMdLkf2/1.jpg";
 @property (nonatomic,copy)NSString *name;    // = 1578118887;
 @property (nonatomic,copy)NSString *nick_name;    //" = "\U8d85\U7ea7\U7ba1\U7406\U5458";

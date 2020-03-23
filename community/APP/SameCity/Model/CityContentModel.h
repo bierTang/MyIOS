@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSString *user_avatar;
 @property(nonatomic,assign)BOOL is_like;
 @property(nonatomic,assign)BOOL is_favorite;
-
+@property(nonatomic,strong)NSString *is_del;
 @property(nonatomic,strong)NSString *video;
 
 @property(nonatomic,strong)NSString *logo;

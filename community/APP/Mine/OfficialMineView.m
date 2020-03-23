@@ -31,7 +31,9 @@
     self.tableview.backgroundColor = [UIColor whiteColor];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
-    
+    _tableview.estimatedRowHeight = 0;
+    _tableview.estimatedSectionFooterHeight = 0;
+    _tableview.estimatedSectionHeaderHeight = 0;
     [self addSubview:self.tableview];
     
 }

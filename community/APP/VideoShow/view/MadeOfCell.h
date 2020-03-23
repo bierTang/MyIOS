@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) void (^videoBlock)(NSInteger type);
 
+@property (nonatomic,copy) void (^keepBlock)(UIButton *sender);
+
+@property (nonatomic,copy) void (^laudBlock)(UIButton *sender);
+
 - (instancetype)cellInitWith:(UITableView *)tableView Indexpath:(NSIndexPath *)indexPath;
 
 -(void)refreshData:(VideoModel *)model;

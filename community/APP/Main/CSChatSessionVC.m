@@ -214,7 +214,7 @@
     self.countLabel = [UILabel labelWithTitle:@"0" font:13*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
     [self.view addSubview:self.countLabel];
     [self.countLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.bottomBtn.top).offset(8);
+        make.bottom.equalTo(self.bottomBtn.top).offset(14);
         make.width.height.equalTo(28);
         make.centerX.equalTo(self.bottomBtn);
     }];
@@ -708,13 +708,54 @@
 
 }
 
+CGFloat lastContentOffset;
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+
+    lastContentOffset = scrollView.contentOffset.y;
+
+}
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self getNowTopSectionView];
+    
+    
+    
+    if (scrollView.contentOffset.y < lastContentOffset)
+
+       {
+           //向上
+           self.bottomBtn.hidden = YES;
+           self.countLabel.hidden = YES;
+       } else if (scrollView.contentOffset.y > lastContentOffset)
+
+       {
+           //向下
+           self.bottomBtn.hidden = NO;
+           self.countLabel.hidden = NO;
+           
+           //滑动到少于10个时就隐藏掉
+                          if (10 >= self.dataArr.count - nowSection) {
+                                self.bottomBtn.hidden = YES;
+                                self.countLabel.hidden = YES;
+                                  }else if (nowSection+99 >= self.dataArr.count) {
+                                    //小于99个才开始显示
+                              self.countLabel.text = [NSString stringWithFormat:@"%ld", self.dataArr.count - nowSection];
+                          }else
+                            {
+                              self.countLabel.text = @"99+";
+                          }
+       }
+    
+    
+    
+    
+    
+    
 }
  
 
  NSInteger nowSection = -1;
-NSInteger topSection = -1;
 // 获取tableView最上面悬停的SectionHeaderView
 - (void)getNowTopSectionView {
     NSArray <UITableViewCell *> *cellArray = [self.tableView visibleCells];
@@ -726,36 +767,17 @@ NSInteger topSection = -1;
     }
     
     //大于20个就显示
-       if (self.dataArr.count > 20 && nowSection <= self.dataArr.count - 20) {
-           self.bottomBtn.hidden = NO;
-       }
+//       if (self.dataArr.count > 20 && nowSection <= self.dataArr.count - 20) {
+//           self.bottomBtn.hidden = NO;
+//       }
     
 
    
     
-    //滑动到少于10个时就隐藏掉
-    if (nowSection >= self.dataArr.count - 10) {
-        self.bottomBtn.hidden = YES;
-        self.countLabel.hidden = YES;
-                                   
-    }else{
-        if (nowSection > topSection) {
-//            NSLog(@"往下滑动:%ld",nowSection);
-//            NSLog(@"往下滑动1:%ld",topSection);
-             if (!self.countLabel.isHidden) {
-                 //小于99个才开始显示
-                 if (nowSection >= self.dataArr.count - 99) {
-                     self.countLabel.text = [NSString stringWithFormat:@"%ld", self.dataArr.count - nowSection];
-                 }
-                   
-               }
-        }
-        
-        
-    }
-    topSection = nowSection;
-//    NSLog(@"当前滑动到:%ld",nowSection);
-//    NSLog(@"一共有:%ld",self.dataArr.count);
+   
+
+    NSLog(@"当前滑动到:%ld",nowSection);
+    NSLog(@"一共有:%ld",self.dataArr.count);
 }
 //视图将要消失
 - (void)viewWillDisappear:(BOOL)animated {

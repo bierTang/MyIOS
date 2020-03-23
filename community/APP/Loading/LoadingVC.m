@@ -124,7 +124,8 @@
                 NSArray *arr = result[@"data"];
                 NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
                 if (arr[0]) {
-                    [CSCaches shareInstance].webUrl = @"http://vq.v-qun.com";
+                    WebModel *i = arrModel[0];
+                    [CSCaches shareInstance].webUrl = i.url;
                 }
 
                 for (WebModel *i in arrModel){

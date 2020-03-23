@@ -226,11 +226,15 @@
     
     self.collectNumLab.text = self.model.favorite_num;
     self.praiseNumLab.text = self.model.like_num;
-    if (self.model.is_like) {
+    if (self.model.is_like == @"1") {
         self.praiseBtn.selected = YES;
+    }else{
+        self.praiseBtn.selected = NO;
     }
-    if (self.model.is_favorite) {
+    if (self.model.is_favorite == @"1") {
         self.collectBtn.selected = YES;
+    }else{
+        self.collectBtn.selected = NO;
     }
     
 }
@@ -251,20 +255,27 @@
         [[MYToast makeText:@"未登录"]show];
         return;
     }
-    sender.selected = !sender.isSelected;
-    NSLog(@"收藏");
+    
+    if (self.keepBlock) {
+           self.keepBlock(sender);
+       }
+    
+    
+    
+//    sender.selected = !sender.isSelected;
+//    NSLog(@"收藏");
+////
+//    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_favorite" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
+//        NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
+//    } HttpMethod:AppRequestPost isAni:YES];
 //
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_favorite" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
-        NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
-    } HttpMethod:AppRequestPost isAni:YES];
-
-    self.model.is_favorite = sender.isSelected;
-    if (sender.isSelected) {
-        self.model.favorite_num = [NSString stringWithFormat:@"%ld",self.model.favorite_num.integerValue+1];
-    }else{
-        self.model.favorite_num = [NSString stringWithFormat:@"%ld",self.model.favorite_num.integerValue-1];
-    }
-    self.collectNumLab.text = self.model.favorite_num;
+//    self.model.is_favorite = sender.isSelected;
+//    if (sender.isSelected) {
+//        self.model.favorite_num = [NSString stringWithFormat:@"%ld",self.model.favorite_num.integerValue+1];
+//    }else{
+//        self.model.favorite_num = [NSString stringWithFormat:@"%ld",self.model.favorite_num.integerValue-1];
+//    }
+//    self.collectNumLab.text = self.model.favorite_num;
 }
 
 -(void)praiseAction:(UIButton *)sender{
@@ -272,20 +283,26 @@
         [[MYToast makeText:@"未登录"]show];
         return;
     }
-    sender.selected = !sender.isSelected;
     
-    self.model.is_like = sender.isSelected;
-
-    if (sender.isSelected) {
-        self.model.like_num = [NSString stringWithFormat:@"%ld",self.model.like_num.integerValue+1];
-    }else{
-        self.model.like_num = [NSString stringWithFormat:@"%ld",self.model.like_num.integerValue-1];
-    }
-    self.praiseNumLab.text = self.model.like_num;
-
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
-        NSLog(@"点赞：：%@",result);
-    } HttpMethod:AppRequestPost isAni:YES];
+    if (self.laudBlock) {
+              self.laudBlock(sender);
+          }
+    
+    
+//    sender.selected = !sender.isSelected;
+//    
+//    self.model.is_like = sender.isSelected;
+//
+//    if (sender.isSelected) {
+//        self.model.like_num = [NSString stringWithFormat:@"%ld",self.model.like_num.integerValue+1];
+//    }else{
+//        self.model.like_num = [NSString stringWithFormat:@"%ld",self.model.like_num.integerValue-1];
+//    }
+//    self.praiseNumLab.text = self.model.like_num;
+//
+//    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.model.idss} Callback:^(BOOL isSuccess, id result) {
+//        NSLog(@"点赞：：%@",result);
+//    } HttpMethod:AppRequestPost isAni:YES];
 
 }
 

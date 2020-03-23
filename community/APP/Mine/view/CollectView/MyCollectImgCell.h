@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)refreshModel:(CityContentModel *)model;
 
+
+@property (nonatomic,strong)UIView *delView;
+
 @end
 
 NS_ASSUME_NONNULL_END

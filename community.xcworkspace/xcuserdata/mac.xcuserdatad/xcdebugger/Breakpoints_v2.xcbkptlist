@@ -105,9 +105,9 @@
             filePath = "community/APP/VideoShow/VideoVC/ClassifyVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
-            landmarkName = "-viewWillDisappear:"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

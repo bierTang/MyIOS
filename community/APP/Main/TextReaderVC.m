@@ -27,7 +27,7 @@
     
     [self.txtScroll makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(16);
-        make.top.equalTo(10);
+        make.top.equalTo(0);
         make.right.equalTo(-1);
         make.bottom.equalTo(-KBottomSafeArea);
     }];
@@ -35,6 +35,7 @@
     self.contentLab = [UILabel labelWithTitle:@"" font:16 textColor:@"181818" textAlignment:NSTextAlignmentLeft];
     self.contentLab.numberOfLines = 0;
     
+   
     [self.txtScroll addSubview:self.contentLab];
     
     
@@ -50,7 +51,14 @@
         if (isSuccess) {
             if ([result[@"code"] intValue] == 200) {
                 wself.contentLab.text = result[@"data"][@"content"];
+                //设置行间距
+                 [self.contentLab setRowSpace:7];
+                
+                
+                
+                
                 CGFloat offy = [[[CSCaches shareInstance].userDefault valueForKey:[NSString stringWithFormat:@"TEXT_Offsety_%@",wself.txtId]] floatValue];
+                
                 if (offy > 0) {
                     [wself.txtScroll setContentOffset:CGPointMake(0, offy)];
                 }

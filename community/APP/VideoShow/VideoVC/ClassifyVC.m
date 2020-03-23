@@ -278,11 +278,59 @@
         //        self.videoPlayer = nil;
         //    }
         
+        cell.keepBlock = ^(UIButton * _Nonnull sender) {
+            sender.selected = !sender.isSelected;
+                NSLog(@"收藏");
+            //
+                [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_favorite" Params:@{@"user_id":[UserTools userID],@"post_id":self.dataArr[indexPath.row].idss} Callback:^(BOOL isSuccess, id result) {
+                    NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
+                } HttpMethod:AppRequestPost isAni:YES];
+            if (sender.isSelected) {
+                self.dataArr[indexPath.row].is_favorite = @"1";
+            }else{
+                self.dataArr[indexPath.row].is_favorite = @"0";
+            }
+              
+                if (sender.isSelected) {
+                    self.dataArr[indexPath.row].favorite_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].favorite_num.integerValue+1];
+                }else{
+                    self.dataArr[indexPath.row].favorite_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].favorite_num.integerValue-1];
+                }
+                cell.collectNumLab.text = self.dataArr[indexPath.row].favorite_num;
+        };
+        
+        cell.laudBlock = ^(UIButton * _Nonnull sender) {
+             sender.selected = !sender.isSelected;
+               
+                  if (sender.isSelected) {
+                            self.dataArr[indexPath.row].is_favorite = @"1";
+                        }else{
+                            self.dataArr[indexPath.row].is_favorite = @"0";
+                        }
+
+               if (sender.isSelected) {
+                   self.dataArr[indexPath.row].like_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].like_num.integerValue+1];
+               }else{
+                   self.dataArr[indexPath.row].like_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].like_num.integerValue-1];
+               }
+               cell.praiseNumLab.text = self.dataArr[indexPath.row].like_num;
+
+               [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.dataArr[indexPath.row].idss} Callback:^(BOOL isSuccess, id result) {
+                   NSLog(@"点赞：：%@",result);
+               } HttpMethod:AppRequestPost isAni:YES];
+        };
+        
+        
         NSLog(@"刷新：：%ld",indexPath.row);
+        
         [cell refreshData:self.dataArr[indexPath.row]];
         return cell;
     }
 }
+
+
+
+
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.optionIndexPath) {
