@@ -159,7 +159,8 @@
    Boolean ison = openbutton.isOn;
     if(![UserTools userID]){
                openbutton.on = NO;
-               [[MYToast makeText:@"请先登录"]show];
+//               [[MYToast makeText:@"请先登录"]show];
+         [HelpTools jianquan:self];
            }
     if(ison){
         NSLog(@"打开了");

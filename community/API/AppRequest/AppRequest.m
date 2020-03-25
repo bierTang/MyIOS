@@ -140,12 +140,13 @@ static AppRequest *appRequestInstance = nil;
     if (method == AppRequestGet) {
         [self AFGetRequestWithUrl:url params:(NSString *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            if (ani) {
             // 3.GCD
                   dispatch_async(dispatch_get_main_queue(), ^{
                    [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                   });
                 
-           
+            }
             
             
             
@@ -153,27 +154,33 @@ static AppRequest *appRequestInstance = nil;
     } else if(method == AppRequestPost) {
         [self AFPostRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            if (ani) {
 // 3.GCD
                  dispatch_async(dispatch_get_main_queue(), ^{
                   [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                  });
+            }
         }];
     }else if(method == AppRequestPUT) {
         [self AFPUTRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            if (ani) {
             // 3.GCD
                              dispatch_async(dispatch_get_main_queue(), ^{
                               [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                              });
+            }
 //             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else if(method == AppRequestDELETE) {
         [self AFDELETERequestWithUrl:url params:(id)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
+            if (ani) {
             // 3.GCD
                              dispatch_async(dispatch_get_main_queue(), ^{
                               [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                              });
+            }
 //             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else{
@@ -210,8 +217,11 @@ static AppRequest *appRequestInstance = nil;
 //               }
 //
                 if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
-                                       [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
+//                                       [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
                                    }else{
+                                       UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+                                       self.getCurrentVC.navigationItem.backBarButtonItem = barItem;
+                                       barItem.title = @"注册";
                                        CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
                                        [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
@@ -258,8 +268,11 @@ static AppRequest *appRequestInstance = nil;
                            // 前提当前控制器在一个navigationController中
                                     // 取nav的栈顶控制器
                     if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
-                        [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
+//                        [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
                     }else{
+                        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+                        self.getCurrentVC.navigationItem.backBarButtonItem = barItem;
+                        barItem.title = @"注册";
                         CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
                         [self.getCurrentVC.navigationController pushViewController:vc animated:YES];

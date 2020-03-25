@@ -190,7 +190,7 @@
     MadeOfCell *cell = [[MadeOfCell alloc]cellInitWith:tableView Indexpath:indexPath];
     
     cell.videoBlock = ^(NSInteger type) {
-        NSLog(@"视频播放：：%@",wself.dataArr[indexPath.row].file_url);
+        NSLog(@"视频播放：：%@",wself.dataArr[indexPath.row].video_url);
         if (type == 3) {
             //充值
             if (![UserTools isLogin]) {
@@ -258,7 +258,8 @@
                         [wself.videoPlayer rotate:SJOrientation_Portrait animated:NO];
                         [wself.videoPlayer stop];
                         wself.videoPlayer = nil;
-                       [[MYToast makeText:@"试看结束，请先开通会员"]show];
+                        cell.noVipView.hidden = NO;
+//                       [[MYToast makeText:@"试看结束，请先开通会员"]show];
                     });
                 }
             }];

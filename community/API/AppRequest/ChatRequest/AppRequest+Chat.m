@@ -15,7 +15,7 @@
 -(void)requestBoardBlock:(void(^)(AppRequestState state,id result))callBack{
     
     
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/user/board" Params:nil Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api2.vq2020.xyz/index.php/index/user/board" Params:nil Callback:^(BOOL isSuccess, id result) {
         NSLog(@"公告：：%@",result);
         if (isSuccess) {
             AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];

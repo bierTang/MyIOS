@@ -173,6 +173,21 @@
         // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
          NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:NO];
        
+        
+        NSString *topTime;
+                                 for(int i = 0;i<self.dataArr.count;i++){
+                                     SessionModel *ses = self.dataArr[i];
+                                     
+                                     
+                                     if ([ses.create_time isEqualToString: topTime]) {
+                                         self.dataArr[i].create_time = @"";
+                                     }else{
+                                         topTime = ses.create_time;
+                                     }
+                                     
+                                 }
+                                 
+        
          [self.tempArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor1]]];
         
         
@@ -281,7 +296,18 @@
                             arr = [[arr reverseObjectEnumerator]allObjects];
                             [wself.tempArr insertObjects:arr atIndexes:indexes];
                             wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-
+                            NSString *topTime;
+                            for(int i = 0;i<wself.dataArr.count;i++){
+                                SessionModel *ses = wself.dataArr[i];
+                                if (ses.create_time == topTime) {
+                                    wself.dataArr[i].create_time = @"";
+                                }else{
+                                    topTime = ses.create_time;
+                                }
+                                
+                            }
+                            
+                            
                             [wself.tableView reloadData];
 //                            [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 
@@ -290,7 +316,7 @@
                             if(arr.count > 99){
                                 self.countLabel.text = @"99+";
                             }else{
-                                self.countLabel.text = [NSString stringWithFormat:@"%ld", arr.count];
+                                self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)arr.count];
                             }
                             
                         }
@@ -334,7 +360,16 @@
                         
                         wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
           
-
+                        NSString *topTime;
+                                               for(int i = 0;i<wself.dataArr.count;i++){
+                                                   SessionModel *ses = wself.dataArr[i];
+                                                   if (ses.create_time == topTime) {
+                                                       wself.dataArr[i].create_time = @"";
+                                                   }else{
+                                                       topTime = ses.create_time;
+                                                   }
+                                                   
+                                               }
                         [wself.tableView reloadData];
 
                         [MBProgressHUD hideHUDForView:wself.view animated:YES];
@@ -569,7 +604,16 @@
                                       NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
                                    [wself.tempArr insertObjects:arr atIndexes:indexes];
                                    wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-                                   
+                                   NSString *topTime;
+                                                          for(int i = 0;i<wself.dataArr.count;i++){
+                                                              SessionModel *ses = wself.dataArr[i];
+                                                              if (ses.create_time == topTime) {
+                                                                  wself.dataArr[i].create_time = @"";
+                                                              }else{
+                                                                  topTime = ses.create_time;
+                                                              }
+                                                              
+                                                          }
                                    [wself.tableView reloadData];
 
                 }else{
@@ -626,7 +670,16 @@
                                     
                     //           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 
-                                    
+                                    NSString *topTime;
+                                                           for(int i = 0;i<wself.dataArr.count;i++){
+                                                               SessionModel *ses = wself.dataArr[i];
+                                                               if (ses.create_time == topTime) {
+                                                                   wself.dataArr[i].create_time = @"";
+                                                               }else{
+                                                                   topTime = ses.create_time;
+                                                               }
+                                                               
+                                                           }
                    [wself.tableView reloadData];
                    [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
                     

@@ -183,6 +183,10 @@
 
 + (NSString *)distanceTimeWithBeforeTime:(double)beTime
 {
+  
+    if (beTime == 0) {
+        return @"";
+    }
     NSTimeInterval now = [[NSDate date]timeIntervalSince1970];
     double distanceTime = now - beTime;
     NSString * distanceStr;
@@ -260,9 +264,12 @@
 +(BOOL)jianquan:(UIViewController *)svc{
     if(![UserTools isLogin]){
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先认证账号" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先登录账号" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去认证" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+            svc.navigationItem.backBarButtonItem = barItem;
+            barItem.title = @"注册";
             CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
             [svc.navigationController pushViewController:vc animated:YES];
@@ -285,7 +292,7 @@
     else{
         NSString *warnStr = @"请联系代理购买激活码";
         if (![UserTools isAgentVersion]) {
-            warnStr = @"请开通会员";
+            warnStr = @"请先开通会员";
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您的权限不足" message:warnStr preferredStyle:UIAlertControllerStyleAlert];
         
@@ -323,9 +330,12 @@
 +(void)enterGroup:(UIViewController *)svc andPrice:(NSString *)price{
     if(![UserTools isLogin]){
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先认证账号" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先登录账号" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去认证" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"去登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+            svc.navigationItem.backBarButtonItem = barItem;
+            barItem.title = @"注册";
             CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
             [svc.navigationController pushViewController:vc animated:YES];

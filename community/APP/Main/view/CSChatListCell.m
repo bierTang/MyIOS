@@ -86,7 +86,7 @@
     }
     
     self.contentLab = [UILabel labelWithTitle:@"最近的聊天内容" font:11*K_SCALE textColor:@"999999" textAlignment:NSTextAlignmentLeft];
-    self.contentLab.frame = CGRectMake(65*kk, 40*kk, 255*K_SCALE, 18*kk);
+    self.contentLab.frame = CGRectMake(65*kk, 36*kk, 255*K_SCALE, 18*kk);
     [self.contentView addSubview:self.contentLab];
     
     self.timeLab = [UILabel labelWithTitle:@"刚刚" font:10*K_SCALE textColor:@"9b9b9b" textAlignment:NSTextAlignmentRight];

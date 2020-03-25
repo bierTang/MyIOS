@@ -61,11 +61,12 @@
                 liveVC.model = model;
                 [self presentViewController:liveVC animated:YES completion:nil];
             }else{
-                if (![UserTools isAgentVersion]) {
-                    [HelpTools mustBeMemberShip:self];
-                }else{
-                    [[MYToast makeText:@"请先开通会员"]show];
-                }
+//                if (![UserTools isAgentVersion]) {
+                    [HelpTools jianquan:self];
+//                }
+//                else{
+//                    [[MYToast makeText:@"请先开通会员"]show];
+//                }
             }
         };
     

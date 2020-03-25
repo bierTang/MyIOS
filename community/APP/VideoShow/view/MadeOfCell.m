@@ -176,8 +176,8 @@
     [self.noVipView makeConstraints:^(MASConstraintMaker *make) {
            make.left.equalTo(0);
            make.right.equalTo(0);
-           make.top.equalTo(self.contentLab.bottom);
-           make.height.equalTo(210*K_SCALE);
+           make.top.bottom.equalTo(self.videoBgView);
+           
        }];
     self.noVipView.bt1.tag = 3;
     [self.noVipView.bt1 addTarget:self action:@selector(playingVideo:) forControlEvents:UIControlEventTouchUpInside];
@@ -187,6 +187,7 @@
     
 }
 -(void)refreshData:(VideoModel *)model{
+    self.noVipView.hidden = YES;
     self.model = model;
     
     self.nameLab.text = model.nick_name;
@@ -226,12 +227,12 @@
     
     self.collectNumLab.text = self.model.favorite_num;
     self.praiseNumLab.text = self.model.like_num;
-    if (self.model.is_like == @"1") {
+    if ([self.model.is_like  isEqual: @"1"]) {
         self.praiseBtn.selected = YES;
     }else{
         self.praiseBtn.selected = NO;
     }
-    if (self.model.is_favorite == @"1") {
+    if ([self.model.is_favorite  isEqual: @"1"]) {
         self.collectBtn.selected = YES;
     }else{
         self.collectBtn.selected = NO;

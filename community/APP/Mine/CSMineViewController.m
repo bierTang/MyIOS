@@ -54,7 +54,7 @@
         [self refreshData];
         [self.view addSubview:self.tableView];
         
-        [self requestNewData];
+//        [self requestNewData];
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestNewData) name:NOT_FRESHMYINFO object:nil];
@@ -121,8 +121,8 @@
 -(void)refreshData{
     ////数据源设置
     NSMutableArray *arr1 = [NSMutableArray new];
-    NSArray *nameArr1 = @[@"我的关注",@"我的收藏",@"观影记录",@"清理缓存",@"分享推广"];         //,@"我的缓存"
-    NSArray *iconArr1 = @[@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload",@"share_icon"];
+    NSArray *nameArr1 = @[@"清理缓存",@"分享推广"];         //,@"我的缓存"
+    NSArray *iconArr1 = @[@"mydownload",@"share_icon"];
     NSString *attention_num = @"0";
     if ([[[CSCaches shareInstance]getUserModel:USERMODEL].attention_num intValue] > 0) {
         attention_num = [[CSCaches shareInstance]getUserModel:USERMODEL].attention_num;
@@ -135,7 +135,7 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].discover_num.length > 0) {
 //        dis_num = [[CSCaches shareInstance]getUserModel:USERMODEL].discover_num;
     }
-    NSArray *subtitle1 = @[attention_num,favorite,dis_num,@"",@"",@""];
+    NSArray *subtitle1 = @[@"",@""];
     for (int i = 0; i<nameArr1.count; i++) {
         SetModel *model = [SetModel new];
         model.iconName = iconArr1[i];
@@ -146,8 +146,8 @@
     
     
     NSMutableArray *arr2 = [NSMutableArray new];
-    NSArray *nameArr2 = @[@"到期时间",@"您专属客服QQ",@"您专属客服微信"];
-    NSArray *iconArr2 = @[@"timelimit",@"QQIcon",@"wechatIcon"];
+    NSArray *nameArr2 = @[@"到期时间",@"您专属客服QQ",@"您专属客服微信",@"我的关注",@"我的收藏",@"观影记录"];
+    NSArray *iconArr2 = @[@"timelimit",@"QQIcon", @"wechatIcon",@"myattention",@"mycollectIcon",@"myPostIcon"];
     
     NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
     NSString *wx = @" ";
@@ -159,9 +159,9 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].qq.length > 0) {
         qq = [[CSCaches shareInstance]getUserModel:USERMODEL].qq;
     }
-    NSArray *subtitle2 = @[expireTime,@"",@""];
-    NSArray *midtitle2 = @[@"",qq,wx,];
-    NSArray *btnNameArr = @[@"",@"复制",@"复制"];
+    NSArray *subtitle2 = @[expireTime,@"",@"",attention_num,favorite,dis_num,@""];
+    NSArray *midtitle2 = @[@"",qq,wx,@"",@"",@""];
+    NSArray *btnNameArr = @[@"",@"复制",@"复制",@"",@"",@""];
 
     for (int i = 0; i<nameArr2.count; i++) {
         SetModel *model = [SetModel new];
@@ -263,7 +263,9 @@
 }
 -(void)handleBtnCliecked1{
     if (![UserTools isLogin]) {
-        
+        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+        self.navigationItem.backBarButtonItem = barItem;
+        barItem.title = @"注册";
             CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
             [self.navigationController pushViewController:vc animated:YES];
@@ -298,7 +300,9 @@
 -(void)handleBtnCliecked2{
     
     if (![UserTools isLogin]) {
-        
+        UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+        self.navigationItem.backBarButtonItem = barItem;
+        barItem.title = @"注册";
             CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
             [self.navigationController pushViewController:vc animated:YES];
@@ -409,6 +413,9 @@
     
     if (![UserTools isLogin]) {
         if (indexPath.row == 0) {
+            UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+            self.navigationItem.backBarButtonItem = barItem;
+            barItem.title = @"注册";
             CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
             [self.navigationController pushViewController:vc animated:YES];
@@ -461,19 +468,10 @@
             [self.navigationController pushViewController:reVC animated:YES];
             
             
-        }else if (indexPath.row == 0){
-            //我的关注
-            CSCityListVC *vc = [[CSCityListVC alloc]init];
-            vc.isMyAttention = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }else if (indexPath.row == 1){
-            //我的收藏
-            MyCollectVC *vc = [[MyCollectVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else if (indexPath.row ==3 && [UserTools isAgentVersion]){
+        }else if (indexPath.row ==0 && [UserTools isAgentVersion]){
             NSLog(@"缓存1");
             [self clearCaches];
-        }else if (indexPath.row ==4){
+        }else if (indexPath.row ==1){
             NSLog(@"分享");
 //            [self clearCaches];
             UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
@@ -552,7 +550,22 @@
                     NSLog(@"记录");
 //                    CSRecordVC *vc = [[CSRecordVC alloc]init];
 //                    [self.navigationController pushViewController:vc animated:YES];
-                }}else
+                }else if (indexPath.row == 3){
+                    //我的关注
+                    CSCityListVC *vc = [[CSCityListVC alloc]init];
+                    vc.isMyAttention = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (indexPath.row == 4){
+                    //我的收藏
+                    MyCollectVC *vc = [[MyCollectVC alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (indexPath.row == 5) {
+                            RecommedVC *reVC = [[RecommedVC alloc]init];
+                            reVC.type = @"1888";
+                            [self.navigationController pushViewController:reVC animated:YES];
+                        }
+                
+            }else
                     if(indexPath.section == 3){
                         NSLog(@"退出");
                         [self showLoginOut];

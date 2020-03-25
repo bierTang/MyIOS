@@ -8,7 +8,7 @@
 
 #import "CSMyverifyVC.h"
 #import "HeadImgSelectVC.h"
-
+#import "CSLoginVC.h"
 @interface CSMyverifyVC ()<TZImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
@@ -28,9 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  
+    [self.nickName addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+    [self.account addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+    [self.password addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+    [self.confirmPassword addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
     
     [self.completeBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithHexString:@"b5eccf"]] forState:UIControlStateDisabled];
-    [self.completeBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithHexString:@"09c66a"]] forState:UIControlStateDisabled];
+    [self.completeBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithHexString:@"09c66a"]] forState:UIControlStateNormal];
     
     self.completeBtn.layer.cornerRadius = 4;
     self.completeBtn.clipsToBounds = YES;
@@ -75,6 +80,18 @@
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+-(void)changevalue:(UITextField *)textfield{
+    
+    if (self.nickName.text.length > 0 && self.account.text.length == 11 && self.password.text.length >= 6) {
+        self.completeBtn.enabled = YES;
+    }else{
+        self.completeBtn.enabled = NO;
+    }
+    
+}
+
+
 - (IBAction)completeAction:(id)sender {
     
     
@@ -160,5 +177,17 @@
         
     }];
 }
+- (IBAction)toLogin:(id)sender {
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+    self.navigationItem.backBarButtonItem = barItem;
+    barItem.title = @"登录";
+    CSLoginVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSLoginVC"];
+
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+
+
 
 @end

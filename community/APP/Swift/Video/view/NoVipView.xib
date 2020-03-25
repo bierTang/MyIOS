@@ -22,13 +22,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="试看时长已结束" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLp-gX-upw">
-                    <rect key="frame" x="146.5" y="30" width="121.5" height="20.5"/>
+                    <rect key="frame" x="146.5" y="40.5" width="121.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="X9b-Fz-IaK">
-                    <rect key="frame" x="107" y="70.5" width="200" height="110"/>
+                    <rect key="frame" x="107" y="81" width="200" height="110"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4n-kR-qhX">
                             <rect key="frame" x="0.0" y="0.0" width="80" height="110"/>
@@ -95,9 +95,9 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.59903169014084512" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="HLp-gX-upw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="30c-Sz-AHn"/>
                 <constraint firstItem="X9b-Fz-IaK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5tj-pT-8xW"/>
                 <constraint firstItem="X9b-Fz-IaK" firstAttribute="top" secondItem="HLp-gX-upw" secondAttribute="bottom" constant="20" id="Iba-R3-cIP"/>
+                <constraint firstItem="X9b-Fz-IaK" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="20" id="aAr-HR-bLq"/>
                 <constraint firstItem="HLp-gX-upw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="b6S-dK-leI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

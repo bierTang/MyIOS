@@ -138,6 +138,7 @@ class KamiPayController: UIViewController {
         
         
         if !verifyUrl(str: id1) {
+            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
             return
         }
         let url = URL(string: id1)
@@ -164,6 +165,7 @@ class KamiPayController: UIViewController {
 //        
         
         if !verifyUrl(str: id2) {
+            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
                    return
                }
          let url = URL(string: id2)
@@ -187,6 +189,7 @@ class KamiPayController: UIViewController {
 //        
         
         if !verifyUrl(str: id3) {
+            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
                    return
                }
          let url = URL(string: id3)

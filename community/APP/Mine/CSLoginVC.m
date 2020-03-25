@@ -21,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+   
+
+    
     [self.mobileTF addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
     [self.passwordTF addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
     
@@ -31,6 +36,7 @@
     self.loginBtn.clipsToBounds = YES;
 
 }
+
 
 -(void)changevalue:(UITextField *)textfield{
     
