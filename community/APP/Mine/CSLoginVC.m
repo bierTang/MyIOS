@@ -68,6 +68,11 @@
                
                 if ([vc isKindOfClass:NSClassFromString(@"CSMineViewController")]||[vc isKindOfClass:NSClassFromString(@"CSMainViewController")]) {
                     [wself.navigationController popToViewController:vc animated:YES];
+                }else{
+                    //当前vc 在数组中的索引
+                    NSInteger index=[self.navigationController.viewControllers indexOfObject:self];
+                    //退出成功  获取素组中 当前索引－2 的viewcontroller，然后popTo指定vc
+                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:index-2]animated:YES];
                 }
             }
         }else if(result[@"msg"]){

@@ -14,9 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(BOOL )isLogin;
 
+
 +(void)loginOut;
 
 +(NSString *)userID;
+
++(NSString *)isVip;
 
 +(NSString *)token;
 

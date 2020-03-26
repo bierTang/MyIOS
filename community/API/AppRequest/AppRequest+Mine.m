@@ -67,6 +67,7 @@
                 UserModel *user = [UserModel mj_objectWithKeyValues:result[@"data"]];
                 [[CSCaches shareInstance]saveModel:USERMODEL value:user];
 
+                [[CSCaches shareInstance]saveUserDefalt:ISVIP value:user.is_vip];
                 [[CSCaches shareInstance]saveUserDefalt:USERBLANCE value:user.coin];
             }
             callBack(state,result);

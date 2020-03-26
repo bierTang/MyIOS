@@ -32,6 +32,7 @@ static NSString *USERMODEL = @"user_model";
 
 static NSString *USERBLANCE = @"user_blance";
 
+static NSString *ISVIP = @"0";
 
 static NSString *serverQQ = @"28888888";
 

@@ -132,7 +132,8 @@ static AppRequest *appRequestInstance = nil;
     if (ani) {
     // 3.GCD
          dispatch_async(dispatch_get_main_queue(), ^{
-          [MBProgressHUD showHUDAddedTo:[self getCurrentVC].view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self getCurrentVC].view animated:YES];
+             hud.userInteractionEnabled = NO;
          });
       }
     
@@ -206,7 +207,7 @@ static AppRequest *appRequestInstance = nil;
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
-                           [[MYToast makeText:@"登录失效"]show];
+                           [[MYToast makeText:result[@"msg"]]show];
                 [UserTools loginOut];
                 // 前提当前控制器在一个navigationController中
                                // 取nav的栈顶控制器
@@ -262,7 +263,7 @@ static AppRequest *appRequestInstance = nil;
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
-                 [[MYToast makeText:@"登录失效"]show];
+                 [[MYToast makeText:result[@"msg"]]show];
                 [UserTools loginOut];
                 
                            // 前提当前控制器在一个navigationController中

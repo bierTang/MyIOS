@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *discover_num;
 
 @property (nonatomic,strong)NSString *agent_code;
+
+@property (nonatomic,strong)NSString *is_vip;
 @end
 
 NS_ASSUME_NONNULL_END

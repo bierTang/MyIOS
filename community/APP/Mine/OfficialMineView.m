@@ -45,7 +45,7 @@
      NSArray *nameArr1 = @[@"到期时间",@"交易记录",@"我的关注",@"我的收藏",@"观影记录",@"清理缓存"];
 //    NSArray *iconArr1 = @[@"timelimit",@"mycoin_icon",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
     NSArray *iconArr1 = @[@"timelimit",@"record_icon",@"myattention",@"mycollectIcon",@"myPostIcon",@"mydownload"];
-    NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
+    NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd  HH:mm"];
     NSString *attention_num = @"0";
     if ([[[CSCaches shareInstance]getUserModel:USERMODEL].attention_num intValue] > 0) {
         attention_num = [[CSCaches shareInstance]getUserModel:USERMODEL].attention_num;
@@ -59,6 +59,14 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].discover_num.length > 0) {
 //        dis_num = [[CSCaches shareInstance]getUserModel:USERMODEL].discover_num;
     }
+    
+    
+    if (![UserTools isLogin]) {
+         expireTime = @" ";
+         attention_num = @" ";
+         favorite = @" ";
+     }
+    
     
 //    NSArray *subtitle1 = @[expireTime,[NSString stringWithFormat:@"%ld",(long)[UserTools userBlance]],@"",attention_num,favorite,dis_num,@""];
     NSArray *subtitle1 = @[expireTime,@"",attention_num,favorite,dis_num,@""];

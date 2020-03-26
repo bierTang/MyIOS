@@ -29,10 +29,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
-    [self.nickName addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
-    [self.account addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
-    [self.password addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
-    [self.confirmPassword addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+//    [self.nickName addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+//    [self.account addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+//    [self.password addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
+//    [self.confirmPassword addTarget:self action:@selector(changevalue:) forControlEvents:UIControlEventEditingChanged];
     
     [self.completeBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithHexString:@"b5eccf"]] forState:UIControlStateDisabled];
     [self.completeBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithHexString:@"09c66a"]] forState:UIControlStateNormal];

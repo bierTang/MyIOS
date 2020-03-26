@@ -149,7 +149,7 @@
     NSArray *nameArr2 = @[@"到期时间",@"您专属客服QQ",@"您专属客服微信",@"我的关注",@"我的收藏",@"观影记录"];
     NSArray *iconArr2 = @[@"timelimit",@"QQIcon", @"wechatIcon",@"myattention",@"mycollectIcon",@"myPostIcon"];
     
-    NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd"];
+    NSString *expireTime = [HelpTools dateStampWithTime:[[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue] andFormat:@"YYYY-MM-dd HH:mm"];
     NSString *wx = @" ";
     NSString *qq = @" ";
     
@@ -159,6 +159,14 @@
     if ([[CSCaches shareInstance]getUserModel:USERMODEL].qq.length > 0) {
         qq = [[CSCaches shareInstance]getUserModel:USERMODEL].qq;
     }
+    
+   if (![UserTools isLogin]) {
+       expireTime = @" ";
+       wx = @" ";
+       qq = @" ";
+   }
+    
+    
     NSArray *subtitle2 = @[expireTime,@"",@"",attention_num,favorite,dis_num,@""];
     NSArray *midtitle2 = @[@"",qq,wx,@"",@"",@""];
     NSArray *btnNameArr = @[@"",@"复制",@"复制",@"",@"",@""];

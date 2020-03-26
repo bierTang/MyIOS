@@ -283,7 +283,7 @@
         [svc presentViewController:alert animated:YES completion:nil];
 
         return NO;
-    }else if ([HelpTools isMemberShip]){
+    }else if ([[[CSCaches shareInstance]getValueForKey:ISVIP]  isEqual: @"1"]){
         return YES;
     }
 //    else if ([UserTools userBlance] > 0){

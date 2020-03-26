@@ -137,6 +137,28 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tokenWrong_Loginout) name:NOT_TOKENWRONG object:nil];
+    
+    
+    // 创建定时器
+    NSTimer *timer = [NSTimer timerWithTimeInterval:600 target:self selector:@selector(startimer) userInfo:nil repeats:YES];
+    // 将定时器添加到runloop中，否则定时器不会启动
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    // 停止定时器
+//    [timer invalidate];
+    [timer fire];
+    
+}
+//开始计时
+-(void)startimer{
+    if (![UserTools userID]) {
+        NSLog(@"没有登录");
+        return ;
+    }
+    [[AppRequest sharedInstance]requestGetMyinfo:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
+        
+        NSLog(@"更新个人信息::%@--%@",result,result[@"msg"]);
+                   
+    }];
 }
 -(void)tokenWrong_Loginout{
     [UserTools loginOut];

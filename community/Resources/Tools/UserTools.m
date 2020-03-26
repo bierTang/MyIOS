@@ -21,6 +21,16 @@
     return [[[CSCaches shareInstance]getValueForKey:AGENTID] integerValue] > 0;
 }
 
+
+//+(NSString *)IsVip{
+//    return [[CSCaches shareInstance]getValueForKey:ISVIP]];
+//}
+
++(NSString *)isVip{
+    return [[CSCaches shareInstance]getValueForKey:ISVIP];
+}
+
+
 +(NSString *)AgentID{
     return [[CSCaches shareInstance]getValueForKey:AGENTID];
 }

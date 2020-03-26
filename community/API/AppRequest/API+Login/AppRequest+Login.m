@@ -29,9 +29,9 @@
                 [[CSCaches shareInstance]saveUserDefalt:AGENTID value:user.agent_code];
                 [[CSCaches shareInstance]saveUserDefalt:USERBLANCE value:user.coin];
                 
-                if (user.agent.length > 0 && ![user.agent isEqualToString:@"0"]) {
-                    [[CSCaches shareInstance]saveUserDefalt:AGENTID value:user.agent];
-                }
+//                if (user.agent.length > 0 && ![user.agent isEqualToString:@"0"]) {
+//                    [[CSCaches shareInstance]saveUserDefalt:AGENTID value:user.agent];
+//                }
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:NOT_LOGIN object:nil];
             }
