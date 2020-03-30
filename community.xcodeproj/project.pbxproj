@@ -78,6 +78,7 @@
 		04B7950A23FE8775001AB36B /* LiveListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7950923FE8775001AB36B /* LiveListHeaderView.m */; };
 		04B94772240CD3BE008A7E44 /* LRSliderMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B94770240CD3BE008A7E44 /* LRSliderMenuItem.m */; };
 		04B94773240CD3BE008A7E44 /* LRSliderMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B94771240CD3BE008A7E44 /* LRSliderMenuView.m */; };
+		04E4DCEC24317C06001A5337 /* XXTEA.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4DCEA24317C06001A5337 /* XXTEA.m */; };
 		04E6AC0223B30E56001F988B /* CTBFileMannger.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6AC0123B30E56001F988B /* CTBFileMannger.m */; };
 		04E6AC0523B330A5001F988B /* CSDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6AC0423B330A5001F988B /* CSDataBase.m */; };
 		04EA815F23B5A82C00CEF675 /* VoicePlayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA815E23B5A82C00CEF675 /* VoicePlayCell.m */; };
@@ -380,6 +381,8 @@
 		04B9476F240CD3BE008A7E44 /* LRSliderMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSliderMenuView.h; sourceTree = "<group>"; };
 		04B94770240CD3BE008A7E44 /* LRSliderMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSliderMenuItem.m; sourceTree = "<group>"; };
 		04B94771240CD3BE008A7E44 /* LRSliderMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSliderMenuView.m; sourceTree = "<group>"; };
+		04E4DCEA24317C06001A5337 /* XXTEA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXTEA.m; sourceTree = "<group>"; };
+		04E4DCEB24317C06001A5337 /* XXTEA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXTEA.h; sourceTree = "<group>"; };
 		04E6AC0023B30E55001F988B /* CTBFileMannger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTBFileMannger.h; sourceTree = "<group>"; };
 		04E6AC0123B30E56001F988B /* CTBFileMannger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTBFileMannger.m; sourceTree = "<group>"; };
 		04E6AC0323B330A5001F988B /* CSDataBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDataBase.h; sourceTree = "<group>"; };
@@ -952,6 +955,15 @@
 			path = KYASliderMenuView;
 			sourceTree = "<group>";
 		};
+		04E4DCE924317C06001A5337 /* XXTEA */ = {
+			isa = PBXGroup;
+			children = (
+				04E4DCEA24317C06001A5337 /* XXTEA.m */,
+				04E4DCEB24317C06001A5337 /* XXTEA.h */,
+			);
+			path = XXTEA;
+			sourceTree = "<group>";
+		};
 		04F4A04B241B1D25009B448A /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -1258,6 +1270,7 @@
 		5080607D231E481A009995EF /* ThirdLibs */ = {
 			isa = PBXGroup;
 			children = (
+				04E4DCE924317C06001A5337 /* XXTEA */,
 				04B9476D240CD3BE008A7E44 /* KYASliderMenuView */,
 				04F9178A23C2040F0043E139 /* SegmentControl */,
 				04A3A00923B74188007FC28F /* StreamingKit */,
@@ -1793,6 +1806,7 @@
 				50821FCF231C9E21006F55B0 /* Frameworks */,
 				50821FD0231C9E21006F55B0 /* Resources */,
 				3B1EF482127C5BCD5D9634AA /* [CP] Copy Pods Resources */,
+				04E4DCED2431BDB5001A5337 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1932,6 +1946,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		04E4DCED2431BDB5001A5337 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\n\n# buildNumber=$(($buildNumber + 1))\n\nbuildNumber=`date +\\%Y-\\%m-\\%d`\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n";
+		};
 		1C9BF0A786F441B15E5138B2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2083,6 +2114,7 @@
 				04F917A023C2040F0043E139 /* CustomTabItem.m in Sources */,
 				04B94773240CD3BE008A7E44 /* LRSliderMenuView.m in Sources */,
 				50822019231CEFA7006F55B0 /* CSTabBarVC.m in Sources */,
+				04E4DCEC24317C06001A5337 /* XXTEA.m in Sources */,
 				5080607C231E43B6009995EF /* MonitorFlow.m in Sources */,
 				50E382962355DE7800560871 /* CSDiscoverVC.m in Sources */,
 				50806072231E41F5009995EF /* AppRequest.m in Sources */,

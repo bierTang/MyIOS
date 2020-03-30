@@ -246,7 +246,10 @@
                                 wself.videoPlayer = nil;
 //                                [[MYToast makeText:@"试看结束，请先开通会员"]show];
                                 cell.noVipView.hidden = NO;
-
+                                if ([UserTools isAgentVersion]) {
+                                    cell.noVipView.view2.hidden = YES;
+                                }
+                               
                             });
                             
                         }

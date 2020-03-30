@@ -47,10 +47,6 @@ class KamiPayController: UIViewController {
         
         //代理版本才需要请求接口
         if (UserTools.isAgentVersion()) {
-           
-           
-            
-            
             
             str = "1"
             AppRequest.sharedInstance().requestMerBerCardBlock { (state, result) in
@@ -133,12 +129,9 @@ class KamiPayController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
             return
         }
-        
-        
-        
-        
+
         if !verifyUrl(str: id1) {
-            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
+            MYToast.makeText("暂无自助购买链接，请联系销售代理购买")?.show()
             return
         }
         let url = URL(string: id1)
@@ -165,7 +158,7 @@ class KamiPayController: UIViewController {
 //        
         
         if !verifyUrl(str: id2) {
-            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
+            MYToast.makeText("暂无自助购买链接，请联系销售代理购买")?.show()
                    return
                }
          let url = URL(string: id2)
@@ -189,7 +182,7 @@ class KamiPayController: UIViewController {
 //        
         
         if !verifyUrl(str: id3) {
-            MYToast.makeText("功能开发中，购买会员请联系客服")?.show()
+            MYToast.makeText("暂无自助购买链接，请联系销售代理购买")?.show()
                    return
                }
          let url = URL(string: id3)

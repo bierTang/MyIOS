@@ -321,12 +321,8 @@
                             
                         }
 
-
                     }
-
-
                 }];
-        
         
     }else{
          [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", NSIntegerMax] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {

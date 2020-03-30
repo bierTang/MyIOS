@@ -8,7 +8,8 @@
 
 #import "AppRequest.h"
 #import "WHNetWork.h"
-
+#import "XXTEA.h"
+#import "微群社区-Swift.h"
 static float const TIMEOUT = 10;
 
 
@@ -48,8 +49,8 @@ static AppRequest *appRequestInstance = nil;
         _manager.requestSerializer=[AFHTTPRequestSerializer serializer];
         
 //        [_manager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
-        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", @"multipart/form-data", @"application/json", @"text/html", @"image/jpeg", @"image/jpg", @"image/png", @"application/octet-stream", @"text/json", nil];
-        
+//        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", @"multipart/form-data", @"application/json", @"text/html", @"image/jpeg", @"image/jpg", @"image/png", @"application/octet-stream", @"text/json", nil];
+        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //        [_manager.reachabilityManager startMonitoring];
 //        [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         _manager.requestSerializer.timeoutInterval = TIMEOUT;
@@ -141,13 +142,13 @@ static AppRequest *appRequestInstance = nil;
     if (method == AppRequestGet) {
         [self AFGetRequestWithUrl:url params:(NSString *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
-            if (ani) {
+//            if (ani) {
             // 3.GCD
                   dispatch_async(dispatch_get_main_queue(), ^{
                    [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                   });
                 
-            }
+//            }
             
             
             
@@ -155,33 +156,33 @@ static AppRequest *appRequestInstance = nil;
     } else if(method == AppRequestPost) {
         [self AFPostRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
-            if (ani) {
+//            if (ani) {
 // 3.GCD
                  dispatch_async(dispatch_get_main_queue(), ^{
                   [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                  });
-            }
+//            }
         }];
     }else if(method == AppRequestPUT) {
         [self AFPUTRequestWithUrl:url params:(NSDictionary *)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
-            if (ani) {
+//            if (ani) {
             // 3.GCD
                              dispatch_async(dispatch_get_main_queue(), ^{
                               [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                              });
-            }
+//            }
 //             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else if(method == AppRequestDELETE) {
         [self AFDELETERequestWithUrl:url params:(id)params callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
-            if (ani) {
+//            if (ani) {
             // 3.GCD
                              dispatch_async(dispatch_get_main_queue(), ^{
                               [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
                              });
-            }
+//            }
 //             [MBProgressHUD hideHUDForView:[self getCurrentVC].view animated:YES];
         }];
     }else{
@@ -197,13 +198,35 @@ static AppRequest *appRequestInstance = nil;
  */
 - (void)AFGetRequestWithUrl:(NSString *)url params:(NSString *)params callback:(HttpCallBack)callback {
     @weakity(self);
+    
+    NSString *encrypt_data;
+       if (params) {
+           
+           NSString *text = params;
+                  NSString *key = @"weichats";
+                  encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
+                  NSString *decrypt_data = [XXTEA decryptBase64StringToString:encrypt_data stringKey:key];
+                  NSLog(@"encrypt_data: %@  ---  decrypt_data: %@", encrypt_data,decrypt_data);
+                  if ([text isEqual:decrypt_data]) {
+                      NSLog(@"success!");
+                  }
+                  else {
+                      NSLog(@"failure!");
+                  }
+       }
+    
+    
+    
+    
     if (params.length > 0) {
-        url = [NSString stringWithFormat:@"%@%@",url,params];
+        url = [NSString stringWithFormat:@"%@%@",url,encrypt_data];
     }
     NSLog(@"geturl=%@",url);
     [_manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
@@ -257,9 +280,31 @@ static AppRequest *appRequestInstance = nil;
            }
     @weakity(self);
     NSLog(@"posturl=%@---dd:%@",url,params);
-    [_manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+
+    NSString *encrypt_data;
+    if (params) {
+        NSString *str =  params.mj_JSONString;
+        NSString *text = str;
+               NSString *key = @"weichats";
+               encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
+               NSString *decrypt_data = [XXTEA decryptBase64StringToString:encrypt_data stringKey:key];
+               NSLog(@"encrypt_data: %@  ---  decrypt_data: %@", encrypt_data,decrypt_data);
+           
+    }
+    
+        
+    
+    
+    
+    
+    
+    [_manager POST:url parameters:encrypt_data progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+       
+        
+        
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
@@ -349,18 +394,39 @@ static AppRequest *appRequestInstance = nil;
 /**
  *  @param callback   回调方法
  */
-- (void)dataResponseObject:(NSDictionary *)responseJSON callback:(HttpCallBack)callback {
+- (void)dataResponseObject:(NSData *)responseJSON callback:(HttpCallBack)callback {
     
-    AppRequestState state = [self requestStateFromStatusCode:[responseJSON objectForKey:AppRequestStateName]];
-    
-    if (state == AppRequestState_Success ) {
-        callback(YES, responseJSON);
-    }else if(state == AppRequestState_TokenInvalid){
-      
-        callback(YES, responseJSON);    //回调提示token过期，或者不做回调  直接处理
+    NSString *result =[[ NSString alloc] initWithData:responseJSON encoding:NSUTF8StringEncoding];
+//    NSString *text = responseJSON.mj_JSONString;
+        NSString *key = @"weichats";
+//       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
+       NSString *decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
+       NSLog(@"decrypt_data: %@", decrypt_data);
+
+    if (decrypt_data) {
+          AppRequestState state = [self requestStateFromStatusCode:[decrypt_data.mj_JSONObject objectForKey:AppRequestStateName]];
+          
+          if (state == AppRequestState_Success ) {
+              callback(YES, decrypt_data.mj_JSONObject);
+          }else if(state == AppRequestState_TokenInvalid){
+            
+              callback(YES, decrypt_data.mj_JSONObject);    //回调提示token过期，或者不做回调  直接处理
+          }else{
+              callback(YES, decrypt_data.mj_JSONObject);
+          }
     }else{
-        callback(YES, responseJSON);
+        AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
+          
+          if (state == AppRequestState_Success ) {
+              callback(YES, result.mj_JSONObject);
+          }else if(state == AppRequestState_TokenInvalid){
+            
+              callback(YES, result.mj_JSONObject);    //回调提示token过期，或者不做回调  直接处理
+          }else{
+              callback(YES, result.mj_JSONObject);
+          }
     }
+
     
 }
 

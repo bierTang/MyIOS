@@ -120,7 +120,7 @@
     }
     
     
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@" ,mainHost,model.path]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:model.path] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
     self.nameLab.text = model.name;
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];
     

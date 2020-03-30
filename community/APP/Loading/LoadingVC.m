@@ -107,7 +107,7 @@
 
     
     __weak typeof(self) wself = self;
-    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api.vq1.xyz" Params:@"/index.php" Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api.vq1.xyz/index.php" Params:@" " Callback:^(BOOL isSuccess, id result) {
         
         if (isSuccess) {
 //            if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
@@ -225,7 +225,7 @@
            }];
         
         
-        [[AppRequest sharedInstance]doRequestWithUrl:self.webUrls[self.indexP-1].url Params:@"/index.php" Callback:^(BOOL isSuccess, id result) {
+        [[AppRequest sharedInstance]doRequestWithUrl:[self.webUrls[self.indexP-1].url stringByAppendingString: @"/index.php"] Params:@" " Callback:^(BOOL isSuccess, id result) {
                
                if (isSuccess) {
 

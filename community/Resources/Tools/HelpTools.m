@@ -84,10 +84,17 @@
 
 
 +(BOOL)isMemberShip{
-    NSTimeInterval now = [[NSDate date]timeIntervalSince1970];
-    NSInteger beTime = [[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue];
-    double distanceTime = beTime - now;
-    return distanceTime > 0 ? YES : NO;
+//    NSTimeInterval now = [[NSDate date]timeIntervalSince1970];
+//    NSInteger beTime = [[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue];
+//    double distanceTime = beTime - now;
+//    return distanceTime > 0 ? YES : NO;
+    
+    if([[[CSCaches shareInstance]getValueForKey:ISVIP]  isEqual: @"1"]){
+        return YES;
+    }else{
+        return NO;
+    }
+    
 }
 
 + (NSString *)getWeekDayByDate:(NSDate *)date{
