@@ -316,7 +316,9 @@
                 [svc.navigationController pushViewController:vc animated:YES];
 //                [svc presentViewController:vc  animated:YES completion:nil];
             }else{
-                svc.tabBarController.selectedIndex = 4;
+                KamiPayController *vc = [[ KamiPayController alloc]init];
+                [svc.navigationController pushViewController:vc animated:YES];
+//                svc.tabBarController.selectedIndex = 4;
             }
             
         }];

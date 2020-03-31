@@ -94,7 +94,7 @@
                    [self.dataArr enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                          
                                   YBIBImageData *data = [YBIBImageData new];
-                                   data.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,obj]];
+                                   data.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,obj]];
     //                                              data.projectiveView = cell.bgImg;
                                       
 
@@ -114,10 +114,7 @@
                                                               browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
                                                               [browser show];
     
-    
-    
-    
-    
+
     
 //    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
 //    browser.currentImageIndex = indexPath.item;
