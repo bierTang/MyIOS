@@ -170,11 +170,16 @@
         }
     };
     
-    cell.videoBlock = ^(id  _Nonnull data) {
+        cell.videoBlock = ^(id  _Nonnull data) {
         CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
         vc.playUrl = wself.dataArr[indexPath.row].video;
         vc.modalPresentationStyle = UIModalPresentationFullScreen;
         [wself presentViewController:vc animated:YES completion:nil];
+        
+      
+        
+        
+        
         
     };
     

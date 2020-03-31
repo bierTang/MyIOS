@@ -406,7 +406,7 @@ static AppRequest *appRequestInstance = nil;
 //       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
        NSString *decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
        
-
+NSLog(@"返回的数据: %@", result);
     if (decrypt_data) {
           AppRequestState state = [self requestStateFromStatusCode:[decrypt_data.mj_JSONObject objectForKey:AppRequestStateName]];
           NSLog(@"返回解密数据: %@", decrypt_data.mj_JSONObject);

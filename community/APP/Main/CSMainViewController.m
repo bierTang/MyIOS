@@ -162,7 +162,7 @@
 }
 -(void)tokenWrong_Loginout{
     [UserTools loginOut];
-    [[MYToast makeText:@"登录失效，请重新登录"]show];
+//    [[MYToast makeText:@"登录失效，请重新登录"]show];
 }
 -(void)viewWillAppear:(BOOL)animated{
     

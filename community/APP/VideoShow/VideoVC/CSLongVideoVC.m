@@ -86,19 +86,7 @@ NSInteger onCount = 0;
 //        make.height.equalTo(40*K_SCALE);
 //    }];
     
-    self.addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.addBtn];
-    [self.addBtn setImage:[UIImage imageNamed:@"service_nav"] forState:UIControlStateNormal];
-    [self.addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
-    [self.addBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(KStatusBarHeight+15);
-        make.right.equalTo(-15);
-    }];
-  if ([UserTools isAgentVersion]) {
-          self.addBtn.hidden = YES;
-     }else{
-         self.addBtn.hidden = NO;
-     }
+
     
 //    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0,60,0,0) titles:titlearr headStyle:SegmentHeadStyleDefault layoutStyle:MLMSegmentLayoutLeft];
 //    [self.view addSubview:self.segHead];
@@ -167,7 +155,19 @@ NSInteger onCount = 0;
 //    }
     
     
-    
+      self.addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+      [self.view addSubview:self.addBtn];
+      [self.addBtn setImage:[UIImage imageNamed:@"service_nav"] forState:UIControlStateNormal];
+      [self.addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+      [self.addBtn makeConstraints:^(MASConstraintMaker *make) {
+          make.top.equalTo(KStatusBarHeight+15);
+          make.right.equalTo(-15);
+      }];
+    if ([UserTools isAgentVersion]) {
+            self.addBtn.hidden = YES;
+       }else{
+           self.addBtn.hidden = NO;
+       }
     
 //    LTSimpleManager *simpleManager = [[ LTSimpleManager alloc]initWithFrame:CGRectMake(0, KNavHeight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight) viewControllers:self.viewArray titles:titlearr currentViewController:self layout:layout titleView:NULL];
 //    simpleManager.delegate = self;

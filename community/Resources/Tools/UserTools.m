@@ -57,7 +57,7 @@
     [[CSCaches shareInstance]removeDefaultValueKey:TOKEN];
     [[CSCaches shareInstance]removeDefaultValueKey:USERMODEL];
     [[CSCaches shareInstance]removeDefaultValueKey:USERBLANCE];
-
+    [[CSCaches shareInstance]removeDefaultValueKey:ISVIP];
 }
 
 +(NSString *)nickName{

@@ -14,7 +14,7 @@
 @property (nonatomic, strong) SJVideoPlayer *player;
 
 @property (nonatomic, strong) UILabel *progLab;
-
+@property (nonatomic,strong)CSTimerManager *timerManager;
 @end
 
 @implementation CSVideoPlayVC
@@ -48,6 +48,27 @@
     }else{
         _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:proxyURL];
     }
+    
+    if (![HelpTools isMemberShip]) {
+                      self.timerManager=[CSTimerManager pq_createTimerWithType:PQ_TIMERTYPE_CREATE_OPEN updateInterval:1 repeatInterval:1 update:^{
+                          if (self.player.currentTime > 100) {
+                              dispatch_async(dispatch_get_main_queue(), ^{
+//                                  [self.player stopAndFadeOut];
+                                  [self.player rotate:SJOrientation_Portrait animated:YES];
+                                  [self.player stop];
+//                                  self.player = nil;
+//                                  cell.noVipView.hidden = NO;
+//                                  if ([UserTools isAgentVersion]) {
+//                                      cell.noVipView.view2.hidden = YES;
+//                                  }
+                                 [[MYToast makeText:@"试看结束，请先开通会员"]show];
+                              });
+                          }
+                      }];
+                  }
+    
+    
+    
     
 //    _player.URLAsset.title = @"视频标题";
 //    KTVHTTPCache

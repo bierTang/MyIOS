@@ -136,8 +136,9 @@
     [self.noVipView makeConstraints:^(MASConstraintMaker *make) {
            make.left.equalTo(0);
            make.right.equalTo(0);
-           make.top.equalTo(self.titleLab.bottom);
-           make.height.equalTo(210*K_SCALE);
+        make.top.bottom.equalTo(self.videoBgView);
+//           make.top.equalTo(self.titleLab.bottom);
+//           make.height.equalTo(210*K_SCALE);
        }];
     self.noVipView.bt1.tag = 3;
     [self.noVipView.bt1 addTarget:self action:@selector(handleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
