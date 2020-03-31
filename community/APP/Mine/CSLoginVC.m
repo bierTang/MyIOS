@@ -63,6 +63,12 @@
     __weak typeof(self) wself = self;
     [[AppRequest sharedInstance]requestLogin:self.mobileTF.text password:[HelpTools md5String:self.passwordTF.text] Block:^(AppRequestState state, id  _Nonnull result) {
         if (state == AppRequestState_Success) {
+          [[AppRequest sharedInstance]requestGetMyinfo:[UserTools userID] Block:^(AppRequestState state, id  _Nonnull result) {
+                     
+                     NSLog(@"个人信息::%@--%@",result,result[@"msg"]);
+                                
+                 }];
+            
             [[NSNotificationCenter defaultCenter]postNotificationName:NOT_FRESHMYINFO object:nil];
             for (UIViewController *vc in wself.navigationController.viewControllers) {
                

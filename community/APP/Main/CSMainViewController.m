@@ -140,7 +140,7 @@
     
     
     // 创建定时器
-    NSTimer *timer = [NSTimer timerWithTimeInterval:600 target:self selector:@selector(startimer) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:300 target:self selector:@selector(startimer) userInfo:nil repeats:YES];
     // 将定时器添加到runloop中，否则定时器不会启动
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     // 停止定时器

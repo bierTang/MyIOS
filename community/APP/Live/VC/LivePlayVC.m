@@ -221,10 +221,19 @@
         make.width.equalTo(100*K_SCALE);
     }];
     UIImageView *headImg = [[UIImageView alloc]init];
-    NSString *string = self.model.imgUrl;
-    if (self.model.stream.length < 5) {
+    NSString *string;
+     if (self.model.imgUrl.length > 5) {
+         string = self.model.imgUrl;
+     }else
+    if (self.model.stream.length > 5) {
         string = self.model.stream;
-    }
+    }else
+    if (self.model.img.length > 5) {
+           string = self.model.img;
+           
+       }
+    
+    
     [headImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
     [grayBgView addSubview:headImg];
     headImg.layer.cornerRadius = 18*K_SCALE;

@@ -30,12 +30,13 @@
 //直播频道列表
 -(void)requestLiveChannelList:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack{
 //    NSDictionary *param = @{@"user_id":userId};
-    NSString *liveURL0 = name;
-    if (liveURL0.length < 8) {
-        liveURL0 = @"http://112.5.37.244:81/cs.php";
-    }
-    NSLog(@"直播频道发送：：%@",liveURL0);
-    [[AppRequest sharedInstance]doRequestWithUrl:liveURL0 Params:nil Callback:^(BOOL isSuccess, id result) {
+//    NSString *liveURL0 = name;
+//    if (liveURL0.length < 8) {
+//        liveURL0 = @"http://112.5.37.244:81/cs.php";
+//    }
+//    NSLog(@"直播频道发送：：%@",liveURL0);
+    NSDictionary *param = @{@"url":name ? name:@""};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index/live/sp" Params:param Callback:^(BOOL isSuccess, id result) {
         NSLog(@"直播频道：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
@@ -48,18 +49,19 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:NO];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 //直播频道列表
 -(void)requestLiveChannelListDa:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack{
 //    NSDictionary *param = @{@"user_id":userId};
-    NSString *liveURL0 = name;
-    if (liveURL0.length < 8) {
-        liveURL0 = @"http://112.5.37.244:81/cs.php";
-    }
-    NSLog(@"直播频道发送：：%@",liveURL0);
-    [[AppRequest sharedInstance]doRequestWithUrl:liveURL0 Params:nil Callback:^(BOOL isSuccess, id result) {
+//    NSString *liveURL0 = name;
+//    if (liveURL0.length < 8) {
+//        liveURL0 = @"http://112.5.37.244:81/cs.php";
+//    }
+//    NSLog(@"直播频道发送：：%@",liveURL0);
+    NSDictionary *param = @{@"url":name};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index/live/sp" Params:param Callback:^(BOOL isSuccess, id result) {
         NSLog(@"直播频道：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
@@ -72,7 +74,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:NO];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 
@@ -80,17 +82,20 @@
 ///http://112.5.37.244:81/cs.php?name=youlemei
 ///直播列表
 -(void)requestLiveList:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack{
-//    NSDictionary *param = @{@"user_id":userId};
+    NSDictionary *param = @{@"url":name};
 //    @"http://112.5.37.244:81/cs.php?name=youlemei
-    NSString *url = name;
-    if (![name hasPrefix:@"http"]) {
-        NSString *liveURL0 = [CSCaches shareInstance].live_url;
-        if (liveURL0.length < 8) {
-            liveURL0 = @"http://112.5.37.244:81/cs.php";
-        }
-        url = [NSString stringWithFormat:@"%@?name=%@",liveURL0,name];
-    }
-    [[AppRequest sharedInstance]doRequestWithUrl:url Params:nil Callback:^(BOOL isSuccess, id result)  {
+//    NSString *url = name;
+//    if (![name hasPrefix:@"http"]) {
+//        NSString *liveURL0 = [CSCaches shareInstance].live_url;
+//        if (liveURL0.length < 8) {
+//            liveURL0 = @"http://112.5.37.244:81/cs.php";
+//        }
+//        url = [NSString stringWithFormat:@"%@?name=%@",liveURL0,name];
+//    }
+//    NSString *na = [NSString stringWithFormat:@"%@%@",@"url='",name];
+//    NSString *url = [NSString stringWithFormat:@"%@%@",na,@"'"];
+    
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index/live/sp" Params:param Callback:^(BOOL isSuccess, id result)  {
 //        NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
@@ -103,15 +108,15 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:NO];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 
 -(void)requestLiveListPingdao:(NSString *)name Block:(void(^)(AppRequestState state,id result))callBack{
 //    NSDictionary *param = @{@"user_id":userId};
 //    @"http://112.5.37.244:81/cs.php?name=youlemei
-
-    [[AppRequest sharedInstance]doRequestWithUrl:name Params:nil Callback:^(BOOL isSuccess, id result)  {
+NSDictionary *param = @{@"url":name};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index/live/sp" Params:param Callback:^(BOOL isSuccess, id result)  {
         NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
@@ -127,7 +132,7 @@
         }
         
         
-    } HttpMethod:AppRequestGet isAni:NO];
+    } HttpMethod:AppRequestPost isAni:NO];
 }
 
 

@@ -13,7 +13,7 @@
 //static NSString *mainHost = @"http://192.168.0.199";
 
 //static NSString *mainHost = @"http://ssbqh.cn";
-static NSString *mainHost = @"http://vq.v-qun.com";
+static NSString *mainHost = @"https://app-api2.vq525.xyz/";
 
 //static NSString *serveHost = @"http://swoole.v-qun.com";
 static NSString *serveHost = @"http://swoole.v-qun.com/php/app.php?widget-mobile";
@@ -32,7 +32,7 @@ static NSString *USERMODEL = @"user_model";
 
 static NSString *USERBLANCE = @"user_blance";
 
-static NSString *ISVIP = @"0";
+static NSString *ISVIP = @"user_vip";
 
 static NSString *serverQQ = @"28888888";
 

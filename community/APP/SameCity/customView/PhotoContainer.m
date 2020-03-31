@@ -62,7 +62,7 @@
 {
     static NSString *identify = @"PhotoContainCell";
     PhotoContainCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identify forIndexPath:indexPath];
-    [cell refreshImage:[NSString stringWithFormat:@"%@/%@",mainHost,self.dataArr[indexPath.item]]];
+    [cell refreshImage:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,self.dataArr[indexPath.item]]];
     return cell;
 }
 
@@ -94,7 +94,7 @@
                    [self.dataArr enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                          
                                   YBIBImageData *data = [YBIBImageData new];
-                                   data.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,obj]];
+                                   data.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,obj]];
     //                                              data.projectiveView = cell.bgImg;
                                       
 
@@ -132,7 +132,7 @@
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
-    NSString *imageUrl = [NSString stringWithFormat:@"%@/%@",mainHost,self.dataArr[index]];
+    NSString *imageUrl = [NSString stringWithFormat:@"%@%@",mainHost,self.dataArr[index]];
      NSURL *url = [NSURL URLWithString:imageUrl];
     return url;
 }

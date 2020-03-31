@@ -200,26 +200,17 @@ static AppRequest *appRequestInstance = nil;
     @weakity(self);
     
     NSString *encrypt_data;
-       if (params) {
+       if (params.length > 0) {
            
            NSString *text = params;
                   NSString *key = @"weichats";
                   encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
-                  NSString *decrypt_data = [XXTEA decryptBase64StringToString:encrypt_data stringKey:key];
-                  NSLog(@"encrypt_data: %@  ---  decrypt_data: %@", encrypt_data,decrypt_data);
-                  if ([text isEqual:decrypt_data]) {
-                      NSLog(@"success!");
-                  }
-                  else {
-                      NSLog(@"failure!");
-                  }
+ 
        }
-    
-    
-    
+
     
     if (params.length > 0) {
-        url = [NSString stringWithFormat:@"%@%@",url,encrypt_data];
+        url = [NSString stringWithFormat:@"%@?params=%@",url,encrypt_data];
     }
     NSLog(@"geturl=%@",url);
     [_manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {

@@ -283,9 +283,9 @@
     
     
     if (model.avatar.length > 5) {
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
+        [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,model.avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
     }else if (model.user_avatar.length > 5) {
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
+        [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
     }
     
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];

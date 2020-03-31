@@ -119,7 +119,7 @@
 -(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     __weak typeof(self) wself = self;
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/all_po" Params:@{@"city_id":wself.cityModel.idss,@"user_id":[UserTools userID],@"current":@(wself.currentpage),@"page":@"10"} Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/all_po" Params:@{@"city_id":wself.cityModel.idss,@"user_id":[UserTools userID] ? [UserTools userID]:@"",@"current":@(wself.currentpage),@"page":@"10"} Callback:^(BOOL isSuccess, id result) {
         NSLog(@"同城：：%@---%@",result,result[@"msg"]);
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
         if (isSuccess) {
@@ -147,7 +147,7 @@
     
     if (self.currentpage < self.totalPage) {
         self.currentpage ++;
-        [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/all_po" Params:@{@"city_id":wself.cityModel.idss,@"user_id":[UserTools userID],@"current":@(wself.currentpage),@"page":@"10"} Callback:^(BOOL isSuccess, id result) {
+        [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/all_po" Params:@{@"city_id":wself.cityModel.idss,@"user_id":[UserTools userID] ? [UserTools userID]:@"",@"current":@(wself.currentpage),@"page":@"10"} Callback:^(BOOL isSuccess, id result) {
             NSLog(@"同城：：%@---%@",result,result[@"msg"]);
             [MBProgressHUD hideHUDForView:wself.view animated:YES];
             if ([wself.tableview.mj_footer isRefreshing]) {
@@ -277,9 +277,14 @@
 }
 
 -(void)addAttention:(UIButton *)sender{
+    if (![UserTools isLogin]) {
+         [[MYToast makeText:@"未登录"]show];
+         return;
+     }
+    
     sender.selected = !sender.isSelected;
     
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/is_attention" Params:@{@"user_id":[UserTools userID],@"city_id":self.cityModel.idss} Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/Post/is_attention" Params:@{@"user_id":[UserTools userID] ? [UserTools userID]:@"",@"city_id":self.cityModel.idss} Callback:^(BOOL isSuccess, id result) {
         if (isSuccess) {
             //
             NSLog(@"关注：%@--%@",result,result[@"msg"]);

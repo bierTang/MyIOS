@@ -71,7 +71,7 @@
         self.cellImgArr[i].hidden = YES;
         if (i<picPathStringsArray.count) {
             self.cellImgArr[i].hidden = NO;
-            [self.cellImgArr[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,picPathStringsArray[i]]]];
+            [self.cellImgArr[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,picPathStringsArray[i]]]];
         }
     }
 }
@@ -93,7 +93,7 @@
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
-    NSString *imageUrl = [NSString stringWithFormat:@"%@/%@",mainHost,self.picPathStringsArray[index]];
+    NSString *imageUrl = [NSString stringWithFormat:@"%@%@",mainHost,self.picPathStringsArray[index]];
 //    NSURL *url = [NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568977678481&di=a87049fb35fb44322144281bbe465441&imgtype=0&src=http%3A%2F%2Fhiphotos.baidu.com%2Fdoc%2Fpic%2Fitem%2Ffc1f4134970a304e100ced34d8c8a786c8175cd5.jpg"];
      NSURL *url = [NSURL URLWithString:imageUrl];
     return url;

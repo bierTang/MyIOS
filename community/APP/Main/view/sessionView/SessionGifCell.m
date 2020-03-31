@@ -112,7 +112,7 @@
     //    [self.Img sd_setImageWithURL:[NSURL URLWithString:model.content] placeholderImage:nil];
     self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
    self.userNameLab.text = model.nick_name;
-   [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+   [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"1"]];
     
     
     NSURL *originalURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",model.content]];

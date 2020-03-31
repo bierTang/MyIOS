@@ -88,7 +88,7 @@
 //    NSInteger beTime = [[[CSCaches shareInstance]getUserModel:USERMODEL].expiration_time intValue];
 //    double distanceTime = beTime - now;
 //    return distanceTime > 0 ? YES : NO;
-    
+    NSLog(@"是否VIP%@",[[CSCaches shareInstance]getValueForKey:ISVIP]);
     if([[[CSCaches shareInstance]getValueForKey:ISVIP]  isEqual: @"1"]){
         return YES;
     }else{

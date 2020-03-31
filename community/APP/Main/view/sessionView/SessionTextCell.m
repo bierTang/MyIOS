@@ -103,7 +103,7 @@
 -(void)refreshCell:(SessionModel *)model{
     self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
   self.userNameLab.text = model.nick_name;
-  [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+  [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"1"]];
 //    if (model.descriptions.length > 0) {
         self.describLab.text = model.descriptions;
 //    }

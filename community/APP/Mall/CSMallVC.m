@@ -45,7 +45,7 @@
     for (int i=0; i<self.dataArr.count; i++) {
 
         UIImageView *cardImg = [[UIImageView alloc]initWithFrame:CGRectMake(16+178*K_SCALE*(i%2),32*K_SCALE + K_SCALE* 99*(i/2), 166*K_SCALE, 87*K_SCALE)];
-        [cardImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",mainHost,self.dataArr[i].images]] placeholderImage:[UIImage imageNamed:@"dayCard_1"]];
+        [cardImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,self.dataArr[i].images]] placeholderImage:[UIImage imageNamed:@"dayCard_1"]];
         cardImg.userInteractionEnabled = YES;
         cardImg.tag = i;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleMemberCard:)];

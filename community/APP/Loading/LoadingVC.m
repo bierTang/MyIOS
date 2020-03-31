@@ -107,18 +107,9 @@
 
     
     __weak typeof(self) wself = self;
-    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api.vq1.xyz/index.php" Params:@" " Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"http://app-api.vq1.xyz/index.php" Params:@"" Callback:^(BOOL isSuccess, id result) {
         
         if (isSuccess) {
-//            if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-//                self.adImage.hidden = NO;
-//                NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][@"ad_lists"][@"logo"]];
-//                [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
-//                wself.linkString = result[@"data"][@"ad_lists"][@"link"];
-//            }
-//            if (result[@"data"][@"file_url"]) {
-//                [CSCaches shareInstance].fileWebUrl = result[@"data"][@"file_url"];
-//            }
             if (result[@"data"]) {
                 NSLog(@"线路：%@",result[@"data"]);
                 NSArray *arr = result[@"data"];
@@ -126,6 +117,7 @@
                 if (arr[0]) {
                     WebModel *i = arrModel[0];
                     [CSCaches shareInstance].webUrl = i.url;
+                    mainHost = i.url;
                 }
 
                 for (WebModel *i in arrModel){
@@ -236,7 +228,7 @@
            }];
         
         
-        [[AppRequest sharedInstance]doRequestWithUrl:[self.webUrls[self.indexP-1].url stringByAppendingString: @"/index.php"] Params:@" " Callback:^(BOOL isSuccess, id result) {
+        [[AppRequest sharedInstance]doRequestWithUrl:[self.webUrls[self.indexP-1].url stringByAppendingString: @"/index.php"] Params:@"" Callback:^(BOOL isSuccess, id result) {
                
                if (isSuccess) {
 
