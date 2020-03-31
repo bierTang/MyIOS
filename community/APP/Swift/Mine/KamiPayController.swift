@@ -9,9 +9,9 @@
 import UIKit
 import SafariServices
 class KamiPayController: UIViewController {
-    var id1 = serveHost
-    var id2 = serveHost
-    var id3 = serveHost
+    var id1 = ""
+    var id2 = ""
+    var id3 = ""
     var str = "0"
     var qqStr = ""
     var wxStr = ""
@@ -78,7 +78,7 @@ class KamiPayController: UIViewController {
                              
                               
                               if (state == AppRequestState_Success) {
-                                  print("返回的啥1", JSON(result))
+//                                  print("返回的啥1", JSON(result))
                                 self.infoLabel.text = JSON(result)["data"]["content"].string ?? ""
                                      }
 

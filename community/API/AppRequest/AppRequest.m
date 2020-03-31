@@ -230,8 +230,10 @@ static AppRequest *appRequestInstance = nil;
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
+                
                            [[MYToast makeText:result[@"msg"]]show];
-                [UserTools loginOut];
+//                [UserTools loginOut];
+                [[NSNotificationCenter defaultCenter]postNotificationName:NOT_TOKENWRONG object:nil];
                 // 前提当前控制器在一个navigationController中
                                // 取nav的栈顶控制器
 //               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
@@ -279,26 +281,28 @@ static AppRequest *appRequestInstance = nil;
                [_manager.requestSerializer setValue:[UserTools token] forHTTPHeaderField:@"accessToken"];
            }
     @weakity(self);
-    NSLog(@"posturl=%@---dd:%@",url,params);
+    
 
     NSString *encrypt_data;
+    NSDictionary * dic;
     if (params) {
         NSString *str =  params.mj_JSONString;
         NSString *text = str;
                NSString *key = @"weichats";
                encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
-               NSString *decrypt_data = [XXTEA decryptBase64StringToString:encrypt_data stringKey:key];
-               NSLog(@"encrypt_data: %@  ---  decrypt_data: %@", encrypt_data,decrypt_data);
-           
+        dic = @{@"params":encrypt_data};
+       
+//           encrypt_data = [@"params=" stringByAppendingString: encrypt_data];
     }
     
-        
+
+    NSLog(@"posturl=%@---:%@",url,encrypt_data);
     
     
     
     
     
-    [_manager POST:url parameters:encrypt_data progress:^(NSProgress * _Nonnull uploadProgress) {
+    [_manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
@@ -309,8 +313,8 @@ static AppRequest *appRequestInstance = nil;
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             if( [result[@"code"] integerValue] == 10019){
                  [[MYToast makeText:result[@"msg"]]show];
-                [UserTools loginOut];
-                
+//                [UserTools loginOut];
+               [[NSNotificationCenter defaultCenter]postNotificationName:NOT_TOKENWRONG object:nil];
                            // 前提当前控制器在一个navigationController中
                                     // 取nav的栈顶控制器
                     if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
@@ -401,11 +405,11 @@ static AppRequest *appRequestInstance = nil;
         NSString *key = @"weichats";
 //       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
        NSString *decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
-       NSLog(@"decrypt_data: %@", decrypt_data);
+       
 
     if (decrypt_data) {
           AppRequestState state = [self requestStateFromStatusCode:[decrypt_data.mj_JSONObject objectForKey:AppRequestStateName]];
-          
+          NSLog(@"返回解密数据: %@", decrypt_data.mj_JSONObject);
           if (state == AppRequestState_Success ) {
               callback(YES, decrypt_data.mj_JSONObject);
           }else if(state == AppRequestState_TokenInvalid){
@@ -416,7 +420,7 @@ static AppRequest *appRequestInstance = nil;
           }
     }else{
         AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
-          
+          NSLog(@"返回原始数据: %@", result.mj_JSONObject);
           if (state == AppRequestState_Success ) {
               callback(YES, result.mj_JSONObject);
           }else if(state == AppRequestState_TokenInvalid){

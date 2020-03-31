@@ -151,7 +151,18 @@
     /**
        同步查询所有数据.
               */
-     self.webUrls = [WebModel bg_findAll:@"WEBLINE"];
+    NSArray* Array = [WebModel bg_findAll:@"WEBLINE"];
+    
+    
+    // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+           NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:NO];
+           // 排序结果
+           NSMutableArray *tArr = [NSMutableArray new];
+          
+           [tArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+    
+    self.webUrls = tArr;
+    
     if (self.webUrls.count > 0) {
         NSString *strUrl = [self.webUrls[self.indexP].url stringByReplacingOccurrencesOfString:@"http:" withString:@""];  //去掉http:测试
         NSString *strUrl1 = [strUrl stringByReplacingOccurrencesOfString:@"https:" withString:@""];  //去掉https:测试
