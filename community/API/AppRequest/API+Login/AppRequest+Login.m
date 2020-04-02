@@ -20,6 +20,9 @@
             AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
             
             if (state == AppRequestState_Success) {
+                //删掉之前的code存新的code
+                [[CSCaches shareInstance]removeDefaultValueKey:AGENTID];
+                
                 UserModel *user = [UserModel mj_objectWithKeyValues:result[@"data"]];
                 [[CSCaches shareInstance]saveUserDefalt:TOKEN value:user.access_token];
                 

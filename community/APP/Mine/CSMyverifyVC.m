@@ -116,7 +116,7 @@
 //        return;
 //    }
     
-    NSString *agentid = @"0";
+    NSString *agentid = @"";
     if ([UserTools AgentID].length > 0) {
         agentid = [UserTools AgentID];
     }

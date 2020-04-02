@@ -44,7 +44,7 @@
     
     
     if ([[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(goNextVC:) userInfo:nil repeats:YES];
+        
     }else{
         ///加载启动广告
         [qidong removeFromSuperview];
@@ -218,12 +218,26 @@
                NSLog(@"首页广告：：%@",result);
                if (state == AppRequestState_Success) {
                                if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
-                                   self.adImage.hidden = NO;
-                                   NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][0][@"logo"]];
-                                   [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
-                                   self.linkString = result[@"data"][0][@"link"];
+                                   if(result[@"data"]){
+                                       NSArray * arr = result[@"data"];
+                                       if (arr.count > 0) {
+                                           [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(goNextVC:) userInfo:nil repeats:YES];
+                                           
+                                            self.adImage.hidden = NO;
+                                           NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][0][@"logo"]];
+                                            [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.jpg"]];
+                                           self.linkString = result[@"data"][0][@"link"];
+                                       }else{
+                                           //错误的话直接去首页
+                                          [self tapToNextVC];
+                                       }
+                                   }
+                                  
                                }
 
+               }else{
+                   //错误的话直接去首页
+                   [self tapToNextVC];
                }
            }];
         

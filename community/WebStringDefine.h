@@ -24,7 +24,7 @@ static NSString *USERID = @"user_id";
 
 //static NSString *AGENTVER = @"agent_version";
 
-static NSString *AGENTID = @"agent_id";
+static NSString *AGENTID = @"0";
 
 static NSString *SHAREUSER= @"share_userid";
 

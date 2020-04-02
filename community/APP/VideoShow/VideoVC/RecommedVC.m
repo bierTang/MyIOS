@@ -320,7 +320,23 @@
     NSLog(@"%s",__func__);
     [self stopVideoPlay];
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.optionIndexPath) {
+        CGRect rect = [self.tableview rectForRowAtIndexPath:self.optionIndexPath];
+        CGRect rectInSuperView = [self.tableview convertRect:rect toView:[self.tableview superview]];
+        
+        //滑动到了屏幕下方
+        if ( rectInSuperView.origin.y > self.view.frame.size.height) {
+             [self stopVideoPlay];
+            
+        }else if (rectInSuperView.origin.y + rectInSuperView.size.height < 0){
+            //当前操作的cell高度  rectInSuperView.size.heigt
+            //滑动到了屏幕上方
+             [self stopVideoPlay];
+        }else{
+        }
+    }
+}
 
 //-(VideoPlayView *)videoView{
 //    if (!_videoView) {

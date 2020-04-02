@@ -18,7 +18,8 @@
 }
 
 +(BOOL)isAgentVersion{
-    return [[[CSCaches shareInstance]getValueForKey:AGENTID] integerValue] > 0;
+//    return [[CSCaches shareInstance]getValueForKey:AGENTID].length > 1;
+    return YES;
 }
 
 

@@ -78,7 +78,9 @@
 }
 
 -(void)reLoadinfo{
+//    NSLog(@"代理版本code%@",[[CSCaches shareInstance]getValueForKey:AGENTID]);
     if (![UserTools isAgentVersion]) {
+        
         //判断不是代理的页面是否存在
         if(![self.officeView isDescendantOfView:self.view]){
             self.officeView = [[OfficialMineView alloc]initWithFrame:self.view.bounds];

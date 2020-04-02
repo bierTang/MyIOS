@@ -166,7 +166,8 @@
 ///卡密列表
 -(void)requestMerBerCardBlock:(void(^)(AppRequestState state,id result))callBack{
     
-    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/card/link" Params:@{@"agent_id":[UserTools AgentID]} Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/card/link" Params:@{@"agent_code":[UserTools AgentID] ? [UserTools AgentID]:@""} Callback:^(BOOL isSuccess, id result) {
+//        NSLog(@"卡密列表的%@",[UserTools AgentID]);
         if (isSuccess) {
             AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
             callBack(state,result);

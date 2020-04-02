@@ -108,7 +108,8 @@
                     make.width.equalTo(80*K_SCALE);
                     make.top.equalTo(SCREEN_HEIGHT-BottomSpace-55*K_SCALE);
                 }];
-                [wself.adImage21 addGestureRecognizer:tap2];
+                UITapGestureRecognizer *tap21= [[UITapGestureRecognizer alloc]initWithTarget:wself action:@selector(handtap:)];
+                [wself.adImage21 addGestureRecognizer:tap21];
                 [wself.adImage21 sd_setImageWithURL:[NSURL URLWithString:wself.adsArr[1].logo] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     wself.adImage21.userInteractionEnabled = YES;
                 }];
