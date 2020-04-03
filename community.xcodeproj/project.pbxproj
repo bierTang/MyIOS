@@ -86,6 +86,7 @@
 		04EA816523B6F0F800CEF675 /* TextReaderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA816423B6F0F800CEF675 /* TextReaderVC.m */; };
 		04EA816723B72AED00CEF675 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA816623B72AED00CEF675 /* AVFoundation.framework */; };
 		04EA816923B72B0000CEF675 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA816823B72B0000CEF675 /* CoreAudio.framework */; };
+		04F0FF0324372E6000F6C3C8 /* qidong.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0FF0224372E5F00F6C3C8 /* qidong.png */; };
 		04F4A056241B1EB9009B448A /* NoVipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A055241B1EB9009B448A /* NoVipView.swift */; };
 		04F4A058241B1EC1009B448A /* NoVipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4A057241B1EC1009B448A /* NoVipView.xib */; };
 		04F4A0982421C6A1009B448A /* AdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4A0972421C6A1009B448A /* AdCell.m */; };
@@ -395,6 +396,7 @@
 		04EA816423B6F0F800CEF675 /* TextReaderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextReaderVC.m; sourceTree = "<group>"; };
 		04EA816623B72AED00CEF675 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04EA816823B72B0000CEF675 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		04F0FF0224372E5F00F6C3C8 /* qidong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qidong.png; sourceTree = "<group>"; };
 		04F4A055241B1EB9009B448A /* NoVipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVipView.swift; sourceTree = "<group>"; };
 		04F4A057241B1EC1009B448A /* NoVipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoVipView.xib; sourceTree = "<group>"; };
 		04F4A0962421C6A1009B448A /* AdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdCell.h; sourceTree = "<group>"; };
@@ -1618,6 +1620,7 @@
 			children = (
 				04A3BE9523FBD6A500901331 /* KSYMediaPlayer.framework */,
 				04ABE15C23BE0B6000EFD7F5 /* qidong.jpg */,
+				04F0FF0224372E5F00F6C3C8 /* qidong.png */,
 				50759F592390C64900E2705F /* qidong_Ads_0.jpg */,
 				50759F5A2390C64A00E2705F /* qidong_Ads_1.jpg */,
 				50759F5B2390C64A00E2705F /* qidong_Ads_2.jpg */,
@@ -1912,6 +1915,7 @@
 				50E7BB7E238E5102001C9C96 /* logo_icon.png in Resources */,
 				50C665E8237C1F1A0042277D /* white_close.png in Resources */,
 				04F4A058241B1EC1009B448A /* NoVipView.xib in Resources */,
+				04F0FF0324372E6000F6C3C8 /* qidong.png in Resources */,
 				50759F5D2390C64A00E2705F /* qidong_Ads_1.jpg in Resources */,
 				505B8DB8237E9F90001D5DBB /* LICENSE in Resources */,
 				50938A9C23345D6700FD4011 /* cityImage.png in Resources */,

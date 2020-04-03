@@ -123,6 +123,7 @@
 //    http://199.180.102.241:2100/20200121/Ztwtzq1p/mp4/Ztwtzq1p.mp4
 //    http://199.180.102.241:2100/20200214/voHKvcnZ/mp4/voHKvcnZ.mp4
     _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:self.model.pull]];
+//     _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:@"rtmp://101.ayhpbg.com/live/a101_694579494258216960_2f865b350829ddf293dcc579d5c66169?txSecret=51ba27c38b8e7d34bb6c46252a60f5ce&txTime=5E857F78"]];
     _player.controlStyle = MPMovieControlStyleNone;
 //    [_player.view setFrame: self.view.bounds];  // player's frame must match parent's
     [self.videoView addSubview:_player.view];
