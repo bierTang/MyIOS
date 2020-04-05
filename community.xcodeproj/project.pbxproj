@@ -2395,7 +2395,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RYYCA2A3Q;
+				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",
@@ -2439,7 +2439,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RYYCA2A3Q;
+				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",

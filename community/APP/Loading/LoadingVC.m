@@ -85,7 +85,7 @@
     
     
     self.adImage = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    self.adImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.adImage.contentMode = UIViewContentModeScaleToFill;
     self.adImage.hidden = YES;
     self.adImage.image = [UIImage imageNamed:@"qidong.jpg"];
     [self.view addSubview:self.adImage];

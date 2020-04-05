@@ -69,6 +69,7 @@
 
                 [[CSCaches shareInstance]saveUserDefalt:ISVIP value:user.is_vip];
                 [[CSCaches shareInstance]saveUserDefalt:USERBLANCE value:user.coin];
+                [[CSCaches shareInstance]saveUserDefalt:AGENTID value:user.agent_code];
             }
             callBack(state,result);
         }else{
@@ -167,7 +168,7 @@
 -(void)requestMerBerCardBlock:(void(^)(AppRequestState state,id result))callBack{
     
     [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/card/link" Params:@{@"agent_code":[UserTools AgentID] ? [UserTools AgentID]:@""} Callback:^(BOOL isSuccess, id result) {
-//        NSLog(@"卡密列表的%@",[UserTools AgentID]);
+        NSLog(@"卡密列表的%@",[UserTools AgentID]);
         if (isSuccess) {
             AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
             callBack(state,result);
