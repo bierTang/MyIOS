@@ -41,7 +41,7 @@
     self.bgImg = [[UIImageView alloc]init];
     [self.contentView addSubview:self.bgImg];
     //////
-    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
+    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"head_moren"]];
     [self.contentView addSubview:self.headImg];
     [self.headImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(15);
@@ -489,7 +489,7 @@
 -(void)refreshVoice:(SessionModel *)model{
     self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     self.userNameLab.text = model.nick_name;
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"1"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"head_moren"]];
     self.mp3Add = model.content;
 //    self.mp3Add = @"https://www.0dutv.com/upload/dance/20200301/8EFCDEB98EE52CFE767B054BEE668A8D.mp3";
     self.currentCount = 0;

@@ -36,7 +36,7 @@
 }
 -(void)initUI{
 
-    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
+    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"head_moren"]];
     [self.contentView addSubview:self.headImg];
     self.headImg.layer.cornerRadius = 4;
     self.headImg.clipsToBounds = YES;
@@ -220,7 +220,7 @@
             make.height.equalTo(210*K_SCALE);
         }];
     }
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"head_moren"]];
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     self.contentLab.text = model.descriptions;
     [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];

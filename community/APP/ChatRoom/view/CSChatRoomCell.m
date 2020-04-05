@@ -39,7 +39,7 @@
 -(void)initUI{
     self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake(16, 6, 34, 34)];
     [self.contentView addSubview:self.headImg];
-    self.headImg.image = [UIImage imageNamed:@"headImg_base"];
+    self.headImg.image = [UIImage imageNamed:@"head_moren"];
     
     self.nameLab = [UILabel labelWithTitle:@"群名称" font:14 textColor:@"161616" textAlignment:NSTextAlignmentLeft];
     self.nameLab.frame = CGRectMake(68, 0, 200, 47);

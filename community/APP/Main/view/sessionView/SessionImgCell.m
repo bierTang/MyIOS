@@ -45,7 +45,7 @@
     [self.contentView addSubview:self.bgImg];
     /////
     
-    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
+    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"head_moren"]];
     [self.contentView addSubview:self.headImg];
     [self.headImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(15);
@@ -123,7 +123,7 @@
     self.timeLabel.text = [HelpTools distanceTimeWithBeforeTime:[model.create_time floatValue]];
     NSLog(@"mmmmmmmm:%@--%@",model.content,model.images);
     self.userNameLab.text = model.nick_name;
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"1"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.user_avatar]] placeholderImage:[UIImage imageNamed:@"head_moren"]];
     self.imageUrl = [NSString stringWithFormat:@"%@%@",mainHost,model.content];
     [self.Img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mainHost,model.content]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (!error) {

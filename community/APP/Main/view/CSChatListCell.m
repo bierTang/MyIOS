@@ -55,7 +55,7 @@
         make.top.equalTo(13*kk);
     }];
     
-    self.headImg.image = [UIImage imageNamed:@"headImg_base"];
+    self.headImg.image = [UIImage imageNamed:@"head_moren"];
     
     self.nameLab = [UILabel labelWithTitle:@"名字" font:14*K_SCALE textColor:@"161616" textAlignment:NSTextAlignmentLeft];
 //    self.nameLab.frame = CGRectMake(65, 17.5, 250, 18);
@@ -120,7 +120,7 @@
     }
     
     
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:model.path] placeholderImage:[UIImage imageNamed:@"headImg_base"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:model.path] placeholderImage:[UIImage imageNamed:@"head_moren"]];
     self.nameLab.text = model.name;
     self.timeLab.text = [HelpTools distanceTimeWithBeforeTime:[model.update_time floatValue]];
     

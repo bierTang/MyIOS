@@ -67,7 +67,7 @@
 
 -(void)refreshItem:(CityListModel *)model{
     self.postNum_Lab.text = [NSString stringWithFormat:@"帖数：%@",model.post_num];//@"帖数：22345";
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,model.path]] placeholderImage:[UIImage imageNamed:@"loadNormal"]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[CSCaches shareInstance].webUrl,model.path]] placeholderImage:[UIImage imageNamed:@"head_moren"]];
     
     self.provinceLab.text = model.name;//@"北京同城";
     

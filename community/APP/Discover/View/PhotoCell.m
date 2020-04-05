@@ -23,7 +23,7 @@
 
 -(void)makeUI{
 //    self.backgroundColor = [UIColor grayColor];
-    self.bgImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
+    self.bgImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"head_moren"]];
     [self addSubview:self.bgImage];
     self.bgImage.clipsToBounds = YES;
     self.bgImage.contentMode = UIViewContentModeScaleAspectFill;

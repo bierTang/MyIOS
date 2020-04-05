@@ -35,7 +35,7 @@
 }
 -(void)initUI{
     
-    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headImg_base"]];
+    self.headImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"head_moren"]];
     [self.contentView addSubview:self.headImg];
     
     self.headImg.layer.cornerRadius = 4;
