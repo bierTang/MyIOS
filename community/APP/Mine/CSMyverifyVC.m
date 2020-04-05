@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextField *agentText;
 @property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 
@@ -44,6 +45,12 @@
     if (self.imageStr.integerValue == 0) {
         self.imageStr = @"1";
     }
+    
+    if ([UserTools AgentID].length >1) {
+        self.agentText.text = [UserTools AgentID];
+        self.agentText.enabled = NO;
+    }
+    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -93,8 +100,11 @@
 
 
 - (IBAction)completeAction:(id)sender {
-    
-    
+    if(self.nickName.text.length < 1){
+           [[MYToast makeText:@"请输入昵称"]show];
+           return;
+       }
+   
     if(self.account.text.length != 11){
         [[MYToast makeText:@"请输入正确手机号码"]show];
         return;
@@ -103,22 +113,23 @@
         [[MYToast makeText:@"请输入6位以上密码"]show];
         return;
     }
-    if(self.nickName.text.length < 1){
-        [[MYToast makeText:@"请输入昵称"]show];
-        return;
-    }
+   
     if (![self.confirmPassword.text isEqualToString:self.password.text]) {
         [[MYToast makeText:@"两次密码输入不一致"]show];
         return;
     }
+    if(self.agentText.text.length < 1){
+           [[MYToast makeText:@"请输入邀请码"]show];
+           return;
+       }
 //    if(self.imageStr.length < 5){
 //        [[MYToast makeText:@"请先上传头像"]show];
 //        return;
 //    }
     
     NSString *agentid = @"";
-    if ([UserTools AgentID].length > 0) {
-        agentid = [UserTools AgentID];
+    if (self.agentText.text.length > 0) {
+        agentid = self.agentText.text;
     }
     
     NSMutableDictionary *params = @{@"nickname":self.nickName.text,@"mobile":self.account.text,@"password":[HelpTools md5String:self.password.text],@"agent_code":agentid,@"device_id":[HelpTools getDeviceIDInKeychain]}.mutableCopy;
