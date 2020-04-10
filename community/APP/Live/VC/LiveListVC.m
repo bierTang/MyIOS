@@ -45,7 +45,7 @@
 }
 -(void)initUI{
     
-         self.liveView = [[LiveListView alloc]init];
+        self.liveView = [[LiveListView alloc]init];
    
         self.liveView.showHeader = YES;
  
@@ -82,15 +82,14 @@
        [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
        [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
        self.liveView.collectionView.mj_header = header;
-    
-    
+        
         [self requestData];
 }
 -(void)freshData{
     [self requestData];
 }
 -(void)requestData{
-    [[AppRequest sharedInstance]requestLiveListPingdao:self.model.pull Block:^(AppRequestState state, id  _Nonnull result) {
+    [[AppRequest sharedInstance]requestLiveListPingdao:self.model.pull pass:self.model.pass Block:^(AppRequestState state, id  _Nonnull result) {
              NSLog(@"aa");
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.liveView.collectionView.mj_header isRefreshing]) {

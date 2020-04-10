@@ -82,7 +82,7 @@
     
 //    [[CSCaches shareInstance]saveUserDefalt:AGENTID value:@"3"];
     ///4LSDBY
-    if (![UserTools isAgentVersion]) {
+    if ([[CSCaches shareInstance]getValueForKey:AGENTID].length < 2) {
         [[OpenInstallSDK defaultManager] getInstallParmsCompleted:^(OpeninstallData*_Nullable appData) {
             if (appData.data) {//(动态安装参数)
                 if (appData.data[@"agent_code"]) {

@@ -69,6 +69,14 @@
 //    }
 }
 
+- (void)setPass:(NSString *)pass{
+//    if (_name != name) {
+        _pass = pass;
+         
+//    }
+}
+
+
 
 
 -(void)freshData{
@@ -76,19 +84,18 @@
 }
 -(void)requestData{
     NSLog(@"实际请求地址%@",_name);
-    [[AppRequest sharedInstance]requestLiveChannelList:_name Block:^(AppRequestState state, id  _Nonnull result) {
+    [[AppRequest sharedInstance]requestLiveChannelList:_name pass:_pass Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"频道列表");
         dispatch_async(dispatch_get_main_queue(), ^{
-                           if ([self.collectionView.mj_header isRefreshing]) {
-                               [self.collectionView.mj_header endRefreshing];
-                           }
+             [self.collectionView.mj_header endRefreshing];
+                          
                        });
         if (state == AppRequestState_Success) {
             
             self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             //等于0可能是大众频道的数据，取pingtai
             if (self.dataArr.count == 0) {
-                self.dataArr = [DaChannelModel mj_objectArrayWithKeyValuesArray:result[@"pingtai"]];
+                self.dataArr = [ChannelModel mj_objectArrayWithKeyValuesArray:result[@"pingtai"]];
             }
             
             
@@ -182,15 +189,43 @@
 #pragma mark  点击CollectionView触发事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     LiveModel *mo = [[LiveModel alloc]init];
+    if (self.dataArr[indexPath.item].logo.length >1) {
+        mo.imgUrl = self.dataArr[indexPath.item].logo;
+    }else{
+        mo.imgUrl = self.dataArr[indexPath.item].xinimg;
+    }
     
-    mo.imgUrl = self.dataArr[indexPath.item].logo;
-    mo.userName = self.dataArr[indexPath.item].name;
-    mo.nums = self.dataArr[indexPath.item].quantity;
-    NSString *liveURL0 = [CSCaches shareInstance].live_url;
+    if (self.dataArr[indexPath.item].name.length >1) {
+          mo.userName = self.dataArr[indexPath.item].name;
+      }else{
+           mo.userName = self.dataArr[indexPath.item].title;
+      }
+    
+    if (self.dataArr[indexPath.item].quantity.length >1) {
+         mo.nums = self.dataArr[indexPath.item].quantity;
+      }else{
+         mo.nums = self.dataArr[indexPath.item].Number;
+      }
+    
+
+    
+    NSString *liveURL0 = self.name;
        
-        //替换某个字符
-    NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].source]];
-    mo.pull = url;
+    
+    
+    if (self.dataArr[indexPath.item].source.length >1) {
+             //替换某个字符
+          NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].source]];
+          mo.pull = url;
+        mo.pass = @"0";
+      }else{
+              //替换某个字符
+          NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json.txt" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].address]];
+          mo.pull = url;
+          mo.pass = @"1";
+      }
+    
+    
     
     [CSCaches shareInstance].currentLiveModel = mo;
     

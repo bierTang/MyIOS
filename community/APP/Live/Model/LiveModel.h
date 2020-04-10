@@ -20,8 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *nums;
 @property (nonatomic,strong)NSString *stream;
 
-//@property (nonatomic,strong)NSString *stream;
+@property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *img;
+@property (nonatomic,strong)NSString *pass;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *name;
 - (void)setName:(NSString *)name;
+
+@property (nonatomic, copy) NSString *pass;
+- (void)setPass:(NSString *)pass;
+
 @end
 
 NS_ASSUME_NONNULL_END
