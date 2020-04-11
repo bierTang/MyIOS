@@ -2271,6 +2271,7 @@
 		50821FFC231C9E22006F55B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -2336,6 +2337,7 @@
 		50821FFD231C9E22006F55B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -2397,6 +2399,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2AAE2B3BB11B24A9E60BD3E5 /* Pods-community.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -2425,7 +2428,7 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cs.community;
 				PRODUCT_NAME = "微群社区";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2441,6 +2444,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30D23552F06EEA20FD260893 /* Pods-community.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "community/微群社区Release.entitlements";
@@ -2470,7 +2474,7 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cs.community;
 				PRODUCT_NAME = "微群社区";
 				PROVISIONING_PROFILE_SPECIFIER = FLBProfile;

@@ -203,8 +203,10 @@
     
     if (self.dataArr[indexPath.item].quantity.length >1) {
          mo.nums = self.dataArr[indexPath.item].quantity;
-      }else{
+      }else if (self.dataArr[indexPath.item].Number.length >1){
          mo.nums = self.dataArr[indexPath.item].Number;
+      }else{
+          mo.nums = @"0";
       }
     
 

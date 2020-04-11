@@ -89,8 +89,10 @@
     
     if (model.quantity.length > 1) {
         self.onlineNum.text = model.quantity;
-    }else{
+    }else if (model.Number.length > 1){
         self.onlineNum.text = model.Number;
+    }else{
+        self.onlineNum.text = @"0";
     }
     
     
