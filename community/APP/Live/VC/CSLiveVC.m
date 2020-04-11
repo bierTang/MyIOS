@@ -198,6 +198,14 @@
             }else{
                 self.liveUrlStr = model.url;
                 [self.viewArray addObject:self.liveView];
+                
+                
+//                for (int i = 0; i < 1000; i++) {
+//                    [self requestData];
+////                    NSLog(@"%@",self.traverseArray[i]);
+//
+//                }
+                
                 [self requestData];
             }
 //        }

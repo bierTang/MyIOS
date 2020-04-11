@@ -10,7 +10,7 @@
 #import "WHNetWork.h"
 #import "XXTEA.h"
 #import "微群社区-Swift.h"
-static float const TIMEOUT = 10;
+static float const TIMEOUT = 8;
 
 
 @interface AppRequest()
@@ -287,7 +287,7 @@ static AppRequest *appRequestInstance = nil;
     }
     
 
-    NSLog(@"posturl=%@---:%@",url,encrypt_data);
+//    NSLog(@"posturl=%@---:%@",url,encrypt_data);
     
     
     
@@ -397,10 +397,10 @@ static AppRequest *appRequestInstance = nil;
 //       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
        NSString *decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
        
-NSLog(@"返回的数据: %@", result);
+//NSLog(@"返回的数据: %@", result);
     if (decrypt_data) {
           AppRequestState state = [self requestStateFromStatusCode:[decrypt_data.mj_JSONObject objectForKey:AppRequestStateName]];
-          NSLog(@"返回解密数据: %@", decrypt_data.mj_JSONObject);
+//          NSLog(@"返回解密数据: %@", decrypt_data.mj_JSONObject);
           if (state == AppRequestState_Success ) {
               callback(YES, decrypt_data.mj_JSONObject);
           }else if(state == AppRequestState_TokenInvalid){

@@ -140,12 +140,13 @@
     self.webUrls = tArr;
     
     if (self.webUrls.count > 0) {
-        NSString *strUrl = [self.webUrls[self.indexP].url stringByReplacingOccurrencesOfString:@"http:" withString:@""];  //去掉http:测试
-        NSString *strUrl1 = [strUrl stringByReplacingOccurrencesOfString:@"https:" withString:@""];  //去掉https:测试
-        NSString *strUrl2 = [strUrl1 stringByReplacingOccurrencesOfString:@"/" withString:@""];  //去掉/测试
-        NSLog(@"ping地址 %@",strUrl2);
+//        NSString *strUrl = [self.webUrls[self.indexP].url stringByReplacingOccurrencesOfString:@"http:" withString:@""];  //去掉http:测试
+//        NSString *strUrl1 = [strUrl stringByReplacingOccurrencesOfString:@"https:" withString:@""];  //去掉https:测试
+//        NSString *strUrl2 = [strUrl1 stringByReplacingOccurrencesOfString:@"/" withString:@""];  //去掉/测试
+//        NSLog(@"ping地址 %@",strUrl2);
         // ping
-        [self tapPingTo:strUrl2];
+        [self testLine:self.webUrls[self.indexP].url];
+        
     }else{
        //如果没有线路的话就再走一次默认的选择线路，超时好进入
         [self oneLine];
@@ -277,6 +278,75 @@
     tabbarvc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:tabbarvc animated:NO completion:nil];
 }
+
+- (void)testLine:(NSString *)host {
+    [[AppRequest sharedInstance]doRequestWithUrl:[host stringByAppendingString: @"/index.php"] Params:@"" Callback:^(BOOL isSuccess, id result) {
+        
+        if (isSuccess) {
+            self.mbHud.removeFromSuperViewOnHide = YES;
+                       [self.mbHud hideAnimated:YES];
+            
+            
+            
+            [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
+            if (result[@"data"]) {
+                NSLog(@"线路：%@",result[@"data"]);
+                NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                for (WebModel *i in arrModel){
+                    i.bg_tableName = @"WEBLINE";
+                }
+                [WebModel bg_saveOrUpdateArray:arrModel];
+              
+            }
+          
+            
+            [[AppRequest sharedInstance]requestADSforType:@"11" Block:^(AppRequestState state, id  _Nonnull result) {
+                NSLog(@"首页广告：：%@",result);
+                if (state == AppRequestState_Success) {
+                                if (result[@"data"] && [[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
+                                    if(result[@"data"]){
+                                        NSArray * arr = result[@"data"];
+                                        if (arr.count > 0) {
+                                            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(goNextVC:) userInfo:nil repeats:YES];
+                                            self.timeLab.hidden = NO;
+                                             self.adImage.hidden = NO;
+                                            self.circle.hidden = NO;
+                                            NSString *url = [NSString stringWithFormat:@"%@",result[@"data"][0][@"logo"]];
+                                             [self.adImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"qidong.png"]];
+                                            self.linkString = result[@"data"][0][@"link"];
+                                        }else{
+                                            //错误的话直接去首页
+                                           [self tapToNextVC];
+                                        }
+                                    }
+                                   
+                                }
+
+                }else{
+                    //错误的话直接去首页
+                    [self tapToNextVC];
+                }
+            }];
+            
+            
+            
+            
+        }else{
+            for (WebModel *i in self.webUrls){
+                      NSLog(@"地址 %@",i.url);
+                  }
+                  if (self.webUrls.count > self.indexP) {
+                      [self testLine:self.webUrls[self.indexP].url];
+                      self.indexP++;
+                  }else{
+                      //所有的线路请求完了，再去试试q默认的请求线路
+                      [self oneLine];
+                  }
+        }
+    
+    } HttpMethod:AppRequestGet isAni:NO];
+}
+
 
 - (void)tapPingTo:(NSString *)host {
     NSLog(@"-----------");

@@ -12,8 +12,8 @@
 /*域名*/
 //static NSString *mainHost = @"http://192.168.0.199";
 
-//static NSString *mainHost = @"http://ssbqh.cn";
-static NSString *mainHost = @"https://app-api2.vq525.xyz/";
+static NSString *mainHost = @"";
+//static NSString *mainHost = @"https://app-api2.vq525.xyz/";
 
 //static NSString *serveHost = @"http://swoole.v-qun.com";
 static NSString *serveHost = @"http://swoole.v-qun.com/php/app.php?widget-mobile";

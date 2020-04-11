@@ -151,7 +151,7 @@
 //    NSString *url = [NSString stringWithFormat:@"%@%@",na,@"'"];
     
     [[AppRequest sharedInstance]doRequestWithUrl:@"/index/live/sp" Params:param Callback:^(BOOL isSuccess, id result)  {
-//        NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
+//        NSLog(@"发送：%@--%@",result,result[@"msg"]);
         if (isSuccess) {
             AppRequestState state = AppRequestState_Fail;
             if (result[@"list"]) {
