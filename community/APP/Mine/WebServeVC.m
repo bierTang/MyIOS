@@ -7,7 +7,7 @@
 //
 
 #import "WebServeVC.h"
-
+ #import <WebKit/WebKit.h>
 @interface WebServeVC ()
 
 @end
@@ -18,7 +18,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIWebView *webview = [[UIWebView alloc]initWithFrame:CGRectZero];
+    WKWebView *webview = [[WKWebView alloc]initWithFrame:CGRectZero];
     [self.view addSubview:webview];
     [webview makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
@@ -30,7 +30,7 @@
     NSURLRequest *request=[NSURLRequest requestWithURL:fileURL];
     [webview loadRequest:request];
     
-    [webview scalesPageToFit];
+//    [webview scalesPageToFit];
 //
 //    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
 //    back.frame = CGRectMake(SCREEN_WIDTH-40, 7*K_SCALE, 19*K_SCALE, 19*K_SCALE);
