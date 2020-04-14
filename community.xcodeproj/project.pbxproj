@@ -110,6 +110,10 @@
 		04FBA00D23CC00400014650D /* AppRequest+LongVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBA00C23CC00400014650D /* AppRequest+LongVideo.m */; };
 		04FBA01023CC07FE0014650D /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBA00F23CC07FE0014650D /* VideoModel.m */; };
 		1978C74EA99CF31A1EDC5959 /* libPods-community.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F1E3A8332B27E9E49C4D22 /* libPods-community.a */; };
+		4644EA1E24445EA1003C1940 /* b27_icon_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4644EA1A24445E9F003C1940 /* b27_icon_star_gray@2x.png */; };
+		4644EA1F24445EA1003C1940 /* b27_icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */; };
+		4644EA2024445EA1003C1940 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA1D24445EA1003C1940 /* CWStarRateView.m */; };
+		4644EA2324445EF3003C1940 /* TollVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA2224445EF3003C1940 /* TollVideoCell.m */; };
 		5001CBFC235804330097CC66 /* PickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5001CBFB235804330097CC66 /* PickerModel.m */; };
 		500B23D323420ADA00FFA95A /* SessionImgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B23D223420ADA00FFA95A /* SessionImgCell.m */; };
 		5026FDE72338534D00EBD0A8 /* UIImage+ColorImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 5026FDE62338534D00EBD0A8 /* UIImage+ColorImg.m */; };
@@ -443,6 +447,12 @@
 		13F1E3A8332B27E9E49C4D22 /* libPods-community.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-community.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AAE2B3BB11B24A9E60BD3E5 /* Pods-community.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-community.debug.xcconfig"; path = "Target Support Files/Pods-community/Pods-community.debug.xcconfig"; sourceTree = "<group>"; };
 		30D23552F06EEA20FD260893 /* Pods-community.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-community.release.xcconfig"; path = "Target Support Files/Pods-community/Pods-community.release.xcconfig"; sourceTree = "<group>"; };
+		4644EA1A24445E9F003C1940 /* b27_icon_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_gray@2x.png"; sourceTree = "<group>"; };
+		4644EA1B24445EA0003C1940 /* CWStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWStarRateView.h; sourceTree = "<group>"; };
+		4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_yellow@2x.png"; sourceTree = "<group>"; };
+		4644EA1D24445EA1003C1940 /* CWStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWStarRateView.m; sourceTree = "<group>"; };
+		4644EA2124445EF3003C1940 /* TollVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TollVideoCell.h; sourceTree = "<group>"; };
+		4644EA2224445EF3003C1940 /* TollVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TollVideoCell.m; sourceTree = "<group>"; };
 		5001CBFA235804330097CC66 /* PickerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerModel.h; sourceTree = "<group>"; };
 		5001CBFB235804330097CC66 /* PickerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerModel.m; sourceTree = "<group>"; };
 		500B23D123420ADA00FFA95A /* SessionImgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionImgCell.h; sourceTree = "<group>"; };
@@ -924,6 +934,9 @@
 		04A3BE1323FB7F8000901331 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4644EA1924445E8A003C1940 /* New Group */,
+				4644EA2224445EF3003C1940 /* TollVideoCell.m */,
+				4644EA2124445EF3003C1940 /* TollVideoCell.h */,
 				04A3BE2023FB7F8000901331 /* ADsCell.h */,
 				04A3BE1523FB7F8000901331 /* ADsCell.m */,
 				04A3BE1C23FB7F8000901331 /* IntroImgView.h */,
@@ -1062,6 +1075,17 @@
 				04F9179A23C2040F0043E139 /* ZSTitleSelectedView.m */,
 			);
 			path = SegmentControl;
+			sourceTree = "<group>";
+		};
+		4644EA1924445E8A003C1940 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				4644EA1A24445E9F003C1940 /* b27_icon_star_gray@2x.png */,
+				4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */,
+				4644EA1B24445EA0003C1940 /* CWStarRateView.h */,
+				4644EA1D24445EA1003C1940 /* CWStarRateView.m */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		5001CBF9235804180097CC66 /* model */ = {
@@ -1927,11 +1951,13 @@
 				50759F5E2390C64A00E2705F /* qidong_Ads_2.jpg in Resources */,
 				50F4E5B223857226001EC7C0 /* headImg_base_2.png in Resources */,
 				5077F93B238B868A0099EED7 /* BoardView.xib in Resources */,
+				4644EA1F24445EA1003C1940 /* b27_icon_star_yellow@2x.png in Resources */,
 				50821FDF231C9E22006F55B0 /* Assets.xcassets in Resources */,
 				50821FDD231C9E21006F55B0 /* Main.storyboard in Resources */,
 				50DFDF10233DE9380013A6A7 /* noData.png in Resources */,
 				50F4E5B323857226001EC7C0 /* headImg_base_1.png in Resources */,
 				505B8DC3237E9F90001D5DBB /* README.md in Resources */,
+				4644EA1E24445EA1003C1940 /* b27_icon_star_gray@2x.png in Resources */,
 				50DFDF0F233DE9380013A6A7 /* noNetwork.png in Resources */,
 				0473749C24134433004FB734 /* KamiPayController.xib in Resources */,
 				04ABE15D23BE0B6100EFD7F5 /* qidong.jpg in Resources */,
@@ -2066,6 +2092,7 @@
 				50443992231F575600ADFF65 /* CSChatListCell.m in Sources */,
 				04A7B08723F5198E0043BE16 /* LiveListView.m in Sources */,
 				50DE47F6238D2C4D00033363 /* GroupIntroduceVC.m in Sources */,
+				4644EA2324445EF3003C1940 /* TollVideoCell.m in Sources */,
 				04A3BE2623FB7F8000901331 /* LongVideoCell.m in Sources */,
 				047374CB2415D67F004FB734 /* LTVCExtension.swift in Sources */,
 				504655D023505B3500CC339A /* CSVideoPlayVC.m in Sources */,
@@ -2189,6 +2216,7 @@
 				50821FD7231C9E21006F55B0 /* AppDelegate.m in Sources */,
 				042C00EA2427499E0084682B /* CopyRightCell.m in Sources */,
 				5082201C231CEFD9006F55B0 /* CSMainViewController.m in Sources */,
+				4644EA2024445EA1003C1940 /* CWStarRateView.m in Sources */,
 				50D2EC8123794F890052395D /* CardModel.m in Sources */,
 				5080607A231E43B6009995EF /* MonitorData.m in Sources */,
 				047374CC2415D67F004FB734 /* LTScrollExtension.swift in Sources */,
@@ -2406,7 +2434,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 19;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",

@@ -38,4 +38,7 @@ pod 'FLAnimatedImage', '~> 1.0'
 pod 'YBImageBrowser/NOSD'
 pod 'YBImageBrowser/VideoNOSD'  
 
+#异常情况上传
+pod 'Bugly'
+
 end

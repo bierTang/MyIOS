@@ -29,6 +29,7 @@
 }
 -(void)initUI{
     NSString *str = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    str = [str stringByAppendingString: [NSString stringWithFormat:@"-%ld",(long)[CSCaches shareInstance].webId]]  ;
     self.backgroundColor = [UIColor colorWithHexString:@"ededed"];
     UILabel *label = [UILabel labelWithTitle: [@"©2020 WeiQunSheQu JBJW开发团队 V." stringByAppendingString: str] font:11 textColor:@"6e6e6e" textAlignment:NSTextAlignmentRight];
     [self.contentView addSubview:label];

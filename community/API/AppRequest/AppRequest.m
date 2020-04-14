@@ -220,33 +220,36 @@ static AppRequest *appRequestInstance = nil;
         
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
-            if( [result[@"code"] integerValue] == 10019){
-                
-                           [[MYToast makeText:result[@"msg"]]show];
-//                [UserTools loginOut];
-                [[NSNotificationCenter defaultCenter]postNotificationName:NOT_TOKENWRONG object:nil];
-                // 前提当前控制器在一个navigationController中
-                               // 取nav的栈顶控制器
-//               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
-//                   CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
-//
-//                                  [self.getCurrentVC.navigationController pushViewController:vc animated:NO];
-//               }
-//
-                if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
-//                                       [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
-                                   }else{
-                                       UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
-                                       self.getCurrentVC.navigationItem.backBarButtonItem = barItem;
-                                       barItem.title = @"注册";
-                                       CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+            if (result) {
+                if( [result[@"code"] integerValue] == 10019){
+                                
+                                           [[MYToast makeText:result[@"msg"]]show];
+                //                [UserTools loginOut];
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOT_TOKENWRONG object:nil];
+                                // 前提当前控制器在一个navigationController中
+                                               // 取nav的栈顶控制器
+                //               if (![self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[@"CSMyverifyVC" class]]){
+                //                   CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
+                //
+                //                                  [self.getCurrentVC.navigationController pushViewController:vc animated:NO];
+                //               }
+                //
+                                if ([self.getCurrentVC.navigationController.viewControllers.lastObject isKindOfClass:[CSMyverifyVC class]]){
+                //                                       [self.getCurrentVC.navigationController pushViewController:self.getCurrentVC.navigationController.viewControllers.lastObject animated:NO];
+                                                   }else{
+                                                       UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+                                                       self.getCurrentVC.navigationItem.backBarButtonItem = barItem;
+                                                       barItem.title = @"注册";
+                                                       CSMyverifyVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"CSMyverifyVC"];
 
-                                       [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
-                                   }
-               
-                
-                
-                      }
+                                                       [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
+                                                   }
+                               
+                                
+                                
+                                      }
+            }
+            
             callback(isSuccessed, result);
         }];
         
@@ -302,6 +305,7 @@ static AppRequest *appRequestInstance = nil;
         
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
+            if (result) {
             if( [result[@"code"] integerValue] == 10019){
                  [[MYToast makeText:result[@"msg"]]show];
 //                [UserTools loginOut];
@@ -319,7 +323,7 @@ static AppRequest *appRequestInstance = nil;
                         [self.getCurrentVC.navigationController pushViewController:vc animated:YES];
                     }
             }
-         
+            }
             callback(isSuccessed, result);
             
             

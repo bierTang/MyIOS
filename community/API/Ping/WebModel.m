@@ -22,7 +22,7 @@
  自定义“联合主键” ,这里指定 name和age 为“联合主键”.
  */
 +(NSArray *)bg_unionPrimaryKeys{
-    return @[@"id"];
+    return @[@"url"];
 }
 
 

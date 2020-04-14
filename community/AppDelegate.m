@@ -11,7 +11,7 @@
 //#import "EMDemoHelper.h"
 #import "OpenInstallSDK.h"
 //#import "FMDataBase.h"
-
+#import <Bugly/Bugly.h>
 @interface AppDelegate ()<OpenInstallDelegate>
 
 @end
@@ -20,7 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    //在线异常奔溃处理
+    [Bugly startWithAppId:@"98fafb4749"];
 //    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
 

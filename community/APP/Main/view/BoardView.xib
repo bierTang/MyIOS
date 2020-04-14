@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,19 +25,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="285" height="399"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公告通知" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Je5-TL-cNz">
-                    <rect key="frame" x="113.5" y="198" width="58" height="17"/>
+                    <rect key="frame" x="113.5" y="190" width="58" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" red="0.035294117647058823" green="0.77647058823529413" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-1V-HXO" customClass="MLEmojiLabel">
-                    <rect key="frame" x="25" y="232" width="235" height="15"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-1V-HXO" customClass="MLEmojiLabel">
+                    <rect key="frame" x="25" y="224" width="235" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDN-cr-r9q">
-                    <rect key="frame" x="30" y="320" width="225" height="44"/>
+                    <rect key="frame" x="30" y="335" width="225" height="44"/>
                     <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="EDN-cr-r9q" secondAttribute="height" multiplier="225:44" id="64g-Du-JKI"/>
@@ -57,10 +57,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NOJ-MV-9L2" secondAttribute="trailing" id="9oQ-Bx-eYV"/>
                 <constraint firstItem="Je5-TL-cNz" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="TEe-4M-94F"/>
                 <constraint firstItem="NOJ-MV-9L2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bMq-X6-7ff"/>
-                <constraint firstItem="Je5-TL-cNz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="198" id="dck-AG-u2h"/>
+                <constraint firstItem="Je5-TL-cNz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="190" id="dck-AG-u2h"/>
                 <constraint firstItem="pMW-1V-HXO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="gnb-0K-bI1"/>
                 <constraint firstItem="EDN-cr-r9q" firstAttribute="centerX" secondItem="NOJ-MV-9L2" secondAttribute="centerX" id="mRo-Fx-O9J"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="EDN-cr-r9q" secondAttribute="bottom" constant="35" id="ul4-ee-MWV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="EDN-cr-r9q" secondAttribute="bottom" constant="20" id="ul4-ee-MWV"/>
                 <constraint firstItem="EDN-cr-r9q" firstAttribute="width" secondItem="NOJ-MV-9L2" secondAttribute="width" multiplier="225:285" id="vep-lG-H2e"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NOJ-MV-9L2" secondAttribute="bottom" id="xKe-tK-NJK"/>
                 <constraint firstItem="NOJ-MV-9L2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="xZK-9v-3kb"/>

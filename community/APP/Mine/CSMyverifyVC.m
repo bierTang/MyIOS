@@ -155,8 +155,10 @@
         }else{
             if (result[@"msg"]) {
                 [[MYToast makeText:result[@"msg"]]show];
-            }else
-            [[MYToast makeText:@"注册失败"]show];
+            }else{
+                [[MYToast makeText:@"注册失败"]show];
+            }
+            
         }
     }];
     

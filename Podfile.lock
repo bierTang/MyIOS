@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - Bugly (2.5.2)
   - CocoaAsyncSocket (7.6.3)
   - FLAnimatedImage (1.0.12)
   - KTVCocoaHTTPServer (1.0.0):
@@ -257,6 +258,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
+  - Bugly
   - FLAnimatedImage (~> 1.0)
   - KTVHTTPCache (~> 2.0.0)
   - Masonry (~> 1.0.2)
@@ -272,8 +274,9 @@ DEPENDENCIES:
   - YBImageBrowser/VideoNOSD
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - AFNetworking
+    - Bugly
     - CocoaAsyncSocket
     - FLAnimatedImage
     - KTVCocoaHTTPServer
@@ -283,18 +286,18 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - Reachability
+    - SDWebImage
     - SJBaseVideoPlayer
     - SJUIKit
     - SJVideoPlayer
     - Toast
     - TZImagePickerController
-  trunk:
-    - SDWebImage
     - YBImageBrowser
     - YYImage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   KTVCocoaHTTPServer: df8d7b861e603ff8037e9b2138aca2563a6b768d
@@ -313,6 +316,6 @@ SPEC CHECKSUMS:
   YBImageBrowser: 7ecc8bf33ffa5f3b94c397c29b4f3638dd37f527
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 
-PODFILE CHECKSUM: 682556078eecaeeb71b0f6f36927c157577785e6
+PODFILE CHECKSUM: ddc6e33589b62067c7ecdfefa404c92db70a0b70
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

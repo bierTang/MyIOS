@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSArray *lunboArr;
 
 @property (nonatomic,strong)NSString *webUrl;
+@property (nonatomic,assign)NSInteger webId;
+
 
 @property (nonatomic,strong)NSString *fileWebUrl;
 

@@ -145,6 +145,7 @@
 //        NSString *strUrl2 = [strUrl1 stringByReplacingOccurrencesOfString:@"/" withString:@""];  //去掉/测试
 //        NSLog(@"ping地址 %@",strUrl2);
         // ping
+        NSLog(@"请求地址 %@",self.webUrls[self.indexP].url);
         [self testLine:self.webUrls[self.indexP].url];
         
     }else{
@@ -180,6 +181,7 @@
                 if (arr[0]) {
                     WebModel *i = arrModel[0];
                     [CSCaches shareInstance].webUrl = i.url;
+                    [CSCaches shareInstance].webId = i.id;
                     mainHost = i.url;
                 }
 
@@ -227,6 +229,7 @@
                 if (arr[0]) {
                     WebModel *i = arrModel[0];
                     [CSCaches shareInstance].webUrl = i.url;
+                    [CSCaches shareInstance].webId = i.id;
                     mainHost = i.url;
                 }
 
@@ -247,7 +250,12 @@
              NSLog(@"线路：%@",@"请求错误啊啊啊");
             if ([[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
                 NSLog(@"线路：%@",@"直接跳过启动图");
-                [self tapToNextVC];
+                __weak typeof(self)weakSelf = self;
+                //需要延时，不然进不去主页
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [weakSelf tapToNextVC];
+                });
+               
             }
         }
         self.mbHud.removeFromSuperViewOnHide = YES;
@@ -274,10 +282,14 @@
     
 }
 -(void)tapToNextVC{
+    
     CSTabBarVC *tabbarvc = [[CSTabBarVC alloc]init];
     tabbarvc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:tabbarvc animated:NO completion:nil];
+        
 }
+
+
 
 - (void)testLine:(NSString *)host {
     [[AppRequest sharedInstance]doRequestWithUrl:[host stringByAppendingString: @"/index.php"] Params:@"" Callback:^(BOOL isSuccess, id result) {
@@ -288,7 +300,8 @@
             
             
             
-            [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
+            [CSCaches shareInstance].webUrl = self.webUrls[self.indexP].url;
+            [CSCaches shareInstance].webId = self.webUrls[self.indexP].id;
             if (result[@"data"]) {
                 NSLog(@"线路：%@",result[@"data"]);
                 NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
@@ -332,14 +345,15 @@
             
             
         }else{
-            for (WebModel *i in self.webUrls){
-                      NSLog(@"地址 %@",i.url);
-                  }
-                  if (self.webUrls.count > self.indexP) {
-                      [self testLine:self.webUrls[self.indexP].url];
+                    
+                  if (self.webUrls.count-1 > self.indexP) {
                       self.indexP++;
+                       NSLog(@"请求地址 %@",self.webUrls[self.indexP].url);
+                      [self testLine:self.webUrls[self.indexP].url];
+                      
                   }else{
                       //所有的线路请求完了，再去试试q默认的请求线路
+                       NSLog(@"地址 %@",@"请求默认");
                       [self oneLine];
                   }
         }
@@ -361,8 +375,8 @@
         if (self.indexP < 1) {
             self.indexP = 1;
         }
-        [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
-        
+        [CSCaches shareInstance].webUrl = self.webUrls[self.indexP].url;
+        [CSCaches shareInstance].webId = self.webUrls[self.indexP].id;
         
         [[AppRequest sharedInstance]requestADSforType:@"11" Block:^(AppRequestState state, id  _Nonnull result) {
                NSLog(@"首页广告：：%@",result);
@@ -393,11 +407,12 @@
            }];
         
         
-        [[AppRequest sharedInstance]doRequestWithUrl:[self.webUrls[self.indexP-1].url stringByAppendingString: @"/index.php"] Params:@"" Callback:^(BOOL isSuccess, id result) {
+        [[AppRequest sharedInstance]doRequestWithUrl:[self.webUrls[self.indexP].url stringByAppendingString: @"/index.php"] Params:@"" Callback:^(BOOL isSuccess, id result) {
                
                if (isSuccess) {
 
-                   [CSCaches shareInstance].webUrl = self.webUrls[self.indexP-1].url;
+                   [CSCaches shareInstance].webUrl = self.webUrls[self.indexP].url;
+                   [CSCaches shareInstance].webId = self.webUrls[self.indexP].id;
                    if (result[@"data"]) {
                        NSLog(@"线路：%@",result[@"data"]);
                        NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
