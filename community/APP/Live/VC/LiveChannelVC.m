@@ -80,10 +80,15 @@
 
 
 -(void)freshData{
+//                    for (int i = 0; i < 2000; i++) {
+//                        [self requestData];
+//    //                    NSLog(@"%@",self.traverseArray[i]);
+//
+//                    }
     [self requestData];
 }
 -(void)requestData{
-    NSLog(@"实际请求地址%@",_name);
+    NSLog(@"实际请求地址%@--是否加密%@",_name,_pass);
     [[AppRequest sharedInstance]requestLiveChannelList:_name pass:_pass Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"频道列表");
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -219,14 +224,14 @@
              //替换某个字符
           NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].source]];
           mo.pull = url;
-        mo.pass = @"0";
+        
       }else{
               //替换某个字符
           NSString *url = [liveURL0 stringByReplacingOccurrencesOfString:@"/json.txt" withString:[@"/" stringByAppendingString: self.dataArr[indexPath.item].address]];
           mo.pull = url;
-          mo.pass = @"1";
+         
       }
-    
+    mo.pass = _pass;
     
     
     [CSCaches shareInstance].currentLiveModel = mo;

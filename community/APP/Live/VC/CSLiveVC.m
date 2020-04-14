@@ -209,6 +209,12 @@
                 [self requestData];
             }
 //        }
+        //如果第0个是频道数据需要加载一下
+        if ([self.titleArr[0].is_diff  isEqual: @"0"]) {
+            LiveChannelVC *vc = self.viewArray[0];
+            [vc setPass: self.titleArr[0].need_pass];
+            [vc setName: self.titleArr[0].url];
+        }
         
          
      }
@@ -230,6 +236,7 @@
         pageView.didSelectIndexBlock = ^(LTPageView * v, NSInteger index) {
             if ([self.titleArr[index].is_diff  isEqual: @"0"]) {
                 LiveChannelVC *vc = self.viewArray[index];
+                [vc setPass: self.titleArr[index].need_pass];
                 [vc setName: self.titleArr[index].url];
             }
 //            if (index == 1) {

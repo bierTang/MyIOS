@@ -170,7 +170,11 @@
         if (fmdb) {
             [CSDataBase creatAppDataBaseTable];
         }
+//                    for (int i = 0; i < 2000; i++) {
+//                        [self loadData];
+//                        NSLog(@"%@",self.traverseArray[i]);
     
+//                    }
     [self loadData];
 }
 -(void)RequstBoardTitle{
@@ -232,6 +236,7 @@
 
 
 -(void)loginStateChange{
+
     [self loadData];
 }
 
