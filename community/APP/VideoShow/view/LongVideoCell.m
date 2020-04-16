@@ -149,6 +149,7 @@
 
 -(void)refreshData:(VideoModel *)model{
     self.noVipView.hidden = YES;
+    
     [self.BlurImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
     self.noVipView.hidden = YES;
@@ -178,6 +179,7 @@
     
     
     self.titleLab.text = model.descriptions;
+    
     [self.videoImg sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"img_default"]];
     
 }

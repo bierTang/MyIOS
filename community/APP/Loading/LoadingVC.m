@@ -245,7 +245,11 @@
 
               
             }
-          
+            
+          if ([[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {
+              NSLog(@"线路：%@",@"直接跳过启动图");
+              [self tapToNextVC];
+          }
         }else{
              NSLog(@"线路：%@",@"请求错误啊啊啊");
             if ([[CSCaches shareInstance]getValueForKey:@"isFirstLogin"].length > 0) {

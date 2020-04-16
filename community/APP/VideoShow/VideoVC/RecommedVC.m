@@ -367,7 +367,7 @@
 -(void)requestData{
     if (self.type.integerValue == 1888) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[AppRequest sharedInstance]requestVideoHistory:[UserTools userID] current:@"1" page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestVideoHistory:[UserTools userID] current:@"1" page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
             if (state == AppRequestState_Success) {
                 self.dataArr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
                 //                [self.tableview reloadData];
@@ -384,7 +384,7 @@
     }else{
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[AppRequest sharedInstance]requestVideoListType:self.type current:@"1" page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+            [[AppRequest sharedInstance]requestVideoListType:self.type current:@"1" page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
                 NSLog(@"推荐::%@",result);
                 if (state == AppRequestState_Success) {
                     self.dataArr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];

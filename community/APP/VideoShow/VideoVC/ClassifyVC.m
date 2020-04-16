@@ -128,7 +128,7 @@
 }
 
 -(void)requestData{
-    [[AppRequest sharedInstance]requestVideoListType:self.type current:@"1" page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+    [[AppRequest sharedInstance]requestVideoListType:self.type current:@"1" page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
         NSLog(@"国产::%@",result);
         if (state == AppRequestState_Success) {
             self.dataArr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
@@ -152,7 +152,7 @@
     if (self.currentPage < self.totalPage) {
         self.currentPage ++;
         __weak typeof(self) wself = self;
-        [[AppRequest sharedInstance]requestVideoListType:self.type current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+        [[AppRequest sharedInstance]requestVideoListType:self.type current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
             [wself.tableview.mj_footer endRefreshing];
             if (state == AppRequestState_Success) {
                 [wself.dataArr addObjectsFromArray:[VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]]];
