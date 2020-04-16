@@ -158,7 +158,7 @@
                 state = AppRequestState_Success;
             }
             callBack(state,result);
-            NSLog(@"收到：%@--%@",result,result[@"code"]);
+            NSLog(@"收到：%@--%@",result,result[@"msg"]);
         }else{
             callBack(AppRequestState_Fail,result);
         }

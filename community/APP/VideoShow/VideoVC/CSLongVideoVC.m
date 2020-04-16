@@ -41,15 +41,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RGBColor(224, 224, 224) colorWithAlphaComponent:0.8];
+    [self loadData];
     
+    
+}
+
+
+-(void)loadData{
     [[AppRequest sharedInstance]requestVideoTitleBlock:^(AppRequestState state, id  _Nonnull result) {
         if (state == AppRequestState_Success) {
             self.titleArr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             [self initSegTitle];
+        }else{
+                //显示提示框
+                //过时
+            //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"ok", nil];
+            //    [alert show];
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"加载出错"
+                                                                               message:@"请重新加载"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"重新加载" style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action) {
+                                                                          //响应事件
+                                                                          [self loadData];
+                                                                      }];
+              
+                [alert addAction:defaultAction];
+               
+                [self presentViewController:alert animated:YES completion:nil];
         }
     }];
-    
 }
+
 NSInteger onCount = 0;
 
 -(void)initSegTitle{

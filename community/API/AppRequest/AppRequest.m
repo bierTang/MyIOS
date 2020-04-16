@@ -399,7 +399,11 @@ static AppRequest *appRequestInstance = nil;
 //    NSString *text = responseJSON.mj_JSONString;
         NSString *key = @"weichats";
 //       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
-       NSString *decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
+    NSString *decrypt_data;
+    if (result) {
+       decrypt_data = [XXTEA decryptBase64StringToString:result stringKey:key];
+    }
+    
        
 //NSLog(@"返回的数据: %@", result);
     if (decrypt_data) {
@@ -414,16 +418,43 @@ static AppRequest *appRequestInstance = nil;
               callback(YES, decrypt_data.mj_JSONObject);
           }
     }else{
-        AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
-          NSLog(@"返回原始数据: %@", result.mj_JSONObject);
-          if (state == AppRequestState_Success ) {
-              callback(YES, result.mj_JSONObject);
-          }else if(state == AppRequestState_TokenInvalid){
+        
+        
+          
+        if(result){
+            if([result isEqual:[NSNull null]]){
+                NSLog(@"数据不是标准格式");
+                return;
+            }
+                NSLog(@"返回原始数据: %@", result.mj_JSONObject);
+                AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
+                
+                if (state == AppRequestState_Success ) {
+                    callback(YES, result.mj_JSONObject);
+                }else if(state == AppRequestState_TokenInvalid){
+                  
+                    callback(YES, result.mj_JSONObject);    //回调提示token过期，或者不做回调  直接处理
+                }else{
+                    callback(YES, result.mj_JSONObject);
+                }
             
-              callback(YES, result.mj_JSONObject);    //回调提示token过期，或者不做回调  直接处理
-          }else{
-              callback(YES, result.mj_JSONObject);
-          }
+            
+            
+        }else{
+            NSLog(@"返回原始数据1: %@", responseJSON);
+            AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
+            
+            if (state == AppRequestState_Success ) {
+                callback(YES, responseJSON);
+            }else if(state == AppRequestState_TokenInvalid){
+              
+                callback(YES, responseJSON);    //回调提示token过期，或者不做回调  直接处理
+            }else{
+                callback(YES, responseJSON);
+            }
+            
+        }
+          
     }
 
     

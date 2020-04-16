@@ -150,6 +150,7 @@
         
     }else{
         [self.tableview.mj_footer endRefreshingWithNoMoreData];
+        
     }
     
 }
@@ -391,6 +392,8 @@
                     
                     self.currentPage = 1;
                     self.totalPage = [result[@"data"][@"last_page"] integerValue];
+                    //没有更多数据要重新设置，不然后面不会走上拉加载
+                    [self.tableview.mj_footer resetNoMoreData];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.tableview reloadData];
                     });

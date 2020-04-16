@@ -22,7 +22,7 @@
 #import "SegHeadView.h"
 #import "DaLiveChannelVC.h"
 #import "LiveTitleModel.h"
-
+#import "PingdaoModel.h"
 #import "微群社区-Swift.h"
 
 @interface CSLiveVC ()
@@ -38,6 +38,7 @@
 @property (nonatomic, strong) LiveListView *liveView;
 @property (nonatomic,strong)NSArray <LiveTitleModel *> *titleArr;
 @property (nonatomic, strong) NSString *liveUrlStr;
+@property (nonatomic, strong) NSString *liveUrlPass;
 @end
 
 @implementation CSLiveVC
@@ -67,15 +68,8 @@
             }
         }
     }];
-
-    [[AppRequest sharedInstance]requestLiveTitle:^(AppRequestState state, id  _Nonnull result) {
-              
-                   if (state == AppRequestState_Success) {
-                              self.titleArr = [LiveTitleModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-                       [self initSegTitle];
-                          }
-
-               }];
+[self loadTitle];
+ 
     
 
     
@@ -106,6 +100,35 @@
 -(void)freshData{
     [self requestData];
 }
+-(void)loadTitle{
+       [[AppRequest sharedInstance]requestLiveTitle:^(AppRequestState state, id  _Nonnull result) {
+               
+                    if (state == AppRequestState_Success) {
+                               self.titleArr = [LiveTitleModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                        [self initSegTitle];
+                    }else{
+                        //显示提示框
+                                  //过时
+                              //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"ok", nil];
+                              //    [alert show];
+                                  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"加载出错"
+message:@"请重新加载"
+                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+                                  
+                                  UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"重新加载" style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                                      //响应事件
+                                                              [self loadTitle];
+                                                     }];
+                                
+                                  [alert addAction:defaultAction];
+                                 
+                                  [self presentViewController:alert animated:YES completion:nil];
+                    }
+
+                }];
+}
+
 -(void)requestData{
 //        [[AppRequest sharedInstance]requestLiveAddressListBlock:^(AppRequestState state, id  _Nonnull result) {
 //
@@ -129,19 +152,74 @@
 //        }
 //    }];
     if(self.liveUrlStr){
-        [[AppRequest sharedInstance]requestLiveList:self.liveUrlStr Block:^(AppRequestState state, id  _Nonnull result) {
-           
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                                   if ([self.liveView.collectionView.mj_header isRefreshing]) {
-                                       [self.liveView.collectionView.mj_header endRefreshing];
-                                   }
-                               });
-            if (state == AppRequestState_Success) {
-                 NSMutableArray *arr = [LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]];
-                                                    
-                  [self.liveView reLoadCollectionView:arr];
+        [[AppRequest sharedInstance]requestLiveListPingdao:self.liveUrlStr pass:self.liveUrlPass Block:^(AppRequestState state, id  _Nonnull result) {
+             NSLog(@"aa");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.liveView.collectionView.mj_header isRefreshing]) {
+                [self.liveView.collectionView.mj_header endRefreshing];
             }
+        });
+        
+             if (state == AppRequestState_Success) {
+                 //遍历赋值
+                 NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                 //可能是大众频道的数据
+                 if(!arr){
+                     arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]];
+                 }
+                 NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
+                  for (PingdaoModel *str in arr) {
+                     LiveModel *mo = [[LiveModel alloc]init];
+                     if(str.cover.length > 1){
+                        mo.imgUrl = str.cover;
+                     }else if(str.headimage.length > 1){
+                        mo.imgUrl = str.headimage;
+                     }else{
+                         mo.imgUrl = str.img;
+                     }
+                      if(str.title.length > 1){
+                          mo.userName = str.title;
+                      }else{
+                          mo.userName = str.name;
+                      }
+                     
+                     mo.nums = str.Popularity;
+                      if (str.video.length > 1) {
+                          mo.pull = str.video;
+                      }else{
+                          mo.pull = str.address;
+                      }
+                      if (mo.city.length > 1) {
+                          mo.city = str.city;
+                      }else{
+                          mo.city = @"";
+                      }
+                     
+                      
+                      [mos addObject:mo];
+                  }
+                 
+                 [self.liveView reLoadCollectionView:mos];
+             }
         }];
+        
+        
+        
+        
+        
+//        [[AppRequest sharedInstance]requestLiveList:self.liveUrlStr Block:^(AppRequestState state, id  _Nonnull result) {
+//           
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                                   if ([self.liveView.collectionView.mj_header isRefreshing]) {
+//                                       [self.liveView.collectionView.mj_header endRefreshing];
+//                                   }
+//                               });
+//            if (state == AppRequestState_Success) {
+//                 NSMutableArray *arr = [LiveModel mj_objectArrayWithKeyValuesArray:result[@"list"]];
+//                                                    
+//                  [self.liveView reLoadCollectionView:arr];
+//            }
+//        }];
     }
     
     
@@ -197,6 +275,7 @@
                [self.viewArray addObject:VC];
             }else{
                 self.liveUrlStr = model.url;
+                self.liveUrlPass = model.need_pass;
                 [self.viewArray addObject:self.liveView];
                 
                 
