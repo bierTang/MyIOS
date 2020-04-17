@@ -114,6 +114,7 @@
 		4644EA1F24445EA1003C1940 /* b27_icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */; };
 		4644EA2024445EA1003C1940 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA1D24445EA1003C1940 /* CWStarRateView.m */; };
 		4644EA2324445EF3003C1940 /* TollVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA2224445EF3003C1940 /* TollVideoCell.m */; };
+		4648BFD42448823D00BA87A9 /* ReLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4648BFD32448823D00BA87A9 /* ReLiveListVC.m */; };
 		5001CBFC235804330097CC66 /* PickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5001CBFB235804330097CC66 /* PickerModel.m */; };
 		500B23D323420ADA00FFA95A /* SessionImgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B23D223420ADA00FFA95A /* SessionImgCell.m */; };
 		5026FDE72338534D00EBD0A8 /* UIImage+ColorImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 5026FDE62338534D00EBD0A8 /* UIImage+ColorImg.m */; };
@@ -453,6 +454,8 @@
 		4644EA1D24445EA1003C1940 /* CWStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWStarRateView.m; sourceTree = "<group>"; };
 		4644EA2124445EF3003C1940 /* TollVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TollVideoCell.h; sourceTree = "<group>"; };
 		4644EA2224445EF3003C1940 /* TollVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TollVideoCell.m; sourceTree = "<group>"; };
+		4648BFD22448823D00BA87A9 /* ReLiveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLiveListVC.h; sourceTree = "<group>"; };
+		4648BFD32448823D00BA87A9 /* ReLiveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReLiveListVC.m; sourceTree = "<group>"; };
 		5001CBFA235804330097CC66 /* PickerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerModel.h; sourceTree = "<group>"; };
 		5001CBFB235804330097CC66 /* PickerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerModel.m; sourceTree = "<group>"; };
 		500B23D123420ADA00FFA95A /* SessionImgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionImgCell.h; sourceTree = "<group>"; };
@@ -872,6 +875,8 @@
 		04932A5623F3BE9E00F3F173 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				4648BFD22448823D00BA87A9 /* ReLiveListVC.h */,
+				4648BFD32448823D00BA87A9 /* ReLiveListVC.m */,
 				04F4A0CD24232818009B448A /* DaLiveChannelVC.h */,
 				04F4A0CC24232818009B448A /* DaLiveChannelVC.m */,
 				04932A5923F3BEC700F3F173 /* CSLiveVC.h */,
@@ -2189,6 +2194,7 @@
 				04F9179D23C2040F0043E139 /* UIView+ViewController.m in Sources */,
 				50F9B04B23769FF6002E1321 /* CSRecordVC.m in Sources */,
 				505B8DBC237E9F90001D5DBB /* MLLinkLabel.m in Sources */,
+				4648BFD42448823D00BA87A9 /* ReLiveListVC.m in Sources */,
 				50822029231D00F6006F55B0 /* UIColor+RCColor.m in Sources */,
 				505B8DB9237E9F90001D5DBB /* NSMutableAttributedString+MLLabel.m in Sources */,
 				504655DB2350ADBA00CC339A /* CSSearchViewController.m in Sources */,

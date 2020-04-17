@@ -23,6 +23,7 @@
 #import "DaLiveChannelVC.h"
 #import "LiveTitleModel.h"
 #import "PingdaoModel.h"
+#import "ReLiveListVC.h"
 #import "微群社区-Swift.h"
 
 @interface CSLiveVC ()
@@ -130,27 +131,7 @@ message:@"请重新加载"
 }
 
 -(void)requestData{
-//        [[AppRequest sharedInstance]requestLiveAddressListBlock:^(AppRequestState state, id  _Nonnull result) {
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                       if ([self.liveView.collectionView.mj_header isRefreshing]) {
-//                           [self.liveView.collectionView.mj_header endRefreshing];
-//                       }
-//                   });
-//
-//        if (state == AppRequestState_Success) {
-//            [CSCaches shareInstance].liveDescString = result[@"data"][@"desc"];
-//            [CSCaches shareInstance].live_url = result[@"data"][@"live_url"];
-//            [CSCaches shareInstance].anchor_url = result[@"data"][@"anchor_url"];
-//            NSArray *arr = [result[@"data"][@"recommend"] componentsSeparatedByString:@"="];
-//            NSString *recomString = @"aiqinghai";
-//            if (arr[0]) {
-//                self.recommNameStr = arr[0];
-//                recomString = arr[0];
-//            }
-//
-//        }
-//    }];
+
     if(self.liveUrlStr){
         [[AppRequest sharedInstance]requestLiveListPingdao:self.liveUrlStr pass:self.liveUrlPass Block:^(AppRequestState state, id  _Nonnull result) {
              NSLog(@"aa");
@@ -251,14 +232,14 @@ message:@"请重新加载"
              
          };
          self.liveView = liveView;
-    
-    dispatch_async(dispatch_get_main_queue(), ^ {
-         MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
-              [header setTitle:@"刷新" forState:MJRefreshStateIdle];
-              [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
-              [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
-              self.liveView.collectionView.mj_header = header;
-    });
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^ {
+//         MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
+//              [header setTitle:@"刷新" forState:MJRefreshStateIdle];
+//              [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
+//              [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
+//              self.liveView.collectionView.mj_header = header;
+//    });
       
        
 //           [self.viewArray addObject:self.liveView];
@@ -274,9 +255,16 @@ message:@"请重新加载"
 //                VC.name = model.url;
                [self.viewArray addObject:VC];
             }else{
-                self.liveUrlStr = model.url;
-                self.liveUrlPass = model.need_pass;
-                [self.viewArray addObject:self.liveView];
+                ReLiveListVC *VC = [[ReLiveListVC alloc]init];
+                LiveModel *mo = [[LiveModel alloc]init];
+                mo.pull = model.url;
+                mo.pass = model.need_pass;
+                VC.model = mo;
+               
+                [self.viewArray addObject:VC];
+//                self.liveUrlStr = model.url;
+//                self.liveUrlPass = model.need_pass;
+//                [self.viewArray addObject:self.liveView];
                 
                 
 //                for (int i = 0; i < 1000; i++) {
@@ -285,7 +273,7 @@ message:@"请重新加载"
 //
 //                }
                 
-                [self requestData];
+//                [self requestData];
             }
 //        }
         //如果第0个是频道数据需要加载一下
