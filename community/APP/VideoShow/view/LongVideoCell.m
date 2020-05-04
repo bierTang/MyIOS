@@ -39,11 +39,12 @@
 -(void)initUI{
     self.titleLab = [UILabel labelWithTitle:@"标题" font:14*K_SCALE textColor:@"161616" textAlignment:NSTextAlignmentLeft];
     [self.contentView addSubview:self.titleLab];
+    self.titleLab.numberOfLines = 0;
     [self.titleLab makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(16);
         make.right.equalTo(-16);
-        make.top.equalTo(0);
-        make.height.equalTo(35*K_SCALE);
+        make.top.equalTo(4);
+//        make.height.equalTo(35*K_SCALE);
     }];
     
     self.BlurImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_default"]];
@@ -71,7 +72,7 @@
     
     [self.BlurImg makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(0);
-        make.top.equalTo(self.titleLab.bottom);
+        make.top.equalTo(self.videoBgView.top);
         make.bottom.equalTo(self.videoBgView.bottom);
     }];
     

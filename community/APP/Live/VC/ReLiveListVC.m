@@ -84,10 +84,26 @@
         
              if (state == AppRequestState_Success) {
                  //遍历赋值
-                 NSArray<PingdaoModel *> *arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                 NSArray<PingdaoModel *> *arr;
+                 //data存在取data
+                 if (result[@"data"]) {
+                     arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+                     //arr为空代表不是data里面直接是数组
+                     if (!arr) {
+                         if (result[@"data"][@"info"][0]) {
+                             arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"info"][0][@"list"]];
+                         }
+                         
+                     }
+                     
+                 }
+                 
                  //可能是大众频道的数据
                  if(!arr){
                      arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"zhubo"]];
+                 }
+                 if(!arr){
+                     arr =  [PingdaoModel mj_objectArrayWithKeyValuesArray:result[@"list"]];
                  }
                  NSMutableArray<LiveModel *> *mos = [NSMutableArray array];
                   for (PingdaoModel *str in arr) {
@@ -96,27 +112,40 @@
                         mo.imgUrl = str.cover;
                      }else if(str.headimage.length > 1){
                         mo.imgUrl = str.headimage;
+                     }else if(str.avatar.length > 1){
+                        mo.imgUrl = str.avatar;
                      }else{
                          mo.imgUrl = str.img;
                      }
                       if(str.title.length > 1){
                           mo.userName = str.title;
+                      }else if(str.user_nicename.length > 1){
+                          mo.userName = str.user_nicename;
                       }else{
                           mo.userName = str.name;
                       }
                      
-                     mo.nums = str.Popularity;
+                     
                       if (str.video.length > 1) {
                           mo.pull = str.video;
-                      }else{
+                      }else if (str.address.length > 1) {
                           mo.pull = str.address;
+                      }else{
+                          mo.pull = str.pull;
                       }
-                      if (mo.city.length > 1) {
+                      if (str.city.length > 1) {
                           mo.city = str.city;
                       }else{
                           mo.city = @"";
                       }
-                     
+                      
+                      if (str.Popularity.length > 1) {
+                         mo.nums = str.Popularity;
+                     }else if (str.nums.length > 1) {
+                         mo.nums = str.nums;
+                     }else{
+                         mo.nums = @"";
+                     }
                       
                       [mos addObject:mo];
                   }

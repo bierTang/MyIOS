@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HelpTools : NSObject
 
+
+
 ///获取APP版本号
 +(NSString *)getAPPVersion;
 

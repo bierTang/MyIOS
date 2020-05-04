@@ -126,7 +126,7 @@
                       }else{
                           mo.pull = str.address;
                       }
-                      if (mo.city.length > 1) {
+                      if (str.city.length > 1) {
                           mo.city = str.city;
                       }else{
                           mo.city = @"";

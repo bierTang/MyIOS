@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CSCaches : NSObject
 
+//额外存一份公共的，删除数据库的时候用
+@property (nonatomic,strong)NSArray<ChatListModel *> *removeArr;
 
 @property (nonatomic,strong)NSString *token;
 

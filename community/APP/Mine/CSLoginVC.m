@@ -37,7 +37,9 @@
 
 }
 
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 -(void)changevalue:(UITextField *)textfield{
     
     if (self.mobileTF.text.length == 11 && self.passwordTF.text.length >= 6) {

@@ -2335,7 +2335,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guangzhou Red Culture Communication Co.,Ltd. (8LK6XFJWXM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2401,7 +2401,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guangzhou Red Culture Communication Co.,Ltd. (8LK6XFJWXM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2438,7 +2438,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 95;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2463,7 +2463,7 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 12.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.csv.community;
 				PRODUCT_NAME = "微群社区";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2483,11 +2483,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "community/微群社区Release.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 95;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 6DKA39KS52;
+				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",
@@ -2510,10 +2510,10 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cn.ers7007;
+				MARKETING_VERSION = 12.2.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.csv.community;
 				PRODUCT_NAME = "微群社区";
-				PROVISIONING_PROFILE_SPECIFIER = ers7007_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "community/community-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

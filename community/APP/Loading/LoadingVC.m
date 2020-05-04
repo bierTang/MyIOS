@@ -65,19 +65,7 @@
         }
         
         
-       
-//        NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-//
-//
-//        for (WebModel *i in arrModel){
-//            i.bg_tableName = @"WEBLINE";
-//            if (![i.url containsString:@"http://"]&&![i.url containsString:@"https://"]) {
-//                i.url = [NSString stringWithFormat:@"%@%@",@"https://",i.url];
-//            }
-//
-//        }
-//
-//        [WebModel bg_saveOrUpdateArray:arrModel];
+
         
         
         
@@ -179,6 +167,9 @@
                 NSArray *arr = result[@"data"];
                 NSArray *arrModel = [WebModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
                 if (arr[0]) {
+//                    self.webUrls = arrModel;
+//                    [self testLine:self.webUrls[self.indexP].url];
+//
                     WebModel *i = arrModel[0];
                     [CSCaches shareInstance].webUrl = i.url;
                     [CSCaches shareInstance].webId = i.id;
@@ -219,7 +210,7 @@
 
 
 -(void)oneLine1{
-    [[AppRequest sharedInstance]doRequestWithUrl:@"https://app-api.vqapi.net" Params:@"" Callback:^(BOOL isSuccess, id result) {
+    [[AppRequest sharedInstance]doRequestWithUrl:@" " Params:@"" Callback:^(BOOL isSuccess, id result) {
         
         if (isSuccess) {
             if (result[@"data"]) {

@@ -8,7 +8,7 @@
 //oc中使用swift
 #import "community-Bridging-Header.h"
 #import "微群社区-Swift.h"
-
+#import "BGFMDB.h"
 
 #import "CSMineViewController.h"
 #import "CSMineCell.h"
@@ -594,6 +594,20 @@
     
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确认清理" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [HelpTools clearAppCaches];
+        //删除群数据库表，删除群看的位置记录
+        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+        for(int i = 0;i<[CSCaches shareInstance].removeArr.count;i++){
+            ChatListModel *rem = [CSCaches shareInstance].removeArr[i];
+            NSString *str =  [@"Chat" stringByAppendingString: rem.idss ];
+            /**
+            删除数据库表.
+            */
+            [SessionModel bg_drop:str];
+            NSString *str1 =  [@"Look" stringByAppendingString: rem.idss ];
+            [defaults removeObjectForKey:str1];
+        }
+       
+        
     }];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"cancel");

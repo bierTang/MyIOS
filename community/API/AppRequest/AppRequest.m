@@ -396,6 +396,16 @@ static AppRequest *appRequestInstance = nil;
 - (void)dataResponseObject:(NSData *)responseJSON callback:(HttpCallBack)callback {
     
     NSString *result =[[ NSString alloc] initWithData:responseJSON encoding:NSUTF8StringEncoding];
+    
+    if (!result) {
+        //上一种方法报空后可能是里面有字符不是utf-8这样处理
+        NSData *data =  [self replaceNoUtf8:responseJSON];
+      
+        result =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    
+    
+    
 //    NSString *text = responseJSON.mj_JSONString;
         NSString *key = @"weichats";
 //       NSString *encrypt_data = [XXTEA encryptStringToBase64String:text stringKey:key];
@@ -440,24 +450,89 @@ static AppRequest *appRequestInstance = nil;
             
             
             
-        }else{
+        }
+        else{
             NSLog(@"返回原始数据1: %@", responseJSON);
-            AppRequestState state = [self requestStateFromStatusCode:[result.mj_JSONObject objectForKey:AppRequestStateName]];
             
-            if (state == AppRequestState_Success ) {
-                callback(YES, responseJSON);
-            }else if(state == AppRequestState_TokenInvalid){
-              
-                callback(YES, responseJSON);    //回调提示token过期，或者不做回调  直接处理
-            }else{
-                callback(YES, responseJSON);
-            }
+//            AppRequestState state = [self requestStateFromStatusCode:[responseJSON.mj_JSONObject objectForKey:AppRequestStateName]];
+//
+//            if (state == AppRequestState_Success ) {
+//                callback(YES, responseJSON);
+//            }else if(state == AppRequestState_TokenInvalid){
+//
+//                callback(YES, responseJSON);    //回调提示token过期，或者不做回调  直接处理
+//            }else{
+//                callback(YES, responseJSON);
+//            }
             
         }
           
     }
 
     
+}
+//替换非utf8字符
+//注意：如果是三字节utf-8，第二字节错误，则先替换第一字节内容(认为此字节误码为三字节utf8的头)，然后判断剩下的两个字节是否非法；
+- (NSData *)replaceNoUtf8:(NSData *)data
+{
+    char aa[] = {'A','A','A','A','A','A'};                      //utf8最多6个字符，当前方法未使用
+    NSMutableData *md = [NSMutableData dataWithData:data];
+    int loc = 0;
+    while(loc < [md length])
+    {
+        char buffer;
+        [md getBytes:&buffer range:NSMakeRange(loc, 1)];
+        if((buffer & 0x80) == 0)
+        {
+            loc++;
+            continue;
+        }
+        else if((buffer & 0xE0) == 0xC0)
+        {
+            loc++;
+            [md getBytes:&buffer range:NSMakeRange(loc, 1)];
+            if((buffer & 0xC0) == 0x80)
+            {
+                loc++;
+                continue;
+            }
+            loc--;
+            //非法字符，将这个字符（一个byte）替换为A
+            [md replaceBytesInRange:NSMakeRange(loc, 1) withBytes:aa length:1];
+            loc++;
+            continue;
+        }
+        else if((buffer & 0xF0) == 0xE0)
+        {
+            loc++;
+            [md getBytes:&buffer range:NSMakeRange(loc, 1)];
+            if((buffer & 0xC0) == 0x80)
+            {
+                loc++;
+                [md getBytes:&buffer range:NSMakeRange(loc, 1)];
+                if((buffer & 0xC0) == 0x80)
+                {
+                    loc++;
+                    continue;
+                }
+                loc--;
+            }
+            loc--;
+            //非法字符，将这个字符（一个byte）替换为A
+            [md replaceBytesInRange:NSMakeRange(loc, 1) withBytes:aa length:1];
+            loc++;
+            continue;
+        }
+        else
+        {
+            //非法字符，将这个字符（一个byte）替换为A
+            [md replaceBytesInRange:NSMakeRange(loc, 1) withBytes:aa length:1];
+            loc++;
+            continue;
+        }
+    }
+    
+    return md;
 }
 
 

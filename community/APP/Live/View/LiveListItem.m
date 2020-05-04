@@ -47,18 +47,37 @@
     }];
     
    self.cityImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"star_img"]];
-    [self.contentView addSubview:self.cityImg];
-    [self.cityImg makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(60);
-        make.height.equalTo(22);
-        make.left.equalTo(0);
-        make.top.equalTo(0);
+    self.cityView = [[UIView alloc]init];
+    self.cityView.backgroundColor = [UIColor colorWithHexString:@"09D66A"];
+    [self.contentView addSubview:self.cityView];
+    [self.cityView addSubview:self.cityImg];
+    [self.cityView makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(20);
+        make.height.equalTo(20);
+        make.left.equalTo(8);
+        make.top.equalTo(3);
     }];
+//     [self setCornerWithView:self.cityView corners:(UIRectCornerTopLeft|UIRectCornerBottomRight) radius:8];
+    
+     
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 60, 22) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
+    maskLayer.frame = self.cityView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.cityView.layer.mask = maskLayer;
+    
+    //    [self.contentView addSubview:self.cityImg];
+//    [self.cityImg makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(60);
+//        make.height.equalTo(22);
+//        make.left.equalTo(0);
+//        make.top.equalTo(0);
+//    }];
     
     self.cityLabel = [UILabel labelWithTitle:@"城市名" font:12*K_SCALE textColor:@"ffffff" textAlignment:NSTextAlignmentLeft];
     [self.contentView addSubview:self.cityLabel];
       [self.cityLabel makeConstraints:^(MASConstraintMaker *make) {
-          make.left.equalTo(20);
+          make.left.equalTo(25);
 //         make.right.equalTo(imgeStar.right).offset = 10;
           make.top.equalTo(3);
       }];
@@ -107,18 +126,22 @@
 /// 如左下和右上 (UIRectCornerBottomLeft | UIRectCornerTopRight)
 /// @param radius 圆角的半径
 - (void)setCornerWithView:(UIView*)view
-                 viewSize:(CGSize)viewSize
+                 
                   corners:(UIRectCorner)corners
                    radius:(CGFloat)radius{
-    CGRect fr = CGRectZero;
-    fr.size = viewSize;
-    
-    UIBezierPath *round = [UIBezierPath bezierPathWithRoundedRect:fr byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
-    
-    CAShapeLayer *shape = [[CAShapeLayer alloc]init];
-    
-    [shape setPath:round.CGPath];
-    view.layer.mask = shape;
+        
+
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
+
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
+
+    //设置大小
+    maskLayer.frame = view.bounds;
+
+    //设置图形样子
+    maskLayer.path = maskPath.CGPath;
+
+    view.layer.mask = maskLayer;
 }
 
 
@@ -136,15 +159,20 @@
     //4.根据text的font和字符串自动算出size（重点）
     CGSize size = [model.city sizeWithAttributes:@{NSFontAttributeName:self.cityLabel.font}];
     if (model.city.length == 0) {
-        self.cityImg.hidden = YES;
+        self.cityView.hidden = YES;
     }else{
-        self.cityImg.hidden = NO;
-        [self.cityImg updateConstraints:^(MASConstraintMaker *make) {
-               make.width.equalTo(size.width+30);
+        self.cityView.hidden = NO;
+        [self.cityView updateConstraints:^(MASConstraintMaker *make) {
+               make.width.equalTo(size.width+35);
                make.height.equalTo(22);
                make.left.equalTo(0);
                make.top.equalTo(0);
            }];
+       UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, size.width+35, 22) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
+       CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
+       maskLayer.frame = self.cityView.bounds;
+       maskLayer.path = maskPath.CGPath;
+       self.cityView.layer.mask = maskLayer;
     }
    
 //    self.cityImg.frame = CGRectMake(0,0,size.width+30,20);

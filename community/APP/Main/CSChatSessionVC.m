@@ -159,7 +159,7 @@
     NSInteger looki = [defaults integerForKey:[@"Look" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];//根据键值取出name
 
     if (Array.count > 0) {
-//        self.tempArr = [SessionModel mj_objectArrayWithKeyValuesArray:Array.mutableCopy];
+
 
         // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
@@ -170,8 +170,7 @@
         self.dataArr = tArr;
         
         
-        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
-         NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:NO];
+      
        
         
         NSString *topTime;
@@ -186,7 +185,9 @@
                                      }
                                      
                                  }
-                                 
+            
+        // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+               NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:NO];
         
          [self.tempArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor1]]];
         
@@ -194,6 +195,7 @@
 //        self.dataArr = [[Array reverseObjectEnumerator]allObjects];
         NSLog(@"第一条 = %ld",(long)self.dataArr[0].id);
         NSLog(@"第后条 = %ld",(long)self.dataArr[self.dataArr.count-1].id);
+        
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -281,6 +283,7 @@
                         NSLog(@"caca::%ld",arr.count);
                         if (arr.count > 0){
                             for (SessionModel *i in arr){
+                                NSLog(@"ID顺序::%ld",i.id);
                                 i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
                                                    }
                                 /**
@@ -352,9 +355,17 @@
                         */
                         [SessionModel bg_saveOrUpdateArray:wself.tempArr];
                         
-//                        [wself.tempArr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+                         NSArray* Array = [SessionModel bg_findAll:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+
+                             // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+                             NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+                             // 排序结果
+                             NSMutableArray *tArr = [NSMutableArray new];
+                            
+                             [tArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+                             self.dataArr = tArr;
                         
-                        wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+//                        wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
           
                         NSString *topTime;
                                                for(int i = 0;i<wself.dataArr.count;i++){
@@ -587,6 +598,7 @@
                 NSLog(@"caca::%ld",arr.count);
                 if (arr.count > 0){
                     for (SessionModel *i in arr){
+                        NSLog(@"ID顺序::%ld",i.id);
                                                i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
                                            }
                                            /**
@@ -596,10 +608,23 @@
                                            */
                                            [SessionModel bg_saveOrUpdateArray:arr];
                     
-                    // 插入最前方
-                                      NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
-                                   [wself.tempArr insertObjects:arr atIndexes:indexes];
-                                   wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+                    
+                    
+                    NSArray* Array = [SessionModel bg_findAll:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+
+                     // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+                     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+                     // 排序结果
+                     NSMutableArray *tArr = [NSMutableArray new];
+                    
+                     [tArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+                     self.dataArr = tArr;
+                    
+//
+//                    // 插入最前方
+//                                      NSMutableIndexSet  *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, arr.count)];
+//                                   [wself.tempArr insertObjects:arr atIndexes:indexes];
+//                                   wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
                                    NSString *topTime;
                                                           for(int i = 0;i<wself.dataArr.count;i++){
                                                               SessionModel *ses = wself.dataArr[i];
@@ -643,6 +668,7 @@
                 NSLog(@"caca::%ld",arr.count);
                 if (arr.count > 0){
                     for (SessionModel *i in arr){
+                        NSLog(@"ID顺序::%ld",i.id);
                                                i.bg_tableName = [@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ];
                                            }
                                            /**
@@ -650,32 +676,42 @@
                                            当"唯一约束"或"主键"存在时，此接口会更新旧数据,没有则存储新数据.
                                            提示：“唯一约束”优先级高于"主键".
                                            */
-                                           [SessionModel bg_saveOrUpdateArray:arr];
+                     [SessionModel bg_saveOrUpdateArray:arr];
 //                    [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
                     
 
                 NSInteger count = arr.count;
-              [wself.tempArr addObjectsFromArray:arr];
-//                    // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
-//                          NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
-//                          // 排序结果
-//                          wself.dataArr = [wself.tempArr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
                     
                     
-                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
+                    NSArray* Array = [SessionModel bg_findAll:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
+
+                     // 排序key, 某个对象的属性名称，是否升序, YES-升序, NO-降序
+                     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+                     // 排序结果
+                     NSMutableArray *tArr = [NSMutableArray new];
+                    
+                     [tArr addObjectsFromArray:[Array sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]]];
+                     self.dataArr = tArr;
+                    
+                    
+                    
+//              [wself.tempArr addObjectsFromArray:arr];
+//
+//                    
+//                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
                                     
                     //           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
 
                                     NSString *topTime;
-                                                           for(int i = 0;i<wself.dataArr.count;i++){
-                                                               SessionModel *ses = wself.dataArr[i];
-                                                               if (ses.create_time == topTime) {
-                                                                   wself.dataArr[i].create_time = @"";
-                                                               }else{
-                                                                   topTime = ses.create_time;
-                                                               }
+                                for(int i = 0;i<wself.dataArr.count;i++){
+                                 SessionModel *ses = wself.dataArr[i];
+                                 if (ses.create_time == topTime) {
+                                  wself.dataArr[i].create_time = @"";
+                                          }else{
+                                   topTime = ses.create_time;
+                                              }
                                                                
-                                                           }
+                                     }
                    [wself.tableView reloadData];
                    [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
                     
@@ -690,50 +726,7 @@
 
     
 }
-//下拉加载的
-//-(void)loadMoreData{
-//
-//    __weak typeof(self) wself = self;
-//    if (self.currentPage < self.totalPage) {
-//        self.currentPage ++;
-//        [[AppRequest sharedInstance]requestSessionID:self.chatroomId messId:[NSString stringWithFormat:@"%ld", self.dataArr[self.dataArr.count-1].id] current:@"10" page:@"1" Block:^(AppRequestState state, id  _Nonnull result) {
-//            [wself.tableView.mj_header endRefreshing];
-////            [MBProgressHUD hideHUDForView:wself.view animated:YES];
-//            if (state == AppRequestState_Success) {
-//
-//
-//
-////                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
-////                [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
-////
-////                NSString *jsonCode =  [CSDataBase cacheDataByCacheType:DB_Main Identify:[CSCaches shareInstance].groupInfoModel.idss versionCode:@"1"];
-////                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:[jsonCode mj_JSONObject]];
-//                NSArray *arr = [SessionModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
-//                NSLog(@"caca::%ld",arr.count);
-//                [arr bg_saveArrayWithName:[@"Chat" stringByAppendingString: [CSCaches shareInstance].groupInfoModel.idss ]];
-//                NSInteger count = wself.dataArr.count;
-//                [wself.tempArr addObjectsFromArray:arr];
-//                wself.dataArr = [[wself.tempArr reverseObjectEnumerator]allObjects];
-//
-////           [CSDataBase insertCacheDataByIdentify:[CSCaches shareInstance].groupInfoModel.idss CacheType:DB_Main versionCode:@"1" data:[result[@"data"][@"lists"] mj_JSONString]];
-//
-//
-//
-//                [wself.tableView reloadData];
-//
-//
-//
-//                [wself.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:wself.dataArr.count-count inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-//            }
-//
-//
-//        }];
-//    }else{
-//        [self.tableView.mj_header removeFromSuperview];
-//        [self.tableView.mj_header endRefreshing];
-//    }
-//
-//}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 //        return 25;
     return self.dataArr.count;
@@ -863,10 +856,7 @@ CGFloat lastContentOffset;
                 NSLog(@"视频播放地址：：%@",wself.dataArr[indexPath.row].video_url);
 //                if ([HelpTools isMemberShip] || ![CSCaches shareInstance].groupInfoModel.is_allow || [CSCaches shareInstance].groupInfoModel.group_allow ) {
                      if ([HelpTools isMemberShip] ) {
-//                    CSVideoPlayVC *vc = [[CSVideoPlayVC alloc]init];
-//                    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-//                    vc.playUrl = wself.dataArr[indexPath.row].content;//[NSString stringWithFormat:@"%@%@",mainHost,wself.dataArr[indexPath.row].content];
-//                    [wself presentViewController:vc animated:YES completion:nil];
+
                     
                       //添加视频数据
                     NSMutableArray *datass = [NSMutableArray array];

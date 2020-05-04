@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *id;
 @property (nonatomic,strong)NSString *img;
 @property (nonatomic,strong)NSString *address;
+
+@property (nonatomic,strong)NSString *pull;
+@property (nonatomic,strong)NSString *avatar;
+@property (nonatomic,strong)NSString *user_nicename;
+@property (nonatomic,strong)NSString *nums;
 @end
 
 NS_ASSUME_NONNULL_END

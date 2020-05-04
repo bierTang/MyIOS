@@ -113,7 +113,7 @@
                               //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"ok", nil];
                               //    [alert show];
                                   UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"加载出错"
-message:@"请重新加载"
+message:@"如果多次加载出错请退出重试"
                                                                                           preferredStyle:UIAlertControllerStyleAlert];
                                   
                                   UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"重新加载" style:UIAlertActionStyleDefault

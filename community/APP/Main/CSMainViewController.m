@@ -23,6 +23,7 @@
 #import "CSSearchViewController.h"
 #import "OpenInstallSDK.h"
 
+
 @interface CSMainViewController ()<UITableViewDelegate,UITableViewDataSource,MLEmojiLabelDelegate>
 
 @property (nonatomic,strong)UITableView *tableView;
@@ -258,6 +259,7 @@
         if (state == AppRequestState_Success) {
             wself.formCount = [result[@"data"][@"mapCount"] intValue];
             wself.dataArr = [ChatListModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+            [CSCaches shareInstance].removeArr = wself.dataArr;
             [wself.tableView reloadData];
             if(result[@"data"][@"ad_lists"]){
                 

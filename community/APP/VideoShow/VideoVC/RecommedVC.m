@@ -131,14 +131,14 @@
         self.currentPage ++;
         __weak typeof(self) wself = self;
         if (self.type.integerValue == 1888) {
-            [[AppRequest sharedInstance]requestVideoHistory:[UserTools userID] current:@"1" page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+            [[AppRequest sharedInstance]requestVideoHistory:[UserTools userID] current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
                 if (state == AppRequestState_Success) {
                     [wself.dataArr addObjectsFromArray:[VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]]];
                     [wself.tableview reloadData];
                 }
             }];
         }else{
-            [[AppRequest sharedInstance]requestVideoListType:self.type current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"5" Block:^(AppRequestState state, id  _Nonnull result) {
+            [[AppRequest sharedInstance]requestVideoListType:self.type current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
                 [wself.tableview.mj_footer endRefreshing];
                 if (state == AppRequestState_Success) {
                     [wself.dataArr addObjectsFromArray:[VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]]];
@@ -225,6 +225,7 @@
                 wself.optionIndexPath = indexPath;
                 wself.videoPlayer = [SJVideoPlayer player];
                 wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:self.dataArr[indexPath.row].video_url]];
+//                 wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:@"http://vod.iii3.net/share/A8xULeVgOBksKrIF"]];
                 wself.videoPlayer.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
                     NSLog(@"返回");
                 };
