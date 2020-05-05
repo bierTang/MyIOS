@@ -240,15 +240,19 @@
 //                    [SJPlayModel UITableViewCellPlayModelWithPlayerSuperviewTag:indexPath.row+100 atIndexPath:indexPath tableView:self.tableview];
         wself.optionIndexPath = indexPath;
         wself.videoPlayer = [SJVideoPlayer player];
+           
         wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:wself.dataArr[indexPath.row].video_url]];
 //        wself.videoPlayer.URLAsset.playModel = playModel;
-        wself.videoPlayer.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
-            NSLog(@"返回");
-        };
-        wself.videoPlayer.hideBackButtonWhenOrientationIsPortrait = YES;
-         
+//        wself.videoPlayer.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
+//            NSLog(@"返回");
+//        };
+//
+            //是否竖屏时隐藏返回按钮
+            wself.videoPlayer.defaultEdgeControlLayer.hiddenBackButtonWhenOrientationIsPortrait = YES;
+         //是否隐藏底部进度条
+          wself.videoPlayer.defaultEdgeControlLayer.hiddenBottomProgressIndicator = YES;
           [cell.videoBgView addSubview:wself.videoPlayer.view];
-        wself.videoPlayer.disabledGestures = SJPlayerDisabledGestures_Pan_V;
+//        wself.videoPlayer.disabledGestures = SJPlayerDisabledGestures_Pan_V;
           [wself.videoPlayer.view mas_makeConstraints:^(MASConstraintMaker *make) {
               make.edges.offset(0);
           }];
@@ -256,7 +260,7 @@
             wself.timerManager=[CSTimerManager pq_createTimerWithType:PQ_TIMERTYPE_CREATE_OPEN updateInterval:1 repeatInterval:1 update:^{
                 if (wself.videoPlayer.currentTime > 100) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [wself.videoPlayer stopAndFadeOut];
+//                        [wself.videoPlayer stopAndFadeOut];
                         [wself.videoPlayer rotate:SJOrientation_Portrait animated:NO];
                         [wself.videoPlayer stop];
                         wself.videoPlayer = nil;

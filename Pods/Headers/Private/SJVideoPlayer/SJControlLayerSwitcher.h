@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/Switcher/SJControlLayerSwitcher.h
+../../../SJVideoPlayer/SJVideoPlayer/Common/Utils/Switcher/SJControlLayerSwitcher.h

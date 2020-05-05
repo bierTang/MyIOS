@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/Adapters/Core/SJEdgeControlButtonItem.h
+../../../SJVideoPlayer/SJVideoPlayer/Common/Utils/Adapters/Core/SJEdgeControlButtonItem.h

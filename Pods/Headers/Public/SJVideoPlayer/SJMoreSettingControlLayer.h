@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/SJMoreSettingControlLayer/SJMoreSettingControlLayer.h
+../../../SJVideoPlayer/SJVideoPlayer/ControlLayers/SJMoreSettingControlLayer/SJMoreSettingControlLayer.h

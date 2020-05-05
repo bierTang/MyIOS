@@ -64,10 +64,14 @@
     self.player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrl]];
   
     __weak typeof(self) wself = self;
-    self.player.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
-        [wself closeView:nil];
-    };
     
+//    self.player.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
+//        [wself closeView:nil];
+//    };
+        //是否竖屏时隐藏返回按钮
+                  wself.player.defaultEdgeControlLayer.hiddenBackButtonWhenOrientationIsPortrait = YES;
+               //是否隐藏底部进度条
+                wself.player.defaultEdgeControlLayer.hiddenBottomProgressIndicator = YES;
     [self.videoView addSubview:self.player.view];
     
     [self.player.view mas_makeConstraints:^(MASConstraintMaker *make) {

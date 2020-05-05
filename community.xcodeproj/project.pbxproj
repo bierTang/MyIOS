@@ -61,7 +61,6 @@
 		04A3BE8923FBBDF300901331 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A3BE8823FBBDF300901331 /* CoreMedia.framework */; };
 		04A3BE8C23FBBE2900901331 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A3BE8023FBBC5300901331 /* libz.tbd */; };
 		04A3BE9223FBD32F00901331 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A3BE9123FBD32200901331 /* libbz2.tbd */; };
-		04A3BE9623FBD6A500901331 /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A3BE9523FBD6A500901331 /* KSYMediaPlayer.framework */; };
 		04A7608723B9D627009A902A /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A7608623B9D627009A902A /* AudioStreamer.m */; };
 		04A7B08723F5198E0043BE16 /* LiveListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A7B08623F5198E0043BE16 /* LiveListView.m */; };
 		04A7B08A23F51D8E0043BE16 /* LiveListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A7B08923F51D8E0043BE16 /* LiveListItem.m */; };
@@ -115,6 +114,9 @@
 		4644EA2024445EA1003C1940 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA1D24445EA1003C1940 /* CWStarRateView.m */; };
 		4644EA2324445EF3003C1940 /* TollVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA2224445EF3003C1940 /* TollVideoCell.m */; };
 		4648BFD42448823D00BA87A9 /* ReLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4648BFD32448823D00BA87A9 /* ReLiveListVC.m */; };
+		464C07C624610D94001E6AD2 /* ClassifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F917A723C305570043E139 /* ClassifyVC.m */; };
+		46A098A5246050D4002D964C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A098A4246050D4002D964C /* CoreMotion.framework */; };
+		46A098A7246051B2002D964C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A098A6246051B1002D964C /* MediaPlayer.framework */; };
 		5001CBFC235804330097CC66 /* PickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5001CBFB235804330097CC66 /* PickerModel.m */; };
 		500B23D323420ADA00FFA95A /* SessionImgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B23D223420ADA00FFA95A /* SessionImgCell.m */; };
 		5026FDE72338534D00EBD0A8 /* UIImage+ColorImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 5026FDE62338534D00EBD0A8 /* UIImage+ColorImg.m */; };
@@ -357,7 +359,6 @@
 		04A3BE8823FBBDF300901331 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		04A3BE8A23FBBE0600901331 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		04A3BE9123FBD32200901331 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
-		04A3BE9523FBD6A500901331 /* KSYMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSYMediaPlayer.framework; sourceTree = "<group>"; };
 		04A7608523B9D626009A902A /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
 		04A7608623B9D627009A902A /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		04A7B08523F5198E0043BE16 /* LiveListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListView.h; sourceTree = "<group>"; };
@@ -456,6 +457,8 @@
 		4644EA2224445EF3003C1940 /* TollVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TollVideoCell.m; sourceTree = "<group>"; };
 		4648BFD22448823D00BA87A9 /* ReLiveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLiveListVC.h; sourceTree = "<group>"; };
 		4648BFD32448823D00BA87A9 /* ReLiveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReLiveListVC.m; sourceTree = "<group>"; };
+		46A098A4246050D4002D964C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		46A098A6246051B1002D964C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5001CBFA235804330097CC66 /* PickerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerModel.h; sourceTree = "<group>"; };
 		5001CBFB235804330097CC66 /* PickerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerModel.m; sourceTree = "<group>"; };
 		500B23D123420ADA00FFA95A /* SessionImgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionImgCell.h; sourceTree = "<group>"; };
@@ -733,13 +736,14 @@
 				04EA816723B72AED00CEF675 /* AVFoundation.framework in Frameworks */,
 				04A3BE9223FBD32F00901331 /* libbz2.tbd in Frameworks */,
 				04A3BE7A23FBBBFB00901331 /* Accelerate.framework in Frameworks */,
-				04A3BE9623FBD6A500901331 /* KSYMediaPlayer.framework in Frameworks */,
 				04A3BE8423FBBCCC00901331 /* libc++.tbd in Frameworks */,
 				04A3BE7C23FBBC0700901331 /* AudioToolbox.framework in Frameworks */,
 				503AC84D2367E6BD00C5CB68 /* libOpenInstallSDK.a in Frameworks */,
 				04A3BE8923FBBDF300901331 /* CoreMedia.framework in Frameworks */,
 				04A3BE8723FBBDDA00901331 /* libc++abi.tbd in Frameworks */,
 				04A3BE8623FBBD0D00901331 /* libsqlite3.tbd in Frameworks */,
+				46A098A5246050D4002D964C /* CoreMotion.framework in Frameworks */,
+				46A098A7246051B2002D964C /* MediaPlayer.framework in Frameworks */,
 				1978C74EA99CF31A1EDC5959 /* libPods-community.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1652,7 +1656,6 @@
 		50938A9A23345D6100FD4011 /* Images+Mp3 */ = {
 			isa = PBXGroup;
 			children = (
-				04A3BE9523FBD6A500901331 /* KSYMediaPlayer.framework */,
 				04ABE15C23BE0B6000EFD7F5 /* qidong.jpg */,
 				04F0FF0224372E5F00F6C3C8 /* qidong.png */,
 				50759F592390C64900E2705F /* qidong_Ads_0.jpg */,
@@ -1804,6 +1807,8 @@
 		8AD8BF853D03544069B44AC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46A098A6246051B1002D964C /* MediaPlayer.framework */,
+				46A098A4246050D4002D964C /* CoreMotion.framework */,
 				04A3BE9123FBD32200901331 /* libbz2.tbd */,
 				04A3BE8A23FBBE0600901331 /* CoreTelephony.framework */,
 				04A3BE8823FBBDF300901331 /* CoreMedia.framework */,
@@ -1844,6 +1849,7 @@
 				50821FD0231C9E21006F55B0 /* Resources */,
 				3B1EF482127C5BCD5D9634AA /* [CP] Copy Pods Resources */,
 				04E4DCED2431BDB5001A5337 /* ShellScript */,
+				FE4120DD27A7763E8C12EE0E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2040,6 +2046,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-community/Pods-community-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE4120DD27A7763E8C12EE0E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-community/Pods-community-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-community/Pods-community-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-community/Pods-community-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2263,6 +2286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				464C07C624610D94001E6AD2 /* ClassifyVC.m in Sources */,
 				50821FFA231C9E22006F55B0 /* communityUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2437,18 +2461,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 95;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 103;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J3D28ZZNAM;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM_NO_BITCODE",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM_SIMULATOR",
 					"$(PROJECT_DIR)/community/Resources/Images+Mp3",
+					"$(PROJECT_DIR)/community/APP/Live/VC",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/community/PrefixHeader.pch";
 				INFOPLIST_FILE = community/Info.plist;
@@ -2472,6 +2497,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Debug;
 		};
@@ -2485,17 +2511,18 @@
 				CODE_SIGN_ENTITLEMENTS = "community/微群社区Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 103;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = J3D28ZZNAM;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/community/Resources/ThirdLibs/AliyunPlayer_iOS",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM_NO_BITCODE",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/SDK/ARM_SIMULATOR",
 					"$(PROJECT_DIR)/community/Resources/Images+Mp3",
+					"$(PROJECT_DIR)/community/APP/Live/VC",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/community/PrefixHeader.pch";
 				INFOPLIST_FILE = community/Info.plist;
@@ -2518,6 +2545,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Release;
 		};

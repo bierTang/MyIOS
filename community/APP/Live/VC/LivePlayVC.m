@@ -8,11 +8,17 @@
 
 #import "LivePlayVC.h"
 
-#import <KSYMediaPlayer/KSYMediaPlayer.h>
+#import "SJVideoPlayer.h"
+
 #import "AdsModel.h"
 
+#if __has_include(<IJKMediaFrameworkWithSSL/IJKMediaFrameworkWithSSL.h>)
+#import "SJIJKMediaPlaybackController.h"
+#import <IJKMediaFrameworkWithSSL/IJKFFOptions.h>
+#endif
+
 @interface LivePlayVC ()
-@property (nonatomic,strong)KSYMoviePlayerController *player;
+@property (nonatomic,strong)SJVideoPlayer *player;
 
 @property (nonatomic,strong)UIView *videoView;
 @property (nonatomic,strong)UIView *noLiveView;
@@ -36,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.timeSec = 0;
-    
+    [self _initializeAssetStatusObserver];
     self.view.backgroundColor = [UIColor blackColor];
     
     self.videoView = [[UIView alloc]init];
@@ -122,22 +128,77 @@
     
 //    http://199.180.102.241:2100/20200121/Ztwtzq1p/mp4/Ztwtzq1p.mp4
 //    http://199.180.102.241:2100/20200214/voHKvcnZ/mp4/voHKvcnZ.mp4
-    _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:self.model.pull]];
-//     _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:@"rtmp://101.ayhpbg.com/live/a101_694579494258216960_2f865b350829ddf293dcc579d5c66169?txSecret=51ba27c38b8e7d34bb6c46252a60f5ce&txTime=5E857F78"]];
-    _player.controlStyle = MPMovieControlStyleNone;
-//    [_player.view setFrame: self.view.bounds];  // player's frame must match parent's
-    [self.videoView addSubview:_player.view];
-    [_player.view makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(0);
-        make.left.right.equalTo(0);
-    }];
-    _player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _player.shouldAutoplay = YES;
-    _player.scalingMode = MPMovieScalingModeAspectFill;
-
-    [_player prepareToPlay];
+//    _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:self.model.pull]];
+////     _player = [[KSYMoviePlayerController alloc] initWithContentURL: [NSURL URLWithString:@"rtmp://101.ayhpbg.com/live/a101_694579494258216960_2f865b350829ddf293dcc579d5c66169?txSecret=51ba27c38b8e7d34bb6c46252a60f5ce&txTime=5E857F78"]];
+//    _player.controlStyle = MPMovieControlStyleNone;
+////    [_player.view setFrame: self.view.bounds];  // player's frame must match parent's
+//    [self.videoView addSubview:_player.view];
+//    [_player.view makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.bottom.equalTo(0);
+//        make.left.right.equalTo(0);
+//    }];
+//    _player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    _player.shouldAutoplay = YES;
+//    _player.scalingMode = MPMovieScalingModeAspectFill;
+//
+//    [_player prepareToPlay];
     
 //    [_player play];
+    
+//        self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhiteLarge)];
+//        [self.view addSubview:self.activityIndicator];
+//        [self.activityIndicator makeConstraints:^(MASConstraintMaker *make) {
+//            make.center.equalTo(self.view);
+//            make.width.height.equalTo(100);
+//           }];
+//        //设置小菊花的frame
+//    //    self.activityIndicator.frame= CGRectMake(100, 100, 100, 100);
+//        //设置小菊花颜色
+//    //    self.activityIndicator.color = [UIColor redColor];
+//    //    //设置背景颜色
+//    //    self.activityIndicator.backgroundColor = [UIColor cyanColor];
+//        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+//    //    self.activityIndicator.hidesWhenStopped = NO;
+//        [self.activityIndicator startAnimating];
+    
+    
+    
+    _player = SJVideoPlayer.player;
+    // 2. Switch playback control to SJIJKMediaPlaybackController
+//    _player.playbackController = SJIJKMediaPlaybackController.new;
+//    // 3. play video
+//    _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:[NSURL URLWithString:self.model.pull]];
+
+   
+    
+     SJIJKMediaPlaybackController *controller = SJIJKMediaPlaybackController.new;
+        IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+//    options.showHudView = self.activityIndicator;
+
+        controller.options = options;
+        _player.playbackController = controller;
+        SJVideoPlayerURLAsset *asset = [SJVideoPlayerURLAsset.alloc initWithURL:[NSURL URLWithString:self.model.pull]];
+    //    asset.trialEndPosition = 30; // 试看30秒
+        _player.URLAsset = asset;
+    
+    _player.playbackObserver.assetStatusDidChangeExeBlock = ^(__kindof SJBaseVideoPlayer * _Nonnull player) {
+        NSLog(@"状态改变%ld",(long)player.assetStatus);
+        if(player.assetStatus == 3){
+            self.noLiveView.hidden = NO;
+        }
+    };
+    //是否竖屏时隐藏返回按钮
+            _player.defaultEdgeControlLayer.hiddenBackButtonWhenOrientationIsPortrait = YES;
+         //是否隐藏底部进度条
+          _player.defaultEdgeControlLayer.hiddenBottomProgressIndicator = YES;
+    
+    
+        [self.videoView addSubview:_player.view];
+        [_player.view makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(0);
+            make.left.right.equalTo(0);
+        }];
+    
     
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -270,30 +331,12 @@
 //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.scrollview animated:YES];
 //    [hud hideAnimated:true afterDelay:2.5];
     
-    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhiteLarge)];
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.width.height.equalTo(100);
-       }];
-    //设置小菊花的frame
-//    self.activityIndicator.frame= CGRectMake(100, 100, 100, 100);
-    //设置小菊花颜色
-//    self.activityIndicator.color = [UIColor redColor];
-//    //设置背景颜色
-//    self.activityIndicator.backgroundColor = [UIColor cyanColor];
-    //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
-//    self.activityIndicator.hidesWhenStopped = NO;
-    [self.activityIndicator startAnimating];
+
    
     
     
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(noPlayer:) name:(MPMoviePlayerPlaybackDidFinishNotification)
-       object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(starPlayer:) name:(MPMoviePlayerFirstVideoFrameRenderedNotification)
-          object:nil];
-    
+
     
     self.timer = [NSTimer timerWithTimeInterval:4 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
 
@@ -333,59 +376,57 @@
 }
 
 
--(void)handlePlayerNotify:(NSNotificationCenter *)not{
-    NSLog(@"播放状态：：%d--%@",self.player.playbackState,not);
-    
-//    if ((self.player.playbackState == MPMoviePlaybackStateStopped || self.player.playbackState == MPMoviePlaybackStateInterrupted) && self.timer==nil) {
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.noLiveView.hidden = NO;
+//-(void)handlePlayerNotify:(NSNotificationCenter *)not{
+//    NSLog(@"播放状态：：%d--%@",self.player.playbackState,not);
+//    
+////    if ((self.player.playbackState == MPMoviePlaybackStateStopped || self.player.playbackState == MPMoviePlaybackStateInterrupted) && self.timer==nil) {
+////
+////        dispatch_async(dispatch_get_main_queue(), ^{
+////            self.noLiveView.hidden = NO;
+////        });
+////
+////    }else {
+////        [self.timer invalidate];
+////        self.timer = nil;
+////
+////    }
+//    
+//    //状态未知
+//    if(self.player.playbackState == 0){
+//       NSLog(@"状态未知");
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            //状态未知
+//            if (self.player.playbackState == 0){
+//                NSLog(@"状态未知显示退出");
+//               dispatch_async(dispatch_get_main_queue(), ^{
+//                          self.noLiveView.hidden = NO;
+//                      });
+//            }
+//            
 //        });
-//
 //    }else {
+//        NSLog(@"定时器销毁");
 //        [self.timer invalidate];
 //        self.timer = nil;
 //
 //    }
-    
-    //状态未知
-    if(self.player.playbackState == 0){
-       NSLog(@"状态未知");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //状态未知
-            if (self.player.playbackState == 0){
-                NSLog(@"状态未知显示退出");
-               dispatch_async(dispatch_get_main_queue(), ^{
-                          self.noLiveView.hidden = NO;
-                      });
-            }
-            
-        });
-    }else {
-        NSLog(@"定时器销毁");
-        [self.timer invalidate];
-        self.timer = nil;
-
-    }
-    
-    if(self.player.playbackState == MPMoviePlaybackStatePlaying){
-        NSLog(@"正在播放");
-        [self.activityIndicator stopAnimating];
-//        [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
-    }
-    
-//    MPMoviePlaybackStateStopped,
-//    MPMoviePlaybackStatePlaying,
-//    MPMoviePlaybackStatePaused,
-//    MPMoviePlaybackStateInterrupted,
-//    MPMoviePlaybackStateSeekingForward,
-//    MPMoviePlaybackStateSeekingBackward
-}
+//    
+//    if(self.player.playbackState == MPMoviePlaybackStatePlaying){
+//        NSLog(@"正在播放");
+//        [self.activityIndicator stopAnimating];
+////        [MBProgressHUD hideHUDForView:self.scrollview animated:YES];
+//    }
+//    
+////    MPMoviePlaybackStateStopped,
+////    MPMoviePlaybackStatePlaying,
+////    MPMoviePlaybackStatePaused,
+////    MPMoviePlaybackStateInterrupted,
+////    MPMoviePlaybackStateSeekingForward,
+////    MPMoviePlaybackStateSeekingBackward
+//}
 
 -(void)closeLiveView{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:(MPMediaPlaybackIsPreparedToPlayDidChangeNotification) object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:(MPMoviePlayerNetworkStatusChangeNotification) object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:(MPMoviePlayerPlaybackStateDidChangeNotification) object:nil];
+
 
     
     [self.timer invalidate];
@@ -397,5 +438,24 @@
     
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+#pragma mark - 视图已经消失
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+
+}
+- (void)_initializeAssetStatusObserver {
+  [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_playbackStateDidChange:) name:SJMediaPlayerAssetStatusDidChangeNotification object:self];
+}
+
+- (void)_playbackStateDidChange:(NSNotification *)note {
+ NSLog(@"通知来了");
+}
+
+
+- (void)_resumeOrStopTimeoutTimer {
+   
+NSLog(@"通知来了1111");
+}
+
 
 @end

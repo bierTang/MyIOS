@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/SJFilmEditingControlLayer/Core/View/SJFilmEditingBackButton.h
+../../../SJVideoPlayer/SJVideoPlayer/ControlLayers/SJFilmEditingControlLayer/Core/View/SJFilmEditingBackButton.h

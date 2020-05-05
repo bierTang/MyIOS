@@ -14,7 +14,7 @@
 -(void)uploadVideo:(id)video backBlock:(void(^)(AppRequestState state,id result))callBack{
     
     
-    [self.manager POST:[NSString stringWithFormat:@"%@/index.php/index/common/upl",mainHost] parameters:@{@"images":video} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [self.manager POST:[NSString stringWithFormat:@"%@/index.php/index/common/upl",mainHost] parameters:@{@"images":video} headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
        
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -41,7 +41,7 @@
 -(void)uploadImage:(UIImage *)image backBlock:(void(^)(AppRequestState state,id result))callBack{
     
     NSData *datass = UIImageJPEGRepresentation(image, 1.0);
-    [self.manager POST:[NSString stringWithFormat:@"%@/index.php/index/common/upload",mainHost] parameters:@{@"images":datass} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [self.manager POST:[NSString stringWithFormat:@"%@/index.php/index/common/upload",mainHost] parameters:@{@"images":datass} headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
             // 图片经过等比压缩后得到的二进制文件
         

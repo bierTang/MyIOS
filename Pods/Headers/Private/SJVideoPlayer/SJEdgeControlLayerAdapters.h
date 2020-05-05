@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/Adapters/SJEdgeControlLayerAdapters.h
+../../../SJVideoPlayer/SJVideoPlayer/Common/Utils/Adapters/SJEdgeControlLayerAdapters.h

@@ -1,8 +1,8 @@
 platform:ios,'10.0'
-
+source 'https://github.com/CocoaPods/Specs.git'
 target 'community' do
 
-pod 'AFNetworking', '~> 3.2.1'
+pod 'AFNetworking'
 pod 'Masonry', '~> 1.0.2'
 pod 'Reachability', '~> 3.2'
 
@@ -16,6 +16,12 @@ pod 'SDWebImage', '>= 5.0.0'
 pod 'Toast', '~> 4.0.0'
 pod 'TZImagePickerController', '~> 3.1.9'
 
+#pod 'SJVideoPlayer', '~> 2.6.5'
+#pod 'SJBaseVideoPlayer', '~> 2.7.1'
+
+#直播修改
+pod 'SJBaseVideoPlayer/IJKPlayer'
+pod 'ijkplayerssl', :git => 'https://gitee.com/changsanjiang/ijkplayer.git'
 pod 'SJVideoPlayer'
 
 #视频缓存

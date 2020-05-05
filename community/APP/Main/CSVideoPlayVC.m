@@ -31,7 +31,7 @@
     _player = SJVideoPlayer.player;
     [self.view addSubview:_player.view];
 //    [_player playWithURL:[NSURL URLWithString:self.playUrl]];
-    _player.supportedOrientation = SJAutoRotateSupportedOrientation_All;
+//    _player.supportedOrientation = SJAutoRotateSupportedOrientation_All;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -114,9 +114,9 @@
 
 -(void)longPressAction:(UILongPressGestureRecognizer *)longpress{
     NSLog(@"long::%ld",longpress.state);
-    if (self.player.playStatus == SJVideoPlayerPlayStatusInactivity||self.player.playStatus == SJVideoPlayerPlayStatusUnknown) {
-        return;
-    }
+//    if (self.player.playStatus == SJVideoPlayerPlayStatusInactivity||self.player.playStatus == SJVideoPlayerPlayStatusUnknown) {
+//        return;
+//    }
     if (longpress.state == UIGestureRecognizerStateBegan) {
 //        CSAlertView *alertView = [[CSAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
 //        alertView.backBlock = ^{

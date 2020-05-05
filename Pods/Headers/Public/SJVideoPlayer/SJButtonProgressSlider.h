@@ -1,1 +1,1 @@
-../../../SJVideoPlayer/SJVideoPlayer/SJProgressSlider/SJButtonProgressSlider.h
+../../../SJVideoPlayer/SJVideoPlayer/Common/Utils/SJProgressSlider/SJButtonProgressSlider.h

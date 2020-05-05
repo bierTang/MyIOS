@@ -213,7 +213,9 @@ static AppRequest *appRequestInstance = nil;
         url = [NSString stringWithFormat:@"%@?params=%@",url,encrypt_data];
     }
     NSLog(@"geturl=%@",url);
-    [_manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+
+    
+    [_manager GET:url parameters:nil headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
@@ -296,7 +298,7 @@ static AppRequest *appRequestInstance = nil;
     
     
     
-    [_manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
+    [_manager POST:url parameters:dic headers:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
@@ -345,7 +347,7 @@ static AppRequest *appRequestInstance = nil;
     
     @weakity(self);
       NSLog(@"puturl=%@",url);
-    [_manager PUT:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [_manager PUT:url parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
@@ -365,7 +367,7 @@ static AppRequest *appRequestInstance = nil;
 - (void)AFDELETERequestWithUrl:(NSString *)url params:(id)params callback:(HttpCallBack)callback {
     
     @weakity(self);
-    [_manager DELETE:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [_manager DELETE:url parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         @strongity(self);
         [self dataResponseObject:responseObject callback:^(BOOL isSuccessed, NSDictionary *result) {
             callback(isSuccessed, result);
