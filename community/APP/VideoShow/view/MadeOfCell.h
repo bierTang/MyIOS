@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MadeOfCell : UITableViewCell
 
+@property (nonatomic, readonly) NSInteger coverTag;
+
 @property (nonatomic,strong)UIImageView *headImg;
 @property (nonatomic,strong)UILabel *nameLab;
 @property (nonatomic,strong)UILabel *timeLab;

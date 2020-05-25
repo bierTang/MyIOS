@@ -89,7 +89,7 @@
     
     if (![HelpTools isMemberShip]) {
         self.timerManager=[CSTimerManager pq_createTimerWithType:PQ_TIMERTYPE_CREATE_OPEN updateInterval:1 repeatInterval:1 update:^{
-            if (self.player.currentTime > 100) {
+            if (self.player.currentTime > 200) {
                 [self closeView:nil];
                 [[MYToast makeText:@"试看结束，请先开通会员"]show];
             }

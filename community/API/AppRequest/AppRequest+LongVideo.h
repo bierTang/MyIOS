@@ -22,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///请求视频历史记录
 -(void)requestVideoHistory:(NSString *)userid current:(NSString *)current page:(NSString *)page Block:(void(^)(AppRequestState state,id result))callBack;
-
+///搜索视频
+-(void)requestVideoScan:(NSString *)userid current:(NSString *)current page:(NSString *)page keywords:(NSString *)keywords Block:(void(^)(AppRequestState state,id result))callBack;
 @end
 
 NS_ASSUME_NONNULL_END

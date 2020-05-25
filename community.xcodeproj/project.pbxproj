@@ -109,12 +109,14 @@
 		04FBA00D23CC00400014650D /* AppRequest+LongVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBA00C23CC00400014650D /* AppRequest+LongVideo.m */; };
 		04FBA01023CC07FE0014650D /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBA00F23CC07FE0014650D /* VideoModel.m */; };
 		1978C74EA99CF31A1EDC5959 /* libPods-community.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F1E3A8332B27E9E49C4D22 /* libPods-community.a */; };
+		464483192474BD29006B4478 /* ScanListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464483182474BD29006B4478 /* ScanListController.m */; };
 		4644EA1E24445EA1003C1940 /* b27_icon_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4644EA1A24445E9F003C1940 /* b27_icon_star_gray@2x.png */; };
 		4644EA1F24445EA1003C1940 /* b27_icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */; };
 		4644EA2024445EA1003C1940 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA1D24445EA1003C1940 /* CWStarRateView.m */; };
 		4644EA2324445EF3003C1940 /* TollVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4644EA2224445EF3003C1940 /* TollVideoCell.m */; };
 		4648BFD42448823D00BA87A9 /* ReLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4648BFD32448823D00BA87A9 /* ReLiveListVC.m */; };
 		464C07C624610D94001E6AD2 /* ClassifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F917A723C305570043E139 /* ClassifyVC.m */; };
+		465DB54024762C4F00439465 /* CSShareRerecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 465DB53E24762C4F00439465 /* CSShareRerecordVC.m */; };
 		46A098A5246050D4002D964C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A098A4246050D4002D964C /* CoreMotion.framework */; };
 		46A098A7246051B2002D964C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A098A6246051B1002D964C /* MediaPlayer.framework */; };
 		5001CBFC235804330097CC66 /* PickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5001CBFB235804330097CC66 /* PickerModel.m */; };
@@ -251,7 +253,6 @@
 		50F9B04823769CD5002E1321 /* CSRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F9B04723769CD5002E1321 /* CSRecordModel.m */; };
 		50F9B04B23769FF6002E1321 /* CSRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F9B04A23769FF6002E1321 /* CSRecordVC.m */; };
 		50F9B04E2376A03E002E1321 /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F9B04D2376A03E002E1321 /* RecordCell.m */; };
-		50FB928F237CEFA700371007 /* CSShareRerecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FB928E237CEFA700371007 /* CSShareRerecordVC.m */; };
 		50FB9292237D6E5500371007 /* ShareRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FB9291237D6E5500371007 /* ShareRecordCell.m */; };
 /* End PBXBuildFile section */
 
@@ -449,6 +450,8 @@
 		13F1E3A8332B27E9E49C4D22 /* libPods-community.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-community.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AAE2B3BB11B24A9E60BD3E5 /* Pods-community.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-community.debug.xcconfig"; path = "Target Support Files/Pods-community/Pods-community.debug.xcconfig"; sourceTree = "<group>"; };
 		30D23552F06EEA20FD260893 /* Pods-community.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-community.release.xcconfig"; path = "Target Support Files/Pods-community/Pods-community.release.xcconfig"; sourceTree = "<group>"; };
+		464483172474BD29006B4478 /* ScanListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanListController.h; sourceTree = "<group>"; };
+		464483182474BD29006B4478 /* ScanListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanListController.m; sourceTree = "<group>"; };
 		4644EA1A24445E9F003C1940 /* b27_icon_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_gray@2x.png"; sourceTree = "<group>"; };
 		4644EA1B24445EA0003C1940 /* CWStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWStarRateView.h; sourceTree = "<group>"; };
 		4644EA1C24445EA0003C1940 /* b27_icon_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_yellow@2x.png"; sourceTree = "<group>"; };
@@ -457,6 +460,8 @@
 		4644EA2224445EF3003C1940 /* TollVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TollVideoCell.m; sourceTree = "<group>"; };
 		4648BFD22448823D00BA87A9 /* ReLiveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLiveListVC.h; sourceTree = "<group>"; };
 		4648BFD32448823D00BA87A9 /* ReLiveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReLiveListVC.m; sourceTree = "<group>"; };
+		465DB53E24762C4F00439465 /* CSShareRerecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSShareRerecordVC.m; sourceTree = "<group>"; };
+		465DB53F24762C4F00439465 /* CSShareRerecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSShareRerecordVC.h; sourceTree = "<group>"; };
 		46A098A4246050D4002D964C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		46A098A6246051B1002D964C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5001CBFA235804330097CC66 /* PickerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerModel.h; sourceTree = "<group>"; };
@@ -718,8 +723,6 @@
 		50F9B04A23769FF6002E1321 /* CSRecordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSRecordVC.m; sourceTree = "<group>"; };
 		50F9B04C2376A03D002E1321 /* RecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordCell.h; sourceTree = "<group>"; };
 		50F9B04D2376A03E002E1321 /* RecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
-		50FB928D237CEFA700371007 /* CSShareRerecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSShareRerecordVC.h; sourceTree = "<group>"; };
-		50FB928E237CEFA700371007 /* CSShareRerecordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSShareRerecordVC.m; sourceTree = "<group>"; };
 		50FB9290237D6E5500371007 /* ShareRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareRecordCell.h; sourceTree = "<group>"; };
 		50FB9291237D6E5500371007 /* ShareRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareRecordCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1050,6 +1053,8 @@
 				04F917A423C304FD0043E139 /* RecommedVC.m */,
 				04F917A623C305570043E139 /* ClassifyVC.h */,
 				04F917A723C305570043E139 /* ClassifyVC.m */,
+				464483172474BD29006B4478 /* ScanListController.h */,
+				464483182474BD29006B4478 /* ScanListController.m */,
 			);
 			path = VideoVC;
 			sourceTree = "<group>";
@@ -1584,8 +1589,8 @@
 				50C665E0237BE74E0042277D /* WebServeVC.m */,
 				50C665E2237C06160042277D /* CSShareVC.h */,
 				50C665E3237C06160042277D /* CSShareVC.m */,
-				50FB928D237CEFA700371007 /* CSShareRerecordVC.h */,
-				50FB928E237CEFA700371007 /* CSShareRerecordVC.m */,
+				465DB53F24762C4F00439465 /* CSShareRerecordVC.h */,
+				465DB53E24762C4F00439465 /* CSShareRerecordVC.m */,
 				5026FDE82338702D00EBD0A8 /* Model */,
 				508C9F3D23233A1B00EE9E37 /* view */,
 			);
@@ -2084,6 +2089,7 @@
 				50806086231E4C5B009995EF /* AppRequest+Chat.m in Sources */,
 				50ECEFF8234D8B2900E61C48 /* ChatListModel.m in Sources */,
 				505B8DBE237E9F90001D5DBB /* MLTextAttachment.m in Sources */,
+				464483192474BD29006B4478 /* ScanListController.m in Sources */,
 				50443999231FA19500ADFF65 /* CSChatRoomCell.m in Sources */,
 				50EF4CA72373F4ED00619032 /* CSMallVC.m in Sources */,
 				504655D623509EA800CC339A /* YLCustomView.m in Sources */,
@@ -2094,7 +2100,6 @@
 				50BD38EC233A25C300711B75 /* CityListModel.m in Sources */,
 				50CBD224236A7DFB00D296C2 /* LoginOutCell.m in Sources */,
 				509BB8FF2359BA6300EE9AA8 /* AppRequest+discover.m in Sources */,
-				50FB928F237CEFA700371007 /* CSShareRerecordVC.m in Sources */,
 				047374C82415D67F004FB734 /* LTTableViewProtocal.swift in Sources */,
 				5044399F231FC1CA00ADFF65 /* CustomNavigationVC.m in Sources */,
 				50DCD202237153D600F58E46 /* ADsView.m in Sources */,
@@ -2238,6 +2243,7 @@
 				04A3BE2B23FB9A2800901331 /* LivePlayVC.m in Sources */,
 				50BD38E82339C1E300711B75 /* CSMyverifyVC.m in Sources */,
 				50414CC32354572500CD5FB5 /* GroupInfoVC.m in Sources */,
+				465DB54024762C4F00439465 /* CSShareRerecordVC.m in Sources */,
 				50D63A392370089C00102ED5 /* CardActivateView.m in Sources */,
 				509DA2D923572F76001CCF7C /* PhotoCell.m in Sources */,
 				50806081231E4833009995EF /* MYToast.m in Sources */,
@@ -2460,9 +2466,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Bing Zhou (8NN58TP5QR)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				ENABLE_BITCODE = NO;
@@ -2488,7 +2494,7 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 12.2.4;
+				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.csv.community;
 				PRODUCT_NAME = "微群社区";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2511,7 +2517,7 @@
 				CODE_SIGN_ENTITLEMENTS = "community/微群社区Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = J3D28ZZNAM;
 				ENABLE_BITCODE = NO;
@@ -2537,7 +2543,7 @@
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/OpenInstallSDK2.3.0",
 					"$(PROJECT_DIR)/community/Resources/ThirdLibs/node",
 				);
-				MARKETING_VERSION = 12.2.4;
+				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.csv.community;
 				PRODUCT_NAME = "微群社区";
 				PROVISIONING_PROFILE_SPECIFIER = "";

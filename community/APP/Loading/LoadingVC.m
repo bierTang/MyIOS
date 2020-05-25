@@ -30,7 +30,12 @@
 @end
 
 @implementation LoadingVC
-
+-(BOOL)shouldAutorotate{
+    return NO;
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.indexP = 0;

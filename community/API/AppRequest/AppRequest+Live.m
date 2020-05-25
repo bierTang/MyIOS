@@ -179,12 +179,10 @@
                  NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
                  if (isSuccess) {
                      AppRequestState state = AppRequestState_Fail;
-                     if (result[@"data"]) {
-                         state = AppRequestState_Success;
-                     }
-                     if (result[@"zhubo"]) {
-                         state = AppRequestState_Success;
-                     }
+                      if (result[@"data"] || result[@"zhubo"] || result[@"list"]) {
+                                         state = AppRequestState_Success;
+                                     }
+                     
                      callBack(state,result);
                  }else{
                      callBack(AppRequestState_Fail,result);
@@ -197,7 +195,7 @@
              NSLog(@"直播列表：：%@--%@",result,result[@"msg"]);
              if (isSuccess) {
                  AppRequestState state = AppRequestState_Fail;
-                 if (result[@"data"] || result[@"zhubo"]) {
+                 if (result[@"data"] || result[@"zhubo"] || result[@"list"]) {
                      state = AppRequestState_Success;
                  }
              

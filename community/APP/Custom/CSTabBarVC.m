@@ -19,10 +19,26 @@
 @end
 
 @implementation CSTabBarVC
-
--(BOOL)shouldAutorotate{
-    return NO;
+- (UIViewController *)sj_topViewController {
+    if ( self.selectedIndex == NSNotFound )
+        return self.viewControllers.firstObject;
+    return self.selectedViewController;
 }
+
+- (BOOL)shouldAutorotate {
+    return [[self sj_topViewController] shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [[self sj_topViewController] supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return [[self sj_topViewController] preferredInterfaceOrientationForPresentation];
+}
+//-(BOOL)shouldAutorotate{
+//    return NO;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

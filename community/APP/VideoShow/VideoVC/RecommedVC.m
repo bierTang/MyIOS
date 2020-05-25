@@ -9,7 +9,7 @@
 #import "RecommedVC.h"
 #import "YLLoopScrollView.h"
 #import "YLCustomView.h"
-#import "LongVideoCell.h"
+#import "MadeOfCell.h"
 #import "IntroImgView.h"
 //#import "VideoPlayView.h"
 #import "ADsCell.h"
@@ -41,7 +41,20 @@
 
 @property (nonatomic,copy)NSIndexPath *optionIndexPath;
 
+
+@property (nonatomic,copy)NSString *scanStr1;
+
 @end
+//
+//@implementation UIViewController (RotationControl)
+//- (BOOL)shouldAutorotate {
+//    return NO;
+//}
+//
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//@end
 
 @implementation RecommedVC
 
@@ -53,7 +66,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //默认
+//    [self setScanStr:@""];
     
     
     self.adsHeight = 0*K_SCALE;
@@ -89,7 +103,7 @@
 -(void)initTableView{
     self.tableview = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableview];
-    [self.tableview registerClass:[LongVideoCell class] forCellReuseIdentifier:@"LongVideoCell"];
+    [self.tableview registerClass:[MadeOfCell class] forCellReuseIdentifier:@"MadeOfCell"];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     if (@available(iOS 11.0, *)) {
@@ -113,19 +127,25 @@
     self.tableview.mj_footer=footer;
     [footer setTitle:@"加载更多" forState:MJRefreshStateIdle];
     [footer setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
-    
+    if (self.type.integerValue != 666) {
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(freshData)];
     self.tableview.mj_header=header;
     [header setTitle:@"刷新" forState:MJRefreshStateIdle];
     [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
     [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
     header.lastUpdatedTimeLabel.hidden=YES;
-    
+    }
     
 }
 -(void)freshData{
     [self requestData];
 }
+
+-(void)setScanStr:(NSString *)scanStr{
+    self.scanStr1 = scanStr;
+    [self requestData];
+}
+
 -(void)footerLoad{
     if (self.currentPage < self.totalPage) {
         self.currentPage ++;
@@ -134,6 +154,21 @@
             [[AppRequest sharedInstance]requestVideoHistory:[UserTools userID] current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" Block:^(AppRequestState state, id  _Nonnull result) {
                 if (state == AppRequestState_Success) {
                     [wself.dataArr addObjectsFromArray:[VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]]];
+                    [wself.tableview reloadData];
+                }
+            }];
+        }else if (self.type.integerValue == 666) {
+            if(!(_scanStr1.length > 0)){
+                       //没输入就不用搜索了
+                       return;
+                   }
+            [[AppRequest sharedInstance]requestVideoScan:[UserTools userID] current:[NSString stringWithFormat:@"%ld",self.currentPage] page:@"10" keywords:self.scanStr1 Block:^(AppRequestState state, id  _Nonnull result) {
+                if (state == AppRequestState_Success) {
+                    NSMutableArray<VideoModel *> *dataAr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                    if (dataAr.count == 0) {
+                        [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                    }
+                    [wself.dataArr addObjectsFromArray:dataAr];
                     [wself.tableview reloadData];
                 }
             }];
@@ -211,101 +246,183 @@
         [cell refreshData:self.dataArr[indexPath.row]];
         return cell;
     }else{
-        LongVideoCell *cell = [[LongVideoCell alloc]cellInitWith:tableView Indexpath:indexPath];
+        MadeOfCell *cell = [[MadeOfCell alloc]cellInitWith:tableView Indexpath:indexPath];
+        cell.videoImg.tag = indexPath.row+101;
         __weak typeof(self) wself = self;
-        cell.backBlock = ^(NSInteger type) {
-            if (type == 2) {
-                //看缩略图
-                self.introImgview.hidden = NO;
-                [self.introImgview setIntroData:self.dataArr[indexPath.row]];
-            }else if (type == 1){
-                //            self.videoView.hidden = NO;
-                //            [self.videoView playVideo:self.dataArr[indexPath.row].video_url];
-                NSLog(@"看视频：：%@",self.dataArr[indexPath.row].video_url);
-                wself.optionIndexPath = indexPath;
-                wself.videoPlayer = [SJVideoPlayer player];
-            
-                wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:self.dataArr[indexPath.row].video_url]];
-//                 wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:@"http://vod.iii3.net/share/A8xULeVgOBksKrIF"]];
-//                wself.videoPlayer.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
-//                    NSLog(@"返回");
-//                };
-//                wself.videoPlayer.disableAutoRotation = YES;
-//                wself.videoPlayer.hideBackButtonWhenOrientationIsPortrait = YES;
-                
-                //是否竖屏时隐藏返回按钮
-                           wself.videoPlayer.defaultEdgeControlLayer.hiddenBackButtonWhenOrientationIsPortrait = YES;
-                        //是否隐藏底部进度条
-                         wself.videoPlayer.defaultEdgeControlLayer.hiddenBottomProgressIndicator = YES;
-                
-                
-                [cell.videoBgView addSubview:wself.videoPlayer.view];
-//                wself.videoPlayer.disabledGestures = SJPlayerDisabledGestures_Pan_V;
-                [wself.videoPlayer.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.offset(0);
-                }];
-                
-                if (![HelpTools isMemberShip]) {
-                    wself.timerManager=[CSTimerManager pq_createTimerWithType:PQ_TIMERTYPE_CREATE_OPEN updateInterval:1 repeatInterval:1 update:^{
-                        if (wself.videoPlayer.currentTime > 100) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [wself.videoPlayer stopAndFadeOut];
-                                [wself.videoPlayer rotate:SJOrientation_Portrait animated:NO];
-                                [wself.videoPlayer stop];
-                                wself.videoPlayer = nil;
-//                                [[MYToast makeText:@"试看结束，请先开通会员"]show];
-                                cell.noVipView.hidden = NO;
-                                if ([UserTools isAgentVersion]) {
-                                    cell.noVipView.view2.hidden = YES;
-                                }
-                               
-                            });
-                            
-                        }
-                    }];
-                }
-                if ([UserTools isLogin]) {
-                    [[AppRequest sharedInstance]requestMyseeingVideo:[UserTools userID] videoId:self.dataArr[indexPath.row].idss Block:^(AppRequestState state, id  _Nonnull result) {
-                        NSLog(@"观看了视频");
-                    }];
-                }
-            }if (type == 3) {
-                //充值
-                if (![UserTools isLogin]) {
-                     [[MYToast makeText:@"请先登录"]show];
-                    return ;
-                }
-                ///代理版本
-                       if ([UserTools isAgentVersion]) {
-                           KamiPayController *vc = [[ KamiPayController alloc]init];
-                          vc.title = @"购买商城";
-//                           [self presentViewController:vc  animated:YES completion:nil];
+        cell.videoBlock = ^(NSInteger type) {
+                   NSLog(@"视频播放：：%@",wself.dataArr[indexPath.row].video_url);
+                   if (type == 2) {
+                       //看缩略图
+                       self.introImgview.hidden = NO;
+                       [self.introImgview setIntroData:self.dataArr[indexPath.row]];
+                   }else if (type == 3) {
+                           //充值
+                           if (![UserTools isLogin]) {
+                               [[MYToast makeText:@"请先登录"]show];
+                               return ;
+                           }
+                           ///代理版本
+                           if ([UserTools isAgentVersion]) {
+                               KamiPayController *vc = [[ KamiPayController alloc]init];
+                               [self.navigationController pushViewController:vc animated:YES];
+                               //                       [self presentViewController:vc  animated:YES completion:nil];
+                           }else{
+                               //官方版本
+                               //                       CSMallVC *vc = [[CSMallVC alloc]init];
+                               KamiPayController *vc = [[ KamiPayController alloc]init];
+                               [self.navigationController pushViewController:vc animated:YES];
+                           }
+                       
+                       }else if (type == 4) {
+                           //分享
+                           if (![UserTools isLogin]) {
+                               [[MYToast makeText:@"请先登录"]show];
+                               return ;
+                           }
+                           CSShareVC *vc = [[CSShareVC alloc]init];
                            [self.navigationController pushViewController:vc animated:YES];
-                           
                        }else{
-                           //官方版本
-//                           CSMallVC *vc = [[CSMallVC alloc]init];
-//                           [self.navigationController pushViewController:vc animated:YES];
                            
-                           KamiPayController *vc = [[ KamiPayController alloc]init];
-                           vc.title = @"购买商城";
-                           [self.navigationController pushViewController:vc animated:YES];
-//                           [self presentViewController:vc  animated:YES completion:nil];
+                           
+                           //        SJPlayModel *playModel =
+                           //          [SJPlayModel UITableViewCellPlayModelWithPlayerSuperviewTag:indexPath.row+100 atIndexPath:indexPath tableView:self.tableview];
+                           ////        playModel.isPlayInTableView = YES;
+                           //          SJVideoPlayerURLAsset *asset =
+                           //          [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:self.dataArr[indexPath.row].video_url]
+                           //                                           playModel:playModel];
+                           //        wself.videoPlayer = [SJVideoPlayer player];
+                           //////        _videoPlayer.lockedScreen = YES;
+                           ////        _videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:self.dataArr[indexPath.row].file_url]];
+                           //          // 2. 设置资源标题
+                           ////          asset.title = @"DIY心情转盘 #手工##手工制作##卖包子喽##1块1个##卖完就撤#";
+                           //          // 3. 默认情况下, 小屏时不显示标题, 全屏后才会显示, 这里设置一直显示标题
+                           ////          asset.alwaysShowTitle = YES;
+                           //        wself.videoPlayer.URLAsset = asset;
+                           //        wself.videoPlayer.autoPlayWhenPlayStatusIsReadyToPlay = YES;
+                           //          SJPlayModel *playModel =
+                           //                    [SJPlayModel UITableViewCellPlayModelWithPlayerSuperviewTag:indexPath.row+100 atIndexPath:indexPath tableView:self.tableview];
+                           wself.optionIndexPath = indexPath;
+                           wself.videoPlayer = [SJVideoPlayer player];
+                           //禁止自动旋转
+                           wself.videoPlayer.rotationManager.disabledAutorotation = YES;
+                   
+
+                           
+//                           wself.videoPlayer.autoManageViewToFitOnScreenOrRotation = NO;
+//                           wself.videoPlayer.useFitOnScreenAndDisableRotation = YES;
+                           SJPlayModel *playModel = [SJPlayModel UITableViewCellPlayModelWithPlayerSuperviewTag:indexPath.row+101 atIndexPath:indexPath tableView:self.tableview];
+                           
+                           
+                           wself.videoPlayer.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:wself.dataArr[indexPath.row].video_url] playModel:playModel];
+                           
+                           
+                           
+                           //        wself.videoPlayer.URLAsset.playModel = playModel;
+                           //        wself.videoPlayer.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
+                           //            NSLog(@"返回");
+                           //        };
+                           //
+                           
+           
+                         
+
+                           //是否竖屏时隐藏返回按钮
+                           wself.videoPlayer.defaultEdgeControlLayer.hiddenBackButtonWhenOrientationIsPortrait = YES;
+                           //是否隐藏底部进度条
+                           wself.videoPlayer.defaultEdgeControlLayer.hiddenBottomProgressIndicator = YES;
+                           [cell.videoBgView addSubview:wself.videoPlayer.view];
+                           //        wself.videoPlayer.disabledGestures = SJPlayerDisabledGestures_Pan_V;
+                           [wself.videoPlayer.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                               make.edges.offset(0);
+                           }];
+                           if (![HelpTools isMemberShip]) {
+                               wself.timerManager=[CSTimerManager pq_createTimerWithType:PQ_TIMERTYPE_CREATE_OPEN updateInterval:1 repeatInterval:1 update:^{
+                                   if (wself.videoPlayer.currentTime > 100) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           //                        [wself.videoPlayer stopAndFadeOut];
+                                           [wself.videoPlayer rotate:SJOrientation_Portrait animated:NO];
+                                           [wself.videoPlayer setFitOnScreen:NO animated:NO completionHandler:^(__kindof SJBaseVideoPlayer * _Nonnull player) {
+                                               [wself.videoPlayer stop];
+                                               wself.videoPlayer = nil;
+                                           }];
+                                           
+                                           cell.noVipView.hidden = NO;
+                                           if ([UserTools isAgentVersion]) {
+                                               cell.noVipView.view2.hidden = YES;
+                                           }
+                                           //                       [[MYToast makeText:@"试看结束，请先开通会员"]show];
+                                       });
+                                   }
+                               }];
+                           }
+                           if ([UserTools isLogin]) {
+                               [[AppRequest sharedInstance]requestMyseeingVideo:[UserTools userID] videoId:wself.dataArr[indexPath.row].idss Block:^(AppRequestState state, id  _Nonnull result) {
+                                   NSLog(@"观看了视频");
+                               }];
+                           }
                        }
-            }if (type == 4) {
-                //分享
-                if (![UserTools isLogin]) {
-                     [[MYToast makeText:@"请先登录"]show];
-                    return ;
-                }
-                CSShareVC *vc = [[CSShareVC alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-        };
+                   // 设置资源
+                   //asset;
+                   
+               };
 //        if (self.videoPlayer) {
 //            [self.videoPlayer stop];
 //            self.videoPlayer = nil;
 //        }
+        
+        
+        
+        
+        
+        
+        
+        
+        cell.keepBlock = ^(UIButton * _Nonnull sender) {
+            sender.selected = !sender.isSelected;
+            NSLog(@"收藏");
+            //
+            [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_favorite" Params:@{@"user_id":[UserTools userID],@"post_id":self.dataArr[indexPath.row].idss} Callback:^(BOOL isSuccess, id result) {
+                NSLog(@"加入收藏：：%@--%@",result,result[@"msg"]);
+            } HttpMethod:AppRequestPost isAni:YES];
+            if (sender.isSelected) {
+                self.dataArr[indexPath.row].is_favorite = @"1";
+            }else{
+                self.dataArr[indexPath.row].is_favorite = @"0";
+            }
+            
+            if (sender.isSelected) {
+                self.dataArr[indexPath.row].favorite_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].favorite_num.integerValue+1];
+            }else{
+                self.dataArr[indexPath.row].favorite_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].favorite_num.integerValue-1];
+            }
+            cell.collectNumLab.text = self.dataArr[indexPath.row].favorite_num;
+        };
+        
+        cell.laudBlock = ^(UIButton * _Nonnull sender) {
+            sender.selected = !sender.isSelected;
+            
+            if (sender.isSelected) {
+                self.dataArr[indexPath.row].is_favorite = @"1";
+            }else{
+                self.dataArr[indexPath.row].is_favorite = @"0";
+            }
+            
+            if (sender.isSelected) {
+                self.dataArr[indexPath.row].like_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].like_num.integerValue+1];
+            }else{
+                self.dataArr[indexPath.row].like_num = [NSString stringWithFormat:@"%ld",self.dataArr[indexPath.row].like_num.integerValue-1];
+            }
+            cell.praiseNumLab.text = self.dataArr[indexPath.row].like_num;
+            
+            [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/video_is_like" Params:@{@"user_id":[UserTools userID],@"post_id":self.dataArr[indexPath.row].idss} Callback:^(BOOL isSuccess, id result) {
+                NSLog(@"点赞：：%@",result);
+            } HttpMethod:AppRequestPost isAni:YES];
+        };
+        
+        
+        NSLog(@"刷新：：%ld",indexPath.row);
+
+        
         [cell refreshData:self.dataArr[indexPath.row]];
         return cell;
     }
@@ -389,6 +506,30 @@
             }
         }];
         });
+    }else if (self.type.integerValue == 666) {
+//        printf("测试测试",self.scanStr);
+        if(!(_scanStr1.length > 0)){
+            //没输入就不用搜索了
+            return;
+        }
+           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+               [[AppRequest sharedInstance]requestVideoScan:[UserTools userID] current:@"1" page:@"10" keywords:self.scanStr1 Block:^(AppRequestState state, id  _Nonnull result) {
+                 if (state == AppRequestState_Success) {
+                     self.dataArr = [VideoModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"lists"]];
+                     //                [self.tableview reloadData];
+                     
+                     if (self.dataArr.count == 0) {
+                         [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                     }
+                     self.currentPage = 1;
+                     self.totalPage = [result[@"data"][@"last_page"] integerValue];
+                     
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [self.tableview reloadData];
+                     });
+                 }
+             }];
+             });
     }else{
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

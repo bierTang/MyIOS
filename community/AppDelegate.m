@@ -18,6 +18,9 @@
 
 @implementation AppDelegate
 
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return UIInterfaceOrientationMaskAll;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //在线异常奔溃处理
@@ -131,3 +134,5 @@
 
 
 @end
+
+

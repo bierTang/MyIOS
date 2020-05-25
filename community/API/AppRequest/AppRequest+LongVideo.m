@@ -84,5 +84,21 @@
         
     } HttpMethod:AppRequestPost isAni:YES];
 }
-
+///搜索视频
+-(void)requestVideoScan:(NSString *)userid current:(NSString *)current page:(NSString *)page keywords:(NSString *)keywords Block:(void(^)(AppRequestState state,id result))callBack{
+   
+    NSDictionary *params = @{@"user_id":userid ? userid:@"",@"current":current,@"page":page,@"keywords":keywords};
+    [[AppRequest sharedInstance]doRequestWithUrl:@"/index.php/index/cate/search" Params:params Callback:^(BOOL isSuccess, id result) {
+        if (isSuccess) {
+            AppRequestState state = [self requestStateFromStatusCode:result[AppRequestStateName]];
+            if (state == AppRequestState_Success) {
+                NSLog(@"搜索视频：%@",result);
+            }
+            callBack(state,result);
+        }else{
+            callBack(AppRequestState_Fail,result);
+        }
+        
+    } HttpMethod:AppRequestPost isAni:YES];
+}
 @end

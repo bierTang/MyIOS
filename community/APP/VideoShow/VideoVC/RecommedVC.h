@@ -14,8 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///1888作为历史l记录type
 @property (nonatomic,strong)NSString *type;
+
 @property (nonatomic,strong)SJVideoPlayer *videoPlayer;
 @property (nonatomic,strong)CSTimerManager *timerManager;
+@property (nonatomic,copy)NSString *scanStr;
+
+-(void)setScanStr:(NSString * _Nonnull)scanStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

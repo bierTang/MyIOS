@@ -26,6 +26,13 @@
 
     [self initUI];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+ [self requestData];
+}
+
+
 -(void)initUI{
     
         self.liveView = [[LiveListView alloc]init];
@@ -66,7 +73,7 @@
        [header setTitle:@"正在刷新" forState:MJRefreshStateRefreshing];
        self.liveView.collectionView.mj_header = header;
         
-        [self requestData];
+        
 }
 -(void)freshData{
     [self requestData];

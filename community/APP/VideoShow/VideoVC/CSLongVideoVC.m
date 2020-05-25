@@ -14,7 +14,7 @@
 #import "ClassifyVC.h"
 #import "LRSliderMenuItem.h"
 #import "LRSliderMenuView.h"
-
+#import "ScanListController.h"
 #import "微群社区-Swift.h"
 
 @interface CSLongVideoVC () <LRSliderMenuViewDelegate>
@@ -122,15 +122,15 @@ NSInteger onCount = 0;
         [self.viewArray addObject:reVC];
     }
     
-    ClassifyVC *classVC = [[ClassifyVC alloc]init];
-    classVC.type = self.titleArr[1].idss;
-    for (VideoModel *vmodel in self.titleArr) {
-        if (vmodel.is_diff.integerValue == 1) {
-            NSInteger index0 = [self.titleArr indexOfObject:vmodel];
-            NSLog(@"视频000：：：%ld",index0);
-            [self.viewArray replaceObjectAtIndex:index0 withObject:classVC];
-        }
-    }
+//    ClassifyVC *classVC = [[ClassifyVC alloc]init];
+//    classVC.type = self.titleArr[1].idss;
+//    for (VideoModel *vmodel in self.titleArr) {
+//        if (vmodel.is_diff.integerValue == 1) {
+//            NSInteger index0 = [self.titleArr indexOfObject:vmodel];
+//            NSLog(@"视频000：：：%ld",index0);
+//            [self.viewArray replaceObjectAtIndex:index0 withObject:classVC];
+//        }
+//    }
 //    [self.viewArray replaceObjectAtIndex:1 withObject:classVC];
 //    [self.viewArray insertObject:classVC atIndex:1];
     
@@ -142,11 +142,11 @@ NSInteger onCount = 0;
         self.layout.titleViewBgColor = [UIColor clearColor];
         self.layout.titleMargin = 20.0;
     
-        if ([UserTools isAgentVersion]) {
-            self.layout.allSliderWidth = SCREEN_WIDTH;
-        }else{
+//        if ([UserTools isAgentVersion]) {
+//            self.layout.allSliderWidth = SCREEN_WIDTH;
+//        }else{
             self.layout.allSliderWidth = SCREEN_WIDTH - 50;
-        }
+//        }
     
         
       
@@ -181,17 +181,17 @@ NSInteger onCount = 0;
     
       self.addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
       [self.view addSubview:self.addBtn];
-      [self.addBtn setImage:[UIImage imageNamed:@"service_nav"] forState:UIControlStateNormal];
+      [self.addBtn setImage:[UIImage imageNamed:@"nav_icon_search"] forState:UIControlStateNormal];
       [self.addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
       [self.addBtn makeConstraints:^(MASConstraintMaker *make) {
-          make.top.equalTo(KStatusBarHeight+15);
+          make.top.equalTo(KStatusBarHeight+12);
           make.right.equalTo(-15);
       }];
-    if ([UserTools isAgentVersion]) {
-            self.addBtn.hidden = YES;
-       }else{
-           self.addBtn.hidden = NO;
-       }
+//    if ([UserTools isAgentVersion]) {
+//            self.addBtn.hidden = YES;
+//       }else{
+//           self.addBtn.hidden = NO;
+//       }
     
 //    LTSimpleManager *simpleManager = [[ LTSimpleManager alloc]initWithFrame:CGRectMake(0, KNavHeight, self.view.frame.size.width, self.view.frame.size.height-KTabBarHeight) viewControllers:self.viewArray titles:titlearr currentViewController:self layout:layout titleView:NULL];
 //    simpleManager.delegate = self;
@@ -256,23 +256,24 @@ NSInteger onCount = 0;
     NSLog(@"add");
 //    WebServeVC *vc = [[WebServeVC alloc]init];
 //    [self presentViewController:vc animated:YES completion:nil];
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
-    self.navigationItem.backBarButtonItem = barItem;
-    barItem.title = @"在线客服";
-    WebServeVC *vc = [[WebServeVC alloc]init];
+    
+//    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] init];
+//    self.navigationItem.backBarButtonItem = barItem;
+//    barItem.title = @"在线客服";
+    ScanListController *vc = [[ScanListController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    if ([UserTools isAgentVersion]) {
-        self.addBtn.hidden = YES;
-        self.layout.allSliderWidth = SCREEN_WIDTH;
-      }else{
+//    if ([UserTools isAgentVersion]) {
+//        self.addBtn.hidden = YES;
+//        self.layout.allSliderWidth = SCREEN_WIDTH;
+//      }else{
         self.addBtn.hidden = NO;
         self.layout.allSliderWidth = SCREEN_WIDTH - 50;
-      }
+//      }
     self.pageView.titleWidth = self.layout.allSliderWidth;
 }
 - (void)sliderMenuView:(LRSliderMenuView *)sliderMenuView didClickMenuItemAtIndex:(NSInteger)index{

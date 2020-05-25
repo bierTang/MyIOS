@@ -7,7 +7,7 @@
 //
 
 #import "VideoModel.h"
-
+NSInteger const SJMediaCoverTag = 101;
 @implementation VideoModel
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName{

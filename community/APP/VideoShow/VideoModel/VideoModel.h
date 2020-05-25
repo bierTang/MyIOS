@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSInteger const SJMediaCoverTag;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoModel : NSObject
+
+@property (nonatomic) NSInteger coverTag;
 
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *idss;

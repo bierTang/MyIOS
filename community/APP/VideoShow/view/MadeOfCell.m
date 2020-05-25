@@ -120,7 +120,17 @@
     [playBtn makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.videoBgView.center);
     }];
-    
+    UIButton *clickBtn = [UIButton buttonWithTitle:@"精彩缩略图" font:14 titleColor:@"999999"];
+       [clickBtn addTarget:self action:@selector(playingVideo:) forControlEvents:UIControlEventTouchUpInside];
+       [self.contentView addSubview:clickBtn];
+       clickBtn.tag =2;
+       [clickBtn makeConstraints:^(MASConstraintMaker *make) {
+           make.top.equalTo(self.videoBgView.bottom);
+//           make.centerX.equalTo(self.contentView.centerX);
+           make.left.equalTo(40);
+           make.width.equalTo(200);
+           make.height.equalTo(44*K_SCALE);
+       }];
     self.collectNumLab = [UILabel labelWithTitle:@"0" font:11 textColor:@"9b9b9b" textAlignment:NSTextAlignmentRight];
     [self.contentView addSubview:self.collectNumLab];
 
